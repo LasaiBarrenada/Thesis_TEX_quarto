@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage[paperwidth=34.055cm, paperheight=25.2cm, margin=0cm]{geometry}
+\usepackage{graphicx}
+\usepackage{textpos}
+\usepackage{tikz}
+\usetikzlibrary{calc} % Needed for coordinate calculations
+\usepackage{xcolor}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\pagestyle{empty}
+\usepackage{background}
+\definecolor{mycovercolor}{RGB}{255,254,249}
+
+\backgroundsetup{
+	scale=1,
+	color=mycovercolor,
+	opacity=1,
+	angle=0,
+	position=current page.south west,
+	vshift=0cm,
+	hshift=0cm,
+	contents={
+		\rule{\paperwidth}{\paperheight}
+	}
+}
+
+%\pagecolor{mycovercolor}
+% Dimensions
+\newcommand{\pageWidth}{16cm}
+\newcommand{\spineWidth}{0.87cm}
+\newcommand{\coverHeight}{24cm}
+\newcommand{\trimWidth}{0.6cm}
+\newcommand{\distSpine}{0.7cm}
+\newcommand{\fontHeight}{0.422cm}
+
+\begin{document}
+	
+	\pgfdeclarelayer{bg}
+	\pgfsetlayers{bg,main}
+	
+	\begin{tikzpicture}[remember picture, overlay]
+		
+		% Reference: bottom-left corner of page is (current page.south west)
+		\coordinate (origin) at (current page.south west);
+		
+		% Background image for front cover
+		\begin{pgfonlayer}{bg}
+			\node[anchor=south west, inner sep=0] at ($(origin)+(17.455cm,0)$) {
+				\includegraphics[width=16.6cm, height=25.2cm]{figures/cover_front.pdf}
+			};
+		\end{pgfonlayer}
+		\begin{pgfonlayer}{bg}
+			\node[anchor=south west, inner sep=0] at ($(origin)$) {
+				\includegraphics[width=16.6cm, height=25.2cm]{figures/cover_back.pdf}
+			};
+		\end{pgfonlayer}
+	\end{tikzpicture}
+
+	
+	% -------------------
+	% BACK COVER (Left side)
+%	\begin{textblock*}{\pageWidth}(0cm,4cm)
+%%		\raggedleft
+%		\color{gray}
+%		\Huge \textbf{Back cover placeholder}\\[0.3cm]
+%		\Large You can add a summary or quote here.
+%	\end{textblock*}
+	
+	% -------------------
+	% FRONT COVER (Right side)
+	\begin{textblock*}{\pageWidth}({\dimexpr \trimWidth+\pageWidth+\spineWidth \relax},2cm)
+		\begin{center}
+			\begin{tikzpicture}
+				\node[fill=white, fill opacity=1, text opacity=1, rounded corners=8pt, inner sep=10pt] {
+					\begin{minipage}{0.85\textwidth}
+						\centering
+						{\fontsize{26}{24}\selectfont
+							\textbf{Your}\\
+							\textbf{Title}
+						}
+					\end{minipage}
+				};
+			\end{tikzpicture}
+		\end{center}
+	\end{textblock*}
+	
+	\begin{textblock*}{\pageWidth}({\dimexpr \trimWidth+\pageWidth+\spineWidth\relax},20cm)
+		\begin{center}
+			\begin{tikzpicture}
+				\node[fill=white, fill opacity=1, text opacity=1, rounded corners=8pt, inner sep=10pt] {
+					\begin{minipage}{0.35\textwidth}
+						\centering
+						{\huge\selectfont
+							\textbf{Your Name}
+						}
+					\end{minipage}
+				};
+			\end{tikzpicture}
+		\end{center}
+	\end{textblock*}
+	
+	% Front cover logos
+	\begin{textblock*}{\pageWidth}({\dimexpr \trimWidth+\pageWidth+\spineWidth+\distSpine\relax},21.8cm)
+		\includegraphics[height=0.06\paperheight]{figures/KUL_logo.eps}
+	\end{textblock*}
+	\begin{textblock*}{\pageWidth}({\dimexpr \trimWidth+\pageWidth*2+\spineWidth-\distSpine-0.26\paperheight\relax},21.8cm)
+		\includegraphics[height=0.06\paperheight]{figures/Lab_logo.png}
+	\end{textblock*}
+	
+	% -------------------
+	% SPINE TEXT (Vertical)
+	\begin{textblock*}{\spineWidth}(\dimexpr \pageWidth+\trimWidth/2\relax,1cm)
+		\rotatebox{270}{\parbox{\coverHeight}{
+				\large
+				\textcolor{black}{Your name \hspace{2cm}Your Title}
+		}}
+	\end{textblock*}
+	
+\end{document}

@@ -1,0 +1,55 @@
+# LaTeX intermediate files
+*.acn
+*.acr
+*.alg
+*.bcf
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.glg
+*.ist
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+
+# PDF output
+main.pdf
+
+# Temporary files
+*~
+*.bak
+*.swp
+_ul
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Posit AI
+.positai/
+
+# RStudio
+.Rproj.user/
+*.Rproj
+
+# Agent instructions
+AGENTS.md
+
+# TODO notes
+TODO_references.md
+
+# Other
+Thesis_Bartosz_Prokop.pdf
