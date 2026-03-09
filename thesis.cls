@@ -47,13 +47,14 @@
 \RequirePackage{titlesec}
 \RequirePackage[acronym,nonumberlist,nopostdot]{glossaries}
 \RequirePackage[backend=biber, style=numeric, sorting=none, citestyle=numeric-comp, giveninits=true]{biblatex}
-% Suppress "visited on <date>" in bibliography entries
-\AtEveryBibitem{\clearfield{urldate}}
-
-% Bibliography
+% Bibliography: suppress unwanted fields
 \AtEveryBibitem{
     \clearfield{url}
     \clearfield{issn}
+    % Suppress "visited on <date>"
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{urlday}
 }
 \addbibresource{references.bib}
 
