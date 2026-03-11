@@ -21,50 +21,20 @@
 \glsunset{SNR}
 \glsunset{TBI}
 
+\includegraphics*[width=0.2\linewidth]{logos/BMC.png}
+
 
 published as: 
 \begin{quote}
-Barreñada L, Dhiman P, Timmerman D, Boulesteix AL \& Van Calster B. Understanding overfitting in random forest for probability estimation: a visualization and simulation study. Diagn Progn Res 8, 14 (2024). https://doi.org/10.1186/s41512-024-00177-1
+\textbf{Barreñada L}, Dhiman P, Timmerman D, Boulesteix AL \& Van Calster B. Understanding overfitting in random forest for probability estimation: a visualization and simulation study. Diagn Progn Res 8, 14 (2024). https://doi.org/10.1186/s41512-024-00177-1
 \end{quote}
 %_________________________
-\section*{Abstract}
-\textbf{Background:} Random forests have become popular for clinical risk
-prediction modeling. In a case study on predicting ovarian malignancy, we
-observed training \glspl{AUC} close to 1. Although this suggests overfitting,
-performance was competitive on test data. We aimed to understand the behavior of
-random forests for probability estimation by (1) visualizing data space in three
-real-world case studies and (2) a simulation study.
+\section*{Summary}
 
-\textbf{Methods:} For the case studies, multinomial risk estimates were
-visualized using heatmaps in a 2-dimensional subspace. The simulation study
-included 48 logistic data-generating mechanisms (\gls{DGM}), varying the predictor
-distribution, the number of predictors, the correlation between predictors, the
-true \gls{AUC}, and the strength of true predictors. For each \gls{DGM}, 1000 training
-datasets of size 200 or 4000 with binary outcomes were simulated, and random
-forest models were trained with minimum node size 2 or 20 using the ranger R
-package, resulting in 192 scenarios in total. Model performance was evaluated on
-large test datasets ($N = 100{,}000$).
+Random forest are popular for clinical risk prediction modeling. In a case study on predicting ovarian malignancy, we observed training \glspl{AUC} close to 1. Although this suggests overfitting, performance was competitive on test data. We aimed to understand the behavior of random forests for probability estimation by visualizing data space in three real-world case studies and a simulation study. We found that random forests learn local probability peaks that often yield near perfect training \glspl{AUC} without strongly affecting \glspl{AUC} on test data. When the aim is probability estimation, the simulation results go against the common recommendation to use fully grown trees in random forest models.
 
-\textbf{Results:} The visualizations suggested that the model learned ``spikes
-of probability'' around events in the training set. A cluster of events created
-a bigger peak or plateau (signal), isolated events local peaks (noise). In the
-simulation study, median training \glspl{AUC} were between 0.97 and 1 unless there were
-4 binary predictors or 16 binary predictors with a minimum node size of 20. The
-median discrimination loss, i.e., the difference between the median test \gls{AUC} and
-the true \gls{AUC}, was 0.025 (range 0.00 to 0.13). Median training \glspl{AUC} had Spearman
-correlations of around 0.70 with discrimination loss. Median test \glspl{AUC} were
-higher with higher events per variable, higher minimum node size, and binary
-predictors. Median training calibration slopes were always above 1 and were not
-correlated with median test slopes across scenarios (Spearman correlation
-$-0.11$). Median test slopes were higher with higher true \gls{AUC}, higher minimum
-node size, and higher sample size.
 
-\textbf{Conclusions:} Random forests learn local probability peaks that often
-yield near perfect training \glspl{AUC} without strongly affecting \glspl{AUC} on test data.
-When the aim is probability estimation, the simulation results go against the
-common recommendation to use fully grown trees in random forest models.
-
-\section{Background}
+\section{Introduction}
 
 Random Forests (\gls{RF}) is an ensemble learning method introduced by Leo Breiman in
 2001 \cite{breimanRandomForests2001}. The difference between \gls{RF} and other tree
@@ -109,7 +79,7 @@ discrimination on training data, yet performed competitively during external
 validation, may be somewhat counterintuitive. Such high training set performance
 suggests strong overfitting by modeling considerable amounts of noise, which
 would lead to reduced performance on new data
- \cite{hastieElementsStatisticalLearning2001,steyerbergClinicalPredictionModels2019a}.
+ \cite{hastieElementsStatisticalLearning2001,steyerberg2019clinical}.
 This was an interesting observation for us: the training results suggest a
 suspiciously high degree of overfitting by \gls{RF} compared to other models, such
 that we would have expected a stronger reduction in performance on new data for
@@ -117,16 +87,15 @@ that we would have expected a stronger reduction in performance on new data for
 probability estimation by (1) visualizing data space in three real world case
 studies and (2) conducting a simulation study.
 
-The paper outline is as follows. In the ``Random forest for probability
-estimation'' section, we summarize the \gls{RF} algorithm for probability estimation,
-in the ``Case studies'' section, we visualize the predictions for the ovarian
-tumor data, and present two additional case studies. In the ``Simulation study''
-section, we present a simulation study to explore the effect of tree depth and
+The paper outline is as follows. In section \ref{sec:3.2}, we summarize the \gls{RF} algorithm for probability estimation,
+in section \ref{sec:3.3}, we visualize the predictions for the ovarian
+tumor data, and present two additional case studies. In section \ref{sec:3.4}, we present a simulation study to explore the effect of tree depth and
 training sample size and the data generation mechanism (\gls{DGM}) to better
-understand the behavior of the \gls{RF} algorithm. In the ``Overall discussion''
-section, we discuss our findings.
+understand the behavior of the \gls{RF} algorithm. In
+section \ref{sec:3.5}, we discuss our findings.
 
 \section{Random forest for probability estimation}
+\label{sec:3.2}
 
 When the outcome is categorical, \gls{RF} can be used for classification or
 probability estimation. In this work we will use random forest for probability
@@ -182,6 +151,7 @@ using full-grown trees seldom costs much, and results in one less tuning
 parameter'' \cite{hastieElementsStatisticalLearning2001}.
 
 \section{Case studies}
+\label{sec:3.3}
 
 \subsection{Methods}
 We aimed to visualize the estimated probabilities in data space to obtain a
@@ -322,6 +292,7 @@ phenomenon is notorious, with very local peaks around train cases
 calibration (Figure S14).
 
 \section{Simulation study}
+\label{sec:3.4}
 
 \subsection{Aim}
 We conducted a simulation study to assess which key factors of the modeling
@@ -398,7 +369,7 @@ The aggregated simulation results using median and interquartile range for
 discrimination and calibration and mean and standard deviation for mean squared
 error are available in Additional file 1 (Table S6). The complete simulation
 including the code and 1000 simulations for each of the 192 scenarios is
-available in the \gls{OSF} repository (\url{https://osf.io/y5tqv/}).
+available in the \gls{OSF} repository \cite{barrenadaUnderstandingOverfittingRandom2023}.
 
 \subsection{Discrimination}
 In the simulation study, the median training \glspl{AUC} were close to 1 in most of
@@ -497,6 +468,7 @@ compared to scenarios with 4 true and no noise predictors (Figure S22).
 \end{figure}
 
 \section{Overall discussion}
+\label{sec:3.5}
 
 We tried to better understand and visualize the behavior of random forests for
 probability estimation. We make three key observations from this work. First, \gls{RF}
@@ -659,7 +631,7 @@ as cforest from the partykit package
 conditional inference trees (\gls{CIT}) instead of classification trees. For the case
 studies, we observed that tuning and using the adapted \gls{RF} yields a less
 optimistic training \gls{AUC} and similar or slightly better test performance (see \gls{OSF}
-Repository, \url{https://osf.io/y5tqv/}). However, our aim was to understand
+Repository \cite{barrenadaUnderstandingOverfittingRandom2023}. However, our aim was to understand
 how the characteristics of the data and the modeling process affected the
 models, hence we did not systematically explore the effects of tuning or
 alternative algorithms.
@@ -675,7 +647,7 @@ probability estimation.
 
 \section*{Availability of data and materials}
 All data and code that support the findings of this study are openly available
-in the \gls{OSF} repository (\url{https://osf.io/y5tqv/})
+in the \gls{OSF} repository
  \cite{barrenadaUnderstandingOverfittingRandom2023} except the ovarian cancer
 dataset which is not publicly available.
 

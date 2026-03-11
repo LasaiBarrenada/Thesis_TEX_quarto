@@ -8,6 +8,8 @@
 \glsunset{AUC}
 \glsunset{IOTA}
 
+\includegraphics*[width=0.5\linewidth]{logos/npj_Digital_Medicine.png}\vspace{0.5cm}
+
 published as: 
 \begin{quote}
 Barreñada L, Steyerberg E, Timmerman D, Thomassen D, Wynants L, Van Calster B. The fundamental problem of risk prediction for individuals: health AI, uncertainty, and personalized medicine. npj Digital Medicine (submitted).
@@ -27,11 +29,13 @@ The performance of prediction models is usually assessed at the population level
 
 Uncertainty and the concept of `individual risk' have been studied for centuries \cite{sternAccuracyPreoperativeRisk2025,altmanWhatWeMean2000,hackingEmergenceProbabilityPhilosophical2006,finettiTheoryProbabilityCritical1979,vennLogicChance1876,vonmisesProbabilityStatisticsTruth1957,laplacePhilosophicalEssayProbabilities1902,lemeshowOutcomePredictionIndividual1995,hendersonIndividualSurvivalTime2005,steyerbergEquallyValidModels2005}. An individuals' risk of an event as estimated by a prediction model refers to the probability of that event in the subgroup of individuals with the same predictor values. Truly individual risks do not exist because of the `reference class problem': an individual can belong to an infinite number of subgroups. By choosing a different set of predictors to condition on, the reference class changes, and so does the risk. Yet, despite the philosophical challenges in defining a true individual risk, risk estimates are routinely used in practice, making it crucial to understand the different types of uncertainty they carry. For predictive modeling, a basic decomposition of uncertainty is into aleatoric and epistemic uncertainty (Table~\ref{tab:5:1} and Figure~\ref{fig:5:1}) \cite{hullermeierAleatoricEpistemicUncertainty2021,sengeReliableClassificationLearning2014}. Aleatoric uncertainty refers to the inherent random nature of the event we want to predict. Two patients who have the same values for the predictors in the best possible model may still have a different outcome. This does not invalidate the prediction. In contrast, epistemic uncertainty refers to lack of knowledge about the best possible model. We break down epistemic uncertainty for predictive modeling into three key categories: estimation, model, and applicability uncertainty (Table~\ref{tab:5:1}).
 
+{\small
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4698}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3484}}@{}}
 \caption[Overview of epistemic uncertainty]{Overview of the categories of epistemic uncertainty.}
+\footnotesize
 \label{tab:5:1}\\
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
@@ -135,6 +139,7 @@ When a model is developed, the specific inclusion and exclusion criteria may fur
 \end{itemize}
 \end{minipage} \\
 \end{longtable}
+}
 
 \begin{figure}
 \centering
@@ -173,6 +178,7 @@ We evaluated population-level performance using the AUROC for discrimination, es
 
 Consider the estimated risk of ovarian cancer for 100 new patients (i.e. patients whose data was not used in model building) according to 100 identical models, each fitted on a different random sample from one population. For some patients, the risk estimates (on a scale from 0 to 1) varied considerably, particularly at small training sample sizes (Figure~\ref{fig:5:2}, left). The mean 95\% range of estimated risks for a new patient decreased from 0.22 for training sets with N=400 to 0.04 for training sets with N=10,000 (Table~\ref{tab:5:2}). When a risk estimate of 0.1 or higher was used as the threshold to recommend surgery for a single new patient, on average 6\% of models trained on a dataset of 400 patients would suggest a different decision than the majority of models. Increasing the training set to 10,000 patients reduced this decision uncertainty to 1\%. We observed that estimation uncertainty is higher and decreases more slowly with increasing training sample size for tree-based models compared to logistic regression (Table~\ref{tab:5:2} and Table S3, Supplementary Figure S3). In contrast to the indicators of uncertainty at the individual level, the population level discrimination and calibration remained rather stable across training sample sizes. The positive population level RU indicates the model is useful to support clinical decision-making at all sample sizes.
 
+{\small
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1175}}
   >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0535}}
@@ -183,6 +189,7 @@ Consider the estimated risk of ovarian cancer for 100 new patients (i.e. patient
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1295}}
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1039}}
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1705}}@{}}
+\footnotesize
 \caption[Population level performance and individual risk uncertainty]{Population level performance and individual risk uncertainty for the 100 test set patients.}
 \label{tab:5:2}\\
 \toprule\noalign{}
@@ -219,6 +226,7 @@ mean (range) & \\
 & & N=2000 & 59400 & .93 (.84; .98) & .10 (\textless.01; .68) & .18 (-2.0; .82) & .41 (.06; .95) & .11 (0; .50) \\
 & & N=10000 & 59400 & .93 (.83; .98) & .09 (\textless.01; .55) & .18 (-1.5; .84) & .39 (.06; .98) & .11 (0; .50) \\
 \end{longtable}
+}
 
 AUROC: Area under the receiver operating characteristic curve; AUROC 0.5 indicates that the model cannot discriminate between patients with and without ovarian cancer, AUROC 1 indicates perfect discrimination. ECI: Estimated calibration index; ECI is scaled between 0 and 1 with 0 indicating that estimated risks correctly estimate risk at the population level. RU: Relative utility; RU an take on values between -∞ and 1 where positive values indicate the model has clinical utility to support decision making and values ≤ 0 indicate that the model has no clinical utility. 95\% range: range of the middle 95\% of risk estimates across all models for one individual; 0 indicates no uncertainty, 1 indicates maximal uncertainty. DU: Decision uncertainty for an individual when using the model at a threshold of 0.1 on the risk of malignancy to suggest a management decision. DU ranges between 0 and 0.5, with 0 indicating that all models suggest the same decision, and 0.5 that half of the models suggest to operate and the other half suggest conservative management.
 

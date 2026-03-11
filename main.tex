@@ -15,6 +15,9 @@
 
 \begin{document}
 
+\newpage
+
+
 \makefrontcover
 
 \includepdf[pages=-]{title_page/title_page.pdf}
@@ -44,15 +47,18 @@
 
 \pagenumbering{arabic}
 
-%\include{chapters/03_introduction}
-%\include{chapters/04_objectives}
-%\include{chapters/05_results1}
+% \include{chapters/03_introduction}
+% \include{chapters/04_objectives}
+
 \include{chapters/05.01_ADNEXSR}
 \include{chapters/05.02_ADNEXvsRMI}
 \include{chapters/05.03_RFOverfitting}
 \include{chapters/05.04_ClusteredCalibration}
 \include{chapters/05.05_FundamentalProblem}
-%\include{chapters/06_discussion}
+% \include{chapters/05.06_varselection}
+% \include{chapters/05.07_ADNEX2}
+
+\include{chapters/06_discussion}
 
 \renewcommand*{\bibfont}{\footnotesize}
 \printbibliography[heading=bibintoc]

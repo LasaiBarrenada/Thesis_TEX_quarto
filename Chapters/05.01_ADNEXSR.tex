@@ -2,7 +2,7 @@
 validation studies}
 % Only include if the thesis is written as a collection of papers
 %_________________________
-\includegraphics*[width=0.2\linewidth]{logos/BMJ.png}\vspace{0.5cm}
+\includegraphics*[width=0.8\linewidth]{logos/BMJ_Medicine.png}
 \label{sec:chp_ADNEXSR}
 
 \glsunset{ADNEX}
@@ -29,7 +29,7 @@ validation studies}
 
 published as: 
 \begin{quote}
- Barreñada L, Ledger A, Dhiman P, Collins G, Wynants L, Verbakel JY, et al. ADNEX
+ \textbf{Barreñada L}, Ledger A, Dhiman P et al. ADNEX
 risk prediction model for diagnosis of ovarian cancer: systematic review and
 meta-analysis of external validation studies. BMJ Medicine. 2024;3:e000817.
 \end{quote}
@@ -293,6 +293,58 @@ plummerRjagsBayesianGraphical2023}.
 Bayesian methods were computed using \gls{JAGS} version 4.3.1
  \cite{plummerRjagsBayesianGraphical2023}.
 
+ \begin{table}[h!]
+\small
+\centering
+\caption{Characteristics of the 47 included studies.}
+\label{tab:1}
+\begin{tabularx}{\linewidth}{p{3.5cm}p{1.5cm}X}
+\toprule
+\textbf{Study characteristic} & \textbf{N (\%)} & \textbf{Comments} \\ 
+\midrule
+\textbf{Unit of analysis} & & \\
+Patient & 42 (89) & 1 tumour per patient \\
+Tumour & 5 (11) & >1 tumour per patient possible \\
+\addlinespace
+\textbf{Region} & & \\
+Asia & 24 (51) & Common countries: China (12), South Korea (3) \\
+Europe & 18 (38) & Common countries: Poland (7), Italy (4), Spain (4), UK (3), Sweden (3) \\
+South America & 3 (6) & \\
+North America & 2 (4) & \\
+\addlinespace
+\textbf{Number of centres} & & \\
+1 & 37 (79) & \\
+2-5 & 7 (15) & \\
+>5 & 3 (6) & Range: 8-17 \\
+\addlinespace
+\textbf{Type of centre} & & \\
+Oncology centre(s) & 35 (74) & \\
+Non-oncology centre(s) & 2 (4) & \\
+Both types of centres & 4 (9) & \\
+Unclear & 6 (13) & \\
+\addlinespace
+\textbf{ADNEX version} & & \\
+\gls{ADNEX} with CA125 & 37 (79) & 21 only used \gls{ADNEX} with CA125, 16 used both \\
+\gls{ADNEX} without CA125 & 19 (40) & 3 only used \gls{ADNEX} without CA125, 16 used both \\
+Mixed & 3 (6) & \gls{ADNEX} with CA125 used if CA125 was available \\
+Unclear & 4 (9) & \\
+\addlinespace
+\textbf{Selection based on histology} & & \\
+No & 39 (83) & \\
+Yes & 8 (17) & e.g., borderlines excluded, only invasive tumours \\
+\addlinespace
+\textbf{Focus only on clinical subgroup} & & \\
+No & 42 (89) & \\
+Yes & 5 (11) & e.g., only pregnant patients \\
+\addlinespace
+\textbf{Target population} & & \\
+Surgically managed patients & 43 (91) & \\
+Surgically and non-surgically managed patients & 4 (9) & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
 \section{Results}
 
 \begin{figure}
@@ -383,49 +435,7 @@ most studies being conducted in Asia (51\%) and Europe (38\%). Supplementary
 Material S7 presents a list of reporting inconsistencies. All studies classified
 borderline tumours as malignant tumours.
 
-\begin{table}[h!]
-\small
-\centering
-\caption{Characteristics of the 47 included studies.}
-\label{tab:1}
-\begin{tabularx}{\linewidth}{p{3.5cm}p{1.5cm}X}
-\toprule
-\textbf{Study characteristic} & \textbf{N (\%)} & \textbf{Comments} \\ 
-\midrule
-\textbf{Unit of analysis} & & \\
-Patient & 42 (89) & 1 tumour per patient \\
-Tumour & 5 (11) & >1 tumour per patient possible \\
-\textbf{Region} & & \\
-Asia & 24 (51) & Common countries: China (12), South Korea (3) \\
-Europe & 18 (38) & Common countries: Poland (7), Italy (4), Spain (4), UK (3), Sweden (3) \\
-South America & 3 (6) & \\
-North America & 2 (4) & \\
-\textbf{Number of centres} & & \\
-1 & 37 (79) & \\
-2-5 & 7 (15) & \\
->5 & 3 (6) & Range: 8-17 \\
-\textbf{Type of centre} & & \\
-Oncology centre(s) & 35 (74) & \\
-Non-oncology centre(s) & 2 (4) & \\
-Both types of centres & 4 (9) & \\
-Unclear & 6 (13) & \\
-\textbf{ADNEX version} & & \\
-\gls{ADNEX} with CA125 & 37 (79) & 21 only used \gls{ADNEX} with CA125, 16 used both \\
-\gls{ADNEX} without CA125 & 19 (40) & 3 only used \gls{ADNEX} without CA125, 16 used both \\
-Mixed & 3 (6) & \gls{ADNEX} with CA125 used if CA125 was available \\
-Unclear & 4 (9) & \\
-\textbf{Selection based on histology} & & \\
-No & 39 (83) & \\
-Yes & 8 (17) & e.g., borderlines excluded, only invasive tumours \\
-\textbf{Focus only on clinical subgroup} & & \\
-No & 42 (89) & \\
-Yes & 5 (11) & e.g., only pregnant patients \\
-\textbf{Target population} & & \\
-Surgically managed patients & 43 (91) & \\
-Surgically and non-surgically managed patients & 4 (9) & \\
-\bottomrule
-\end{tabularx}
-\end{table}
+
 
 \gls{ADNEX} with CA125 was validated in 37 (79\%) studies, and \gls{ADNEX} without CA125 in
 19 (40\%) studies (16 studies evaluated both versions). Three (6\%) studies
@@ -443,6 +453,55 @@ which the clinician’s subjective assessment of the outcome was uncertain
   szubertPerformanceSelectedModels2020}.
 Eight (17\%) studies selected patients based on histology (Table S3 for
 details).
+
+\begin{sidewaystable}[h!]
+\centering
+\caption[Meta-analysis of AUC]{Meta-analysis of the AUC to discriminate between benign and malignant tumours, including sensitivity and subgroup analyses.}
+\label{tab:2}
+\footnotesize
+\begin{tabularx}{\textheight}{Xp{2cm}p{3.2cm}p{2.5cm}p{1cm}}
+\toprule
+\textbf{Meta-analysis} & \textbf{Studies (centres)} & \textbf{Summary estimate (95\% \gls{CI})} & \textbf{95\% PI} & $\tau^2$ \\
+\midrule
+\textbf{Main analysis} & & & & \\
+Operated patients, with CA125 & 21 (43) & 0.93 (0.92-0.94) & 0.85 to 0.98 & 0.25 \\
+Operated patients, without CA125 & 12 (31) & 0.93 (0.91-0.94) & 0.85 to 0.98 & 0.21 \\
+\addlinespace
+\textbf{Sensitivity analyses (operated patients)} & & & & \\
+High or Unclear risk of bias studies, with CA125 & 19 (23) & 0.93 (0.91-0.95) & 0.84 to 0.99 & 0.33 \\
+Low risk of bias studies, with CA125 & 2 (20) & 0.93 (0.91-0.94) & 0.87 to 0.97 & 0.12 \\
+\gls{IOTA} studies, with CA125 & 4 (23) & 0.92 (0.91-0.94) & 0.88 to 0.97 & 0.09 \\
+Non-\gls{IOTA} studies, with CA125 & 17 (20) & 0.93 (0.91-0.95) & 0.83 to 0.99 & 0.38 \\
+High or Unclear risk of bias studies, without CA125 & 10 (11) & 0.94 (0.92-0.96) & 0.86 to 0.99 & 0.26 \\
+Low risk of bias studies, without CA125 & 2 (20) & 0.91 (0.90-0.93) & 0.85 to 0.96 & 0.11 \\
+\gls{IOTA} studies, without CA125 & 2 (20) & 0.91 (0.89-0.93) & 0.85 to 0.97 & 0.14 \\
+Non-\gls{IOTA} studies, without CA125 & 10 (11) & 0.94 (0.92-0.96) & 0.86 to 0.99 & 0.26 \\
+\addlinespace
+\textbf{Subgroup analyses (operated patients)} & & & & \\
+Asian centres, with CA125 & 11 (13) & 0.94 (0.91-0.96) & 0.81 to 1 & 0.54 \\
+Asian centres, without CA125 & 7 (8) & 0.95 (0.93-0.97) & 0.89 to 0.99 & 0.19 \\
+Chinese centres, with CA125 & 5 (5) & 0.94 (0.91-0.97) & 0.87 to 0.99 & 0.25 \\
+Chinese centres, without CA125 & 4 (4) & 0.94 (0.90-0.97) & 0.85 to 0.99 & 0.33 \\
+European centres, with CA125 & 8 (28) & 0.92 (0.91-0.94) & 0.88 to 0.96 & 0.07 \\
+European centres, without CA125 & 3 (21) & 0.91 (0.89-0.93) & 0.84 to 0.97 & 0.16 \\
+Non-oncology centres, with CA125 & 2 (9) & 0.91 (0.88-0.94) & 0.85 to 0.97 & 0.11 \\
+Non-oncology centres, without CA125 & 1 (8) & 0.90 (0.86-0.95) & 0.80 to 0.99 & 0.24 \\
+Oncology centres, with CA125 & 18 (31) & 0.93 (0.92-0.95) & 0.84 to 0.98 & 0.29 \\
+Oncology centres, without CA125 & 12 (23) & 0.93 (0.91-0.94) & 0.85 to 0.98 & 0.22 \\
+Postmenopausal patients, with CA125 & 11 (32) & 0.92 (0.90-0.94) & 0.83 to 0.98 & 0.25 \\
+Postmenopausal patients, without CA125 & 4 (22) & 0.90 (0.87-0.93) & 0.81 to 0.97 & 0.19 \\
+Premenopausal patients, with CA125 & 11 (32) & 0.91 (0.89-0.94) & 0.81 to 0.98 & 0.28 \\
+Premenopausal patients, without CA125 & 4 (22) & 0.91 (0.89-0.93) & 0.85 to 0.96 & 0.08 \\
+\addlinespace
+\textbf{Target population\textsuperscript{a}} & & & & \\
+Operated and non-surgically managed patients, with CA125 & 2 (18) & 0.94 (0.93 -0.96) & 0.88 to 0.99 & 0.22 \\
+Operated and non-surgically managed patients, without CA125 & 1 (17) & 0.94 (0.91-0.95) & 0.82 to 0.98 & 0.27 \\
+\bottomrule
+\multicolumn{5}{l}{\textsuperscript{a}Follow up time was 10-14 months (1 year) or 2 years}
+\end{tabularx}
+\end{sidewaystable}
+
+
 
 Thirty-six (77\%) studies did not focus on a specific clinical subgroup and did
 not select tumours based on histology. In these 36 studies that were eligible
@@ -558,49 +617,6 @@ benign vs malignant tumours in operated patients for \gls{ADNEX} with CA125,
 \end{figure}
 
 
-\begin{sidewaystable}[h!]
-\centering
-\caption[Meta-analysis of AUC]{Meta-analysis of the AUC to discriminate between benign and malignant tumours, including sensitivity and subgroup analyses.}
-\label{tab:2}
-\footnotesize
-\begin{tabularx}{\textheight}{Xp{2cm}p{3.2cm}p{2.5cm}p{1cm}}
-\toprule
-\textbf{Meta-analysis} & \textbf{Studies (centres)} & \textbf{Summary estimate (95\% \gls{CI})} & \textbf{95\% PI} & $\tau^2$ \\
-\midrule
-\textbf{Main analysis} & & & & \\
-Operated patients, with CA125 & 21 (43) & 0.93 (0.92-0.94) & 0.85 to 0.98 & 0.25 \\
-Operated patients, without CA125 & 12 (31) & 0.93 (0.91-0.94) & 0.85 to 0.98 & 0.21 \\
-\textbf{Sensitivity analyses (operated patients)} & & & & \\
-High or Unclear risk of bias studies, with CA125 & 19 (23) & 0.93 (0.91-0.95) & 0.84 to 0.99 & 0.33 \\
-Low risk of bias studies, with CA125 & 2 (20) & 0.93 (0.91-0.94) & 0.87 to 0.97 & 0.12 \\
-\gls{IOTA} studies, with CA125 & 4 (23) & 0.92 (0.91-0.94) & 0.88 to 0.97 & 0.09 \\
-Non-\gls{IOTA} studies, with CA125 & 17 (20) & 0.93 (0.91-0.95) & 0.83 to 0.99 & 0.38 \\
-High or Unclear risk of bias studies, without CA125 & 10 (11) & 0.94 (0.92-0.96) & 0.86 to 0.99 & 0.26 \\
-Low risk of bias studies, without CA125 & 2 (20) & 0.91 (0.90-0.93) & 0.85 to 0.96 & 0.11 \\
-\gls{IOTA} studies, without CA125 & 2 (20) & 0.91 (0.89-0.93) & 0.85 to 0.97 & 0.14 \\
-Non-\gls{IOTA} studies, without CA125 & 10 (11) & 0.94 (0.92-0.96) & 0.86 to 0.99 & 0.26 \\
-\textbf{Subgroup analyses (operated patients)} & & & & \\
-Asian centres, with CA125 & 11 (13) & 0.94 (0.91-0.96) & 0.81 to 1 & 0.54 \\
-Asian centres, without CA125 & 7 (8) & 0.95 (0.93-0.97) & 0.89 to 0.99 & 0.19 \\
-Chinese centres, with CA125 & 5 (5) & 0.94 (0.91-0.97) & 0.87 to 0.99 & 0.25 \\
-Chinese centres, without CA125 & 4 (4) & 0.94 (0.90-0.97) & 0.85 to 0.99 & 0.33 \\
-European centres, with CA125 & 8 (28) & 0.92 (0.91-0.94) & 0.88 to 0.96 & 0.07 \\
-European centres, without CA125 & 3 (21) & 0.91 (0.89-0.93) & 0.84 to 0.97 & 0.16 \\
-Non-oncology centres, with CA125 & 2 (9) & 0.91 (0.88-0.94) & 0.85 to 0.97 & 0.11 \\
-Non-oncology centres, without CA125 & 1 (8) & 0.90 (0.86-0.95) & 0.80 to 0.99 & 0.24 \\
-Oncology centres, with CA125 & 18 (31) & 0.93 (0.92-0.95) & 0.84 to 0.98 & 0.29 \\
-Oncology centres, without CA125 & 12 (23) & 0.93 (0.91-0.94) & 0.85 to 0.98 & 0.22 \\
-Postmenopausal patients, with CA125 & 11 (32) & 0.92 (0.90-0.94) & 0.83 to 0.98 & 0.25 \\
-Postmenopausal patients, without CA125 & 4 (22) & 0.90 (0.87-0.93) & 0.81 to 0.97 & 0.19 \\
-Premenopausal patients, with CA125 & 11 (32) & 0.91 (0.89-0.94) & 0.81 to 0.98 & 0.28 \\
-Premenopausal patients, without CA125 & 4 (22) & 0.91 (0.89-0.93) & 0.85 to 0.96 & 0.08 \\
-\textbf{Target population\textsuperscript{a}} & & & & \\
-Operated and non-surgically managed patients, with CA125 & 2 (18) & 0.94 (0.93 -0.96) & 0.88 to 0.99 & 0.22 \\
-Operated and non-surgically managed patients, without CA125 & 1 (17) & 0.94 (0.91-0.95) & 0.82 to 0.98 & 0.27 \\
-\bottomrule
-\multicolumn{5}{l}{\textsuperscript{a}Follow up time was 10-14 months (1 year) or 2 years}
-\end{tabularx}
-\end{sidewaystable}
 
 
 Sensitivity and specificity at the 10\% risk of malignancy threshold in operated
@@ -866,7 +882,7 @@ the study have been omitted; and that any discrepancies from the study as
 planned (and, if relevant, registered) have been explained.
 
 \subsection*{Availability of data and code}
-Suplelmentary material is available online \cite{barrenadaADNEXRiskPrediction2024}.
+Supplementary material is available online \cite{barrenadaADNEXRiskPrediction2024}.
 The data and code used for the analysis and the generation of the figures is
 publicly available in Open Science Framework (https://osf.io/jtsvd/)
  \cite{barrenadaADNEXRiskModel2025}. This includes the extraction sheet, one
