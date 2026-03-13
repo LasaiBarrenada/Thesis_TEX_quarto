@@ -22,12 +22,28 @@
 
 \includepdf[pages=-]{title_page/title_page.pdf}
 
+\vspace*{\fill}
+\begin{center}
+	\begin{minipage}{0.85\textwidth}
+		\itshape\large
+		We shall try not to use statistics as a drunken man uses lamp-posts,
+		for support rather than for illumination.
+
+		\par\vspace{1em}
+		\raggedleft\normalfont
+		-- Andrew Lang, Scottish poet and novelist
+	\end{minipage}
+\end{center}
+\vspace*{\fill}
+
 \newpage
+
 \thispagestyle{empty}~\newpage
 \pagenumbering{roman}
 
 \include{chapters/01_acknowledgments}
 \include{chapters/02_abstract}
+\include{chapters/02_1_abstract_dutch}
 
 \tableofcontents
 \clearpage
@@ -47,7 +63,7 @@
 
 \pagenumbering{arabic}
 
-% \include{chapters/03_introduction}
+\include{chapters/03_introduction}
 % \include{chapters/04_objectives}
 
 \include{chapters/05.01_ADNEXSR}
