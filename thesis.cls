@@ -101,10 +101,24 @@
 % Glossaries
 \makeglossaries
 
+% Copyright page command
+\newcommand{\makecopyrightpage}[2]{%
+  % #1 = author name, #2 = address
+  \clearpage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \noindent
+  \reflectbox{\textcopyright}~\the\year{} KU Leuven -- Faculty of Medicine\\[0.5em]
+  Self-published, #1, #2\\[1em]
+  {\small
+ Copyleft: All rights reversed. This publication may be reproduced in any form by print, photoprint, microfilm, electronic or any other means, provided that appropriate credit is given and this exact freedom is passed on to all subsequent users.}\\[1.5em]
+  \doclicenseThis
+  \clearpage
+}
+
+% Blank page command
+\newcommand{\blankpage}{\clearpage \thispagestyle{empty} \null \clearpage}
+
 % Front & back cover commands
-\newcommand{\makefrontcover}{
-  \clearpage \thispagestyle{empty} \null \clearpage
-}
-\newcommand{\makebackcover}{
-  \clearpage \thispagestyle{empty} \null \clearpage
-}
+\newcommand{\makefrontcover}{\blankpage}
+\newcommand{\makebackcover}{\blankpage}
