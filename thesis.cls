@@ -17,7 +17,7 @@
 
 % Fonts
 \RequirePackage{fontspec}
-\setmainfont{Times New Roman}
+\renewcommand{\familydefault}{\sfdefault}
 
 % Packages
 \RequirePackage{graphicx}

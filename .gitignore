@@ -21,6 +21,7 @@
 *.snm
 *.synctex.gz
 *.toc
+*.aux
 
 # PDF output
 main.pdf
