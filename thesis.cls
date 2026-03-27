@@ -21,6 +21,9 @@
 
 % Packages
 \RequirePackage{graphicx}
+\RequirePackage{subcaption}
+\captionsetup{font=footnotesize}
+\captionsetup[subfigure]{font=scriptsize}
 \RequirePackage{textpos}
 \RequirePackage{xcolor}
 \RequirePackage{pdfpages}
@@ -57,6 +60,9 @@
     \clearfield{urlday}
 }
 \addbibresource{references.bib}
+
+% Make quote environment use smaller font
+\AtBeginEnvironment{quote}{\small}
 
 % Colors
 \definecolor{strong}{HTML}{C6EFCE}

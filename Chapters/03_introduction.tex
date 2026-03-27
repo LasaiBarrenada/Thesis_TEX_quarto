@@ -1,34 +1,297 @@
-\chapter{Introduction and objectives}
+\chapter{Introduction}
 \label{sec:general_introduction}
+\glsunset{EIDM}
 
 \section{Background}
 
-Patient healthcare management involves a series of complex decisions that clinicians must make to provide optimal care. Determining which decision to take is often not straightforward, as it requires weighing the potential benefits and harms of different options in an environment with limited resources. Informed decision-making is crucial to ensure that patients receive the most appropriate care while minimizing unnecessary interventions and associated costs. In the \gls{AI} and big data era that we are currently living, the amount of available data is not processable by humans, and clinicians are increasingly relying on data-driven tools to support a well informed decision-making. 
+Patient healthcare management involves a series of complex decisions that clinicians must make to provide optimal care. Determining which decision to take is often not straightforward, as it requires weighing the potential benefits and harms of different options in an environment with limited resources. Evidence-based medicine provides a framework for such informed decision-making, integrating the best available research evidence with clinical expertise and patient values \cite{sackettEvidenceBasedMedicineWhat1996}. Such evidence-informed decision-making (\gls{EIDM}) is crucial to ensure that patients receive the most appropriate care while minimizing unnecessary interventions and associated costs \cite{EvidencePolicyImpact2022}. In the current \gls{AI} and big data era, the volume of available data exceeds human processing capacity, and clinicians are increasingly relying on data-driven tools to support \gls{EIDM} \cite{kruse_challenges_2016}. 
 
-To support clinicians in this process, various tools and frameworks have been developed, including clinical prediction models, which are designed to estimate the probability of specific outcomes based on patient characteristics and clinical findings. These models can assist clinicians in making evidence-based decisions by providing personalized risk assessments that guide diagnosis, prognosis, and treatment strategies.
+A key example of such a decision problem is the preoperative characterisation of ovarian masses. Distinguishing benign from malignant tumours before surgery is essential to ensure that patients receive appropriate care, yet the diagnosis is rarely straightforward from clinical assessment alone. The Assessment of Different NEoplasias in the adneXa (ADNEX) model, which gives this thesis its title, was developed to support this decision by estimating the probability of different tumour types from clinical and ultrasound data \cite{vancalsterEvaluatingRiskOvarian2014}.
 
-The role of biostatisticians and methodologist in this new landscape of data-driven decision support tools is crucial. From study design to model implementation in clinical practice, all steps are important to ensure that the developed tools are accurate, reliable, clinically useful and fair.  
-In this thesis, the focus is on the development and evaluation of clinical prediction models for diagnosing ovarian masses, a common clinical problem with significant implications for patient management.  
+The role of biostatisticians and methodologists in developing and evaluating such models is crucial. From study design to model implementation, all steps are important to ensure that the developed tools are accurate, reliable, clinically useful and fair \cite{collinsTRIPODAIStatementUpdated2024}. In this thesis, the focus is on the development and evaluation of clinical prediction models for diagnosing ovarian masses, a common clinical problem with significant implications for patient management, and on advancing statistical methodology for prediction model development and evaluation.  
 
 
 \section{Clinical prediction models}
 
-Clinical prediction models are statistical tools that combine multiple predictors to estimate the probability of a specific outcome for an individual patient \cite{steyerbergClinicalPredictionModels2009}. These models are widely used in medicine to assist clinicians in making informed decisions about diagnosis, prognosis, and treatment. This thesis will focus on prediction models for diagnosis. By integrating various patient characteristics and clinical findings, prediction models can provide personalized risk assessments that guide clinical management. Succesful and widely used clinical prediction models include the Framingham Risk Score (cardiovascular disease) \cite{dagostinoGeneralCardiovascularRisk2008}, the APACHE II score (critical care) \cite{knausAPACHEIISeverity1985}, and the \gls{ADNEX} model (ovarian masses) \cite{vancalsterEvaluatingRiskOvarian2014}, which gives this thesis its title.
+Clinical prediction models are statistical tools that combine multiple predictors to estimate the probability of a specific outcome for an individual patient \cite{steyerbergClinicalPredictionModels2009}. These models are widely used in medicine to assist clinicians in making informed decisions about diagnosis, prognosis, and treatment. This thesis will focus on diagnostic prediction models, which estimate the probability of a condition being present at the time of evaluation, as opposed to prognostic models, which predict future outcomes \cite{vansmedenClinicalPredictionModels2021}. While individual diagnostic tests, such as biomarkers or imaging findings, provide information about a single aspect of the patient's condition, prediction models combine multiple tests and patient characteristics into an integrated probability estimate. Therefore, they can provide personalized risk assessments that guide clinical management. Successful and widely used clinical prediction models include the Framingham Risk Score (cardiovascular disease) \cite{dagostinoGeneralCardiovascularRisk2008}, the APACHE II score (critical care) \cite{knausAPACHEIISeverity1985}, and the \gls{ADNEX} model (ovarian masses) \cite{vancalsterEvaluatingRiskOvarian2014}.
+
+\color{blue}
+A key advantage of clinical prediction models over simpler diagnostic rules is that they produce probabilities. A probability of 1\% for malignancy carries a very different clinical implication than a probability of 15\%, yet both would be classified as ``low risk'' under a threshold of 20\%. This distinction matters because patients and clinicians may weigh the consequences of false positives and false negatives differently depending on the clinical context. Probabilities preserve this nuance and allow the decision threshold to be set according to the specific clinical situation \cite{vickersDecisionCurveAnalysis2006}. This enables shared decision-making between clinicians and patients, where treatment decisions can be tailored to a patient's personal risk and preferences \cite{steyerbergClinicalPredictionModels2009, moonsCriticalAppraisalData2014}.
+\color{black}
+
+Two key aspects of clinical prediction models are their development and their evaluation. Model development starts with the definition of the aims and ends when the model is finally published. This process involves the selection of predictors, the definition of the outcome, the handling of missing data, the fitting of the model, and the assessment of model performance \cite{efthimiou_developing_2024}. However, models need to be externally validated to be safe for clinical use, ideally this validation is done by external researchers and in external but comparable settings. This evaluation is crucial to determine whether the model can be reliably applied in clinical practice and to identify any potential limitations or biases. External evaluation is not a one-time event, but rather an ongoing monitoring process that should continue through all the model's lifecycle \cite{vancalsterThereNoSuch2023}. \color{blue}Despite the increasing number of clinical prediction models published each year, only a small fraction are externally validated, and even fewer are adopted in clinical practice \cite{bouwmeesterReportingMethodsClinical2012, collinsExternalValidationMultivariable2014,arshiNumberPublicationsNew2025}. Bridging this gap requires rigorous performance evaluation, transparent reporting, and sustained monitoring after deployment \cite{vancalsterThereNoSuch2023, van2026enemies}.\color{black}
+
+\subsection{Model performance}
+
+The performance of clinical prediction models should be evaluated across several domains. Van Calster et al.\ \cite{vancalsterPerformanceEvaluationPredictive2024} recommend a minimum core set of measures and visualisations that should be reported when validating a prediction model (Table~\ref{tab:intro:metrics}). These metrics are selected because their value is optimised when the model predicts correct probabilities and because they focus either in statistical performance or decision–analytical performance by properly accounting for misclassification costs.  The following subsections introduce the recommended domains and their associated measures.
+
+\begin{table}[htbp]
+\centering
+\caption[Recommended performance measures for validating prediction models]{Recommended core set of performance measures and visualisations for validating clinical prediction models, based on Van Calster et al.\ \cite{vancalsterPerformanceEvaluationPredictive2024}.}
+\label{tab:intro:metrics}
+\small
+\begin{tabular}{llll}
+\toprule
+Domain & Measure / visualisation & Ideal value & Recommendation \\
+\midrule
+\multirow{2}{*}{Discrimination}
+  & AUROC (c-statistic) & 1 & Recommended \\
+  & Risk distribution plot & --- & Recommended \\
+\midrule
+\multirow{4}{*}{Calibration}
+  & Calibration plot (smoothed) & On diagonal & Recommended \\
+  & Calibration intercept ($\alpha$) & 0 & Informative \\
+  & Calibration slope ($\beta$) & 1 & Informative \\
+  & O:E ratio & 1 & Informative \\
+\midrule
+Clinical utility
+  & Net benefit (decision curve) & Prevalence & Recommended \\
+  \midrule
+Overall performance
+  & Risk distribution plots & --- & Recommended \\
+\midrule
+\midrule
+\multirow{2}{*}{Classification}
+  & Sensitivity + Specificity & 1 each & Descriptive \\
+  & PPV + NPV & 1 each & Descriptive \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Discrimination}
+
+Discrimination refers to a model's ability to distinguish between patients who present the event and those who do not. A model with good discrimination assigns higher predicted probabilities to patients who develop the event than to those who do not. This separation can be visualised using violin plots of the predicted probabilities stratified by outcome group (Figure~\ref{fig:disc:levels}). The most common summary measure of discrimination is the concordance statistic (c-statistic), equivalent to the area under the receiver operating characteristic curve (AUC), which ranges from 0.5 (no discrimination) to 1 (perfect discrimination). AUC and c-statistic can be interpreted as the probability that a randomly selected individual with the event and a randomly selected individual without the event will be correctly ranked by the model, with the former having a higher predicted probability than the latter. 
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/disc_poor.pdf}
+    \caption{Poor}
+    \label{fig:disc:poor}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/disc_moderate.pdf}
+    \caption{Moderate}
+    \label{fig:disc:moderate}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/disc_good.pdf}
+    \caption{Good}
+    \label{fig:disc:good}
+\end{subfigure}
+\caption[Discrimination levels illustrated by violin plots]{Violin plots of predicted probabilities stratified by outcome group, illustrating three levels of discrimination. Red and blue represent non-events and events, respectively. The AUC increases from poor (a) to good (c) discrimination, reflecting greater separation between the two distributions.}
+\label{fig:disc:levels}
+\end{figure}
+
+\subsubsection{Calibration}
+
+Calibration is the agreement between predicted probabilities and observed proportions. Van Calster et al.\ \cite{vancalsterCalibrationHierarchyRisk2016} defined a hierarchy of four increasingly strict levels of calibration (Table~\ref{tab:intro:calhierarchy}). The most basic level is mean calibration, which requires that the average predicted probability equals the observed event rate. Weak calibration requires that the calibration intercept $\alpha$ is 0 and the slope $\beta$ is 1 in the logistic calibration model $\text{logit}(p_{\text{obs}}) = \alpha + \beta \cdot \text{logit}(p_{\text{pred}})$. Moderate calibration requires that the observed event rate equals the predicted probability for every value of the predicted probability, which can be visualised using a flexible calibration plot. Flexible calibration plots are created by smoothing the relationship between observed and predicted probabilities using LOESS or restricted cubic splines. Strong calibration requires that the observed event rate equals the predicted probability for every covariate pattern, which is an idealised scenario that is practically impossible to achieve.
+
+\color{blue}
+\begin{table}[htbp]
+\centering
+\caption[Calibration hierarchy for risk models]{Calibration hierarchy for risk models, based on Van Calster et al.\ \cite{vancalsterCalibrationHierarchyRisk2016}.}
+\label{tab:intro:calhierarchy}
+\small
+\begin{tabularx}{\textwidth}{llXl}
+\toprule
+Level & Name & Definition & Evaluation \\
+\midrule
+1 & Mean & Average predicted probability equals the observed event rate & O:E ratio \\
+2 & Weak & Calibration intercept $\alpha = 0$ and slope $\beta = 1$ & Logistic calibration framework \\
+3 & Moderate  & $P(Y = 1 \mid \hat{p}) = \hat{p}$ for every $\hat{p}$ & Flexible calibration plot \\
+4 & Strong & $P(Y = 1 \mid \mathbf{X}) = \hat{p}(\mathbf{X})$ for every covariate pattern $\mathbf{X}$ & Utopia \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\color{black}
+
+In binary outcomes, the observed proportion of events needs to be estimated because the outcome is either 0 or 1. This can be done using different methods, such as binned calibration, logistic calibration, or LOESS smoothing (Figure~\ref{fig:cal:methods}). The logistic calibration framework characterises miscalibration through the intercept $\alpha$ and slope $\beta$ of the model $\text{logit}(p_{\text{obs}}) = \alpha + \beta \cdot \text{logit}(p_{\text{pred}})$, where $\alpha = 0$ and $\beta = 1$ indicate perfect calibration. Different combinations of $\alpha$ and $\beta$ correspond to distinct types of miscalibration (Figure~\ref{fig:miscal:types}).
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/calibration_binned.pdf}
+    \caption{Binned}
+    \label{fig:cal:binned}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/calibration_logistic.pdf}
+    \caption{Logistic calibration}
+    \label{fig:cal:logistic}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/calibration_loess.pdf}
+    \caption{LOESS}
+    \label{fig:cal:loess}
+\end{subfigure}
+\caption[Calibration plots using binned, logistic, and LOESS methods]{Calibration plots for the same simulated data using three methods: (a) binned calibration with exact binomial confidence intervals, (b) logistic calibration curve with Wald confidence intervals, and (c) LOESS smoothed calibration curve. The dashed diagonal represents perfect calibration. Rug plots indicate the distribution of events (top) and non-events (bottom).}
+\label{fig:cal:methods}
+\end{figure}
 
 
 
+\begin{figure}[htbp]
+\captionsetup[subfigure]{font=scriptsize}
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a0_b1.pdf}
+    \caption{Perfect calibration}
+    \label{fig:miscal:a0b1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a1_b1.pdf}
+    \caption{Underestimation}
+    \label{fig:miscal:a1b1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_am1_b1.pdf}
+    \caption{Overestimation}
+    \label{fig:miscal:am1b1}
+\end{subfigure}
 
-\subsection{Discrimination}
+\vspace{0.5em}
 
-\subsection{Calibration}
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a0_b05.pdf}
+    \caption{Overfitting}
+    \label{fig:miscal:a0b05}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a0_b15.pdf}
+    \caption{Underfitting}
+    \label{fig:miscal:a0b15}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a1_b05.pdf}
+    \caption{Overfit + underestimation}
+    \label{fig:miscal:a1b05}
+\end{subfigure}
 
-\subsection{Clinical utility}
+\vspace{0.5em}
+
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_am1_b05.pdf}
+    \caption{Overfit + overestimation}
+    \label{fig:miscal:am1b05}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_a1_b15.pdf}
+    \caption{Underfit + underestimation}
+    \label{fig:miscal:a1b15}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Introduction/cal_am1_b15.pdf}
+    \caption{Underfit + overestimation}
+    \label{fig:miscal:am1b15}
+\end{subfigure}
+
+\caption[Types of miscalibration by calibration intercept and slope]{Types of miscalibration characterised by the calibration intercept $\alpha$ and slope $\beta$ in the logistic calibration model $\text{logit}(p_{\text{obs}}) = \alpha + \beta \cdot \text{logit}(p_{\text{pred}})$. Blue shading indicates underestimation (observed $>$ predicted); red shading indicates overestimation (predicted $>$ observed). The dashed diagonal represents perfect calibration ($\alpha = 0$, $\beta = 1$).}
+\label{fig:miscal:types}
+\end{figure}
+
+\subsubsection{Clinical utility}
 
 
+Decision curve analysis is a method to evaluate the clinical utility of a prediction model by quantifying its net benefit across a range of threshold probabilities \cite{vickersDecisionCurveAnalysis2006}. The threshold probability reflects the minimum predicted risk at which a clinician would recommend intervention, and is directly related to the harm-to-benefit ratio of the intervention: a threshold of $p_t$ implies a harm-to-benefit ratio of $p_t / (1 - p_t)$. For example, a threshold of 0.2 corresponds to a ratio of 1:4, meaning the clinician considers one unnecessary intervention acceptable for every four correctly treated patients. A model is clinically useful at a given threshold if its net benefit exceeds that of the default strategies of treating all patients (red) or treating no patients (green) (Figure~\ref{fig:dca}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/Introduction/dca.pdf}
+\caption[Decision curve analysis for three simulated models]{Decision curve analysis for three simulated models with varying discrimination. The very good model (dark blue) and good model (medium blue) provide net benefit above both default strategies across a wide range of thresholds. The poor model (light blue) is worse than treating all patients at low thresholds and worse than treating none at higher thresholds. The top axis shows the corresponding harm-to-benefit ratio for each threshold probability.}
+\label{fig:dca}
+\end{figure}
+
+\subsection{Multicenter data and clustering}
+\color{blue}
+
+Clinical prediction models are increasingly developed and validated using data from multiple centres or studies. An analysis of models in the Tufts PACE database found that 64\% of models developed after 2000 used multicenter data \cite{wynantsUntappedPotentialMulticenter2019}. Clustering introduces dependencies among patients within the same cluster, which can affect both model development and evaluation. Performance, particularly calibration, varies across clusters due to differences in case mix, measurement practices, and local prevalence \cite{vancalsterValidationModelsDiagnose2020}. Ignoring clustering during validation can lead to misleading conclusions, as overall performance summaries may mask important heterogeneity between clusters \cite{wynantsDoesIgnoringClustering2018}. Figure~\ref{fig:cal:clustering} illustrates this with a simulated example: the overall calibration curve lies on the diagonal, suggesting perfect calibration, while the centre-specific curves reveal substantial miscalibration in opposite directions. For these reasons, methods that account for clustering when developing and evaluating clinical prediction models should be developed and adopted \cite{debrayFrameworkMetaanalysisPrediction2019,debrayTransparentReportingMultivariable2023}. These includes meta-analytic techniques to summarise performance across clusters (e.g. \gls{IPD} meta-analysis), and a comprehensive analysis of the between cluster heterogeneity.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{figures/Introduction/calibration_clustering.pdf}
+\caption[Clustering masking miscalibration in calibration curves]{Simulated calibration curves illustrating how clustering can mask miscalibration. The overall curve (black) appears perfectly calibrated, but centre-specific curves reveal that Centre A (red) overestimates and Centre B (blue) underestimates the observed event rate.}
+\label{fig:cal:clustering}
+\end{figure}
+
+\color{black}
+\subsection{Reporting guidelines}
+\color{blue}
+
+Transparent and complete reporting of prediction model studies is essential for assessing the quality and applicability of published models. The \gls{TRIPOD} statement provides a checklist of items that should be reported in studies developing, validating, or updating a prediction model \cite{collinsTransparentReportingMultivariable2015}. A recent extension, \gls{TRIPOD}-SRMA, addresses reporting for systematic reviews and meta-analyses of prediction model studies \cite{snellTransparentReportingMultivariable2023}. To handle the growing use of multicenter data, \gls{TRIPOD}-Cluster was published to guide the reporting of studies that develop or validate models using clustered data \cite{debrayTransparentReportingMultivariable2023}. These guidelines play an important role in improving the quality and reproducibility of prediction modelling research.
+
+\color{black}
+
+\subsection{Medical device regulation}
+\color{blue}
+
+Clinical prediction models deployed as software tools are increasingly subject to medical device regulation. Under the European Union \gls{MDR} (EU 2017/745), software intended for medical purposes --- including diagnosis, prediction, and prognosis --- is explicitly classified as a medical device, even when it operates independently of any hardware \cite{EUMDR2017}. Similarly, the U.S. Food and Drug Administration regulates such tools under the \gls{SaMD} framework and has authorised over 1,000 AI/ML-enabled devices to date \cite{FDA_AIML_SaMD_2021}. The more recent EU Artificial Intelligence Act (EU 2024/1689) introduces additional requirements for high-risk AI systems, which include most medical AI applications \cite{EUAIAct2024}. These regulatory frameworks reinforce the need for rigorous model development, thorough external validation, and continuous post-market monitoring --- principles that align closely with the methodological standards discussed throughout this thesis. However, the monetary cost of compliance with these regulations can be prohibitive, especially for academic researchers, that might need to turn the models into profit-generating products to compensate the costs \cite{kotlarzImpactMedicalDevice2025}. The disalignment between open science principles and current medical device regulation is a significant challenge that needs to be addressed to ensure that valuable prediction models can be safely, widely and farily adopted in clinical practice without compromising transparency and accessibility.
+
+\color{black}
 \section{Ovarian masses}
+\color{blue}
 
+Adnexal masses, which include ovarian tumours and other masses arising from the ovary or surrounding structures, are a common finding in gynaecological practice.
+
+Ovarian cancer is the eighth most common cancer in women worldwide and has a high mortality rate because it is often diagnosed at an advanced stage \cite{siegelCancerStatistics2025}. However, most adnexal masses are benign, and only a minority turn out to be malignant. Because the optimal management of a patient with an adnexal mass depends on the histological type of the mass, accurate preoperative characterisation is essential.
+
+Patients with a benign mass can be managed conservatively with clinical and ultrasound follow-up, or treated with minimally invasive surgery \cite{carleyLaparoscopyLaparotomyManagement2002, froymanRiskComplicationsPatients2019}. In contrast, patients with a malignant mass benefit from management in specialised oncology centres, and the specific surgical approach may differ depending on the malignant subtype \cite{wooCentralisationServicesGynaecological2012, timmermanESGOISUOGIOTA2021}. Borderline tumours, early-stage primary invasive tumours, advanced primary invasive tumours, and secondary metastatic tumours each require different treatment pathways. To optimise patient triage without operating on all patients, diagnostic tools that can estimate the likelihood of malignancy from preoperative information are needed.
+
+Transvaginal ultrasound is the primary imaging modality for characterising adnexal masses. The \gls{IOTA} group is a multinational research collaboration dedicated to improving the preoperative characterisation of adnexal masses through standardised ultrasound assessment. The group began by establishing consensus definitions and measurement rules for ultrasound features \cite{timmermanTermsDefinitionsMeasurements2000}, which standardised the sonographic description of adnexal tumours and laid the foundation for systematic data collection across centres.
+
+Since then, the \gls{IOTA} consortium has conducted a series of large-scale prospective studies (IOTA phases 1 through 7), collecting standardised clinical and ultrasound data from patients with adnexal masses at centres across multiple countries. These datasets have served as the basis for developing and validating several evidence-based diagnostic models, as described in the next section.
+
+\color{black}
 \section{Models to diagnose ovarian masses}
+\color{blue}
 
-\section{Objectives}
+Several models have been proposed to support the preoperative characterisation of adnexal masses. The \gls{RMI}, published in 1990, was one of the first tools developed for this purpose \cite{jacobsRiskMalignancyIndex1990}. The \gls{RMI} combines a serum CA-125 level, menopausal status, and five binary ultrasound features into a single score. A threshold (commonly 200) is used to classify tumours as high or low risk for malignancy. Despite being developed on data from only 143 patients at a single hospital, the \gls{RMI} has been widely adopted and remains recommended by several national clinical guidelines \cite{timmermanESGOISUOGIOTA2021}.
 
+%% TODO: Add reference for Simple Rules (Timmerman et al. 2010 Ultrasound Obstet Gynecol)
+%% TODO: Add reference for LR2 (Timmerman et al. 2005 or Van Holsbeke et al. 2012)
+The \gls{IOTA} group developed several diagnostic models building on their standardised data collection framework. The IOTA Simple Rules use ten ultrasound features (five suggestive of malignancy and five suggestive of a benign mass) to classify tumours without requiring a calculation. The IOTA logistic regression models (LR1 and LR2) estimate the probability of malignancy using logistic regression with ultrasound and clinical variables. A two-step strategy combining Simple Rules as a first step with a model-based assessment for inconclusive cases has also been proposed \cite{timmermanESGOISUOGIOTA2021}.
+
+The most comprehensive IOTA model is the \gls{ADNEX} model, published in 2014 \cite{vancalsterEvaluatingRiskOvarian2014}. Unlike earlier models that distinguish only between benign and malignant masses, \gls{ADNEX} is a multinomial logistic regression model that estimates the probability of five tumour types: benign, borderline, stage I primary invasive, stage II--IV primary invasive, and secondary metastatic. The model uses three clinical predictors (age, serum CA-125, and type of centre) and six ultrasound variables (maximal diameter of the lesion, proportion of solid tissue, number of papillary projections, presence of more than 10 cyst locules, acoustic shadows, and ascites). A version without CA-125 is also available for settings where the serum marker is not routinely measured. \gls{ADNEX} was developed using data from 5909 patients who underwent surgery at 24 centres across 10 countries.
+
+Van Calster et al.\ \cite{vancalsterValidationModelsDiagnose2020} conducted the largest prospective external validation to date, comparing six diagnostic models in 4905 patients across 17 centres. \gls{ADNEX} (with and without CA125) and SRRisk achieved the highest discrimination (AUC 0.94), while \gls{RMI} had the lowest (AUC 0.89). Calibration varied across centres for all models. A systematic review and meta-analysis of 47 external validation studies (17\,007 tumours) confirmed the robust discriminative performance of \gls{ADNEX}, with a summary AUC of 0.93 for distinguishing benign from malignant tumours, a summary sensitivity of 0.94 and specificity of 0.77 at the 10\% risk of malignancy threshold \cite{barrenadaADNEXRiskPrediction2024}. A subsequent head-to-head meta-analysis showed that \gls{ADNEX} consistently outperformed \gls{RMI} in terms of discrimination (summary AUC 0.92 vs 0.85 in operated patients) and clinical utility: the probability of ADNEX being clinically useful in a new centre was 96\%, compared to 15\% for \gls{RMI} \cite{barrenadaHeadHeadComparison2025}.
+
+Since its publication, \gls{ADNEX} has been recommended by the \gls{ISUOG}, the \gls{ESGO}, and the \gls{ESGE}, among others \cite{timmermanESGOISUOGIOTA2021}. Manufacturers of ultrasound machines have begun incorporating \gls{ADNEX} directly into their devices. Despite this widespread adoption, several questions remain about the model's performance and, more broadly, about methodological aspects of prediction modelling that are relevant to the clinical use of \gls{ADNEX} and similar tools.
+
+\color{black}
 \section{Open science}
+\color{blue}
+
+All studies in this thesis and the thesis itself adhere to open science principles.  The open science practices followed in this thesis are in line with the FAIR principles (Findable, Accessible, Interoperable, Reusable) \cite{wilkinsonFAIRGuidingPrinciples2016} and the TOP guidelines (Transparency and Openness Promotion) \cite{nosekPromotingOpenResearch2015}. All studies are published under open access licenses and deposited in public repositories. Data and code to reproduce results and figures are made publicly available through \gls{OSF} or GitHub repositories. 
+
+I present the number of days from submission to publication and the article processing charges for each study included in the thesis to provide transparency about the publication process and to raise awareness about the unreasonable costs of open access publishing. The open science practices followed in this thesis are not only a reflection of my commitment to transparency and reproducibility but also a response to the broader movement towards open science in the research community. By making studies, data and code publicly available, I aim to facilitate the verification of results, enable other researchers to build upon this work, and contribute to a more collaborative and inclusive scientific ecosystem. 
+
+I also advocate for more equitable and sustainable models of open access publishing that do not place an undue financial burden on researchers, especially those from low- and middle-income countries or early-career researchers. Open science should be a right, not a privilege, and the current landscape of open access publishing needs to be reformed to ensure that it is truly inclusive and accessible and not a for profit endeavour. 
+
+
+
+\color{black}
