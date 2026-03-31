@@ -258,7 +258,7 @@ Transvaginal ultrasound is the primary imaging modality for characterising adnex
 
 Since then, the \gls{IOTA} consortium has conducted a series of large-scale prospective studies (IOTA phases 1 through 7), collecting standardised clinical and ultrasound data from patients with adnexal masses at centres across multiple countries. These datasets have served as the basis for developing and validating several evidence-based diagnostic models, as described in the next section.
 
-\section{Models to diagnose ovarian masses}
+\section{Models and tests to diagnose ovarian masses}
 
 Several models have been proposed to support the preoperative characterisation of adnexal masses. The \gls{RMI}, published in 1990, was one of the first tools developed for this purpose \cite{jacobsRiskMalignancyIndex1990}. The \gls{RMI} combines a serum CA-125 level, menopausal status, and five binary ultrasound features into a single score. A threshold (commonly 200) is used to classify tumours as high or low risk for malignancy. Despite being developed on data from only 143 patients at a single hospital, the \gls{RMI} has been widely adopted and remains recommended by several national clinical guidelines \cite{timmermanESGOISUOGIOTA2021}.
 
@@ -269,6 +269,43 @@ The \gls{IOTA} group developed several diagnostic models building on their stand
 The most comprehensive IOTA model is the \gls{ADNEX} model, published in 2014 \cite{vancalsterEvaluatingRiskOvarian2014}. Unlike earlier models that distinguish only between benign and malignant masses, \gls{ADNEX} is a multinomial logistic regression model that estimates the probability of five tumour types: benign, borderline, stage I primary invasive, stage II--IV primary invasive, and secondary metastatic. The model uses three clinical predictors (age, serum CA-125, and type of centre) and six ultrasound variables (maximal diameter of the lesion, proportion of solid tissue, number of papillary projections, presence of more than 10 cyst locules, acoustic shadows, and ascites). A version without CA-125 is also available for settings where the serum marker is not routinely measured. \gls{ADNEX} was developed using data from 5909 patients who underwent surgery at 24 centres across 10 countries.
 
 Van Calster et al.\ \cite{vancalsterValidationModelsDiagnose2020} conducted the largest prospective external validation to date, comparing six diagnostic models in 4905 patients across 17 centres. \gls{ADNEX} (with and without CA125) and SRRisk achieved the highest discrimination (AUC 0.94), while \gls{RMI} had the lowest (AUC 0.89). Calibration varied across centres for all models. A systematic review and meta-analysis of 47 external validation studies (17\,007 tumours) confirmed the robust discriminative performance of \gls{ADNEX}, with a summary AUC of 0.93 for distinguishing benign from malignant tumours, a summary sensitivity of 0.94 and specificity of 0.77 at the 10\% risk of malignancy threshold \cite{barrenadaADNEXRiskPrediction2024}. A subsequent head-to-head meta-analysis showed that \gls{ADNEX} consistently outperformed \gls{RMI} in terms of discrimination (summary AUC 0.92 vs 0.85 in operated patients) and clinical utility: the probability of ADNEX being clinically useful in a new centre was 96\%, compared to 15\% for \gls{RMI} \cite{barrenadaHeadHeadComparison2025}.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption[Diagnostic models and tests for adnexal masses]{Overview of diagnostic models and tests for adnexal masses. AUC values for benign versus malignant discrimination from Van Calster et al.\ \cite{vancalsterValidationModelsDiagnose2020} (4905 patients, 17 centres). US = ultrasound; SA = subjective assessment; SD = simple descriptors.}
+\label{tab:intro:models}
+\begin{tabularx}{\textwidth}{@{} l >{\raggedright\arraybackslash}p{3.6cm} c >{\raggedright\arraybackslash}X @{}}
+\toprule
+\textbf{Model/Test} & \textbf{Predictors} & \textbf{AUC} & \textbf{Notes} \\
+\midrule
+RMI \cite{jacobsRiskMalignancyIndex1990} & CA-125, menopausal status, US score (5 binary features) & 0.89 & Score-based; threshold commonly 200 \\
+\addlinespace
+LR1 \cite{timmermanLogisticRegressionModel2005} & 12 clinical and US variables & --- & Binary logistic regression \\
+\addlinespace
+LR2 \cite{timmermanLogisticRegressionModel2005} & 6 variables: age, ascites, blood flow, max.\ solid diameter, irregular walls, shadows & 0.92 & Simplified version of LR1 \\
+\addlinespace
+Simple Rules \cite{timmermanSimpleUltrasoundbasedRules2008} & 10 binary US features (5~B-rules + 5~M-rules) & --- & Classification; $\sim$76\% applicable. Sens.\ 93\%, spec.\ 90\% \\
+\addlinespace
+Benign Descriptors \cite{ameyeClinicallyOrientedThreeStep2012} & 4 benign US patterns (e.g.\ unilocular cyst, typical dermoid, typical endometrioma) & --- & Triage tool to identify clearly benign masses \\
+\addlinespace
+SRRisk \cite{timmermanPredictingRiskMalignancy2016} & Simple Rules features + age & 0.94 & Continuous risk from SR features \\
+\addlinespace
+ADNEX \cite{vancalsterEvaluatingRiskOvarian2014} & Age, CA-125, centre type, max.\ diameter, \% solid tissue, papillary projections, $>$10 locules, shadows, ascites & 0.94 & Multinomial (5 subtypes). Without CA-125: AUC 0.94 \\
+\addlinespace
+ROMA \cite{mooreComparisonNovelMultiple2010} & HE4, CA-125, menopausal status & --- & Serum biomarker algorithm \\
+\addlinespace
+Two-step strategy \cite{landolfoBenignDescriptorsADNEX2023} & Step 1: BD; Step 2: ADNEX & --- & Sequential strategy for inconclusive cases \\
+\addlinespace
+O-RADS \cite{andreottiORADSUSRisk2020} & US morphological features (IOTA lexicon) or ADNEX risk & 0.92 & ACR risk categories (0--5); v2022 current \\
+\midrule
+CA-125 & Serum CA-125 level & --- & Threshold commonly 35~U/mL \\
+\addlinespace
+SA & Expert US pattern recognition & --- & Depends on examiner experience \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 Since its publication, \gls{ADNEX} has been recommended by the \gls{ISUOG}, the \gls{ESGO}, and the \gls{ESGE}, among others \cite{timmermanESGOISUOGIOTA2021}. Manufacturers of ultrasound machines have begun incorporating \gls{ADNEX} directly into their devices. Despite this widespread adoption and the robust evidence supporting its performance, ADNEX model showed important heterogeneity in calibration across centres, with some centres showing substantial underestimation and others showing overestimation of the observed event rate \cite{vancalsterValidationModelsDiagnose2020}. This highlights the need for ongoing monitoring of model performance after deployment and for methods to account for clustering when developing and evaluating clinical prediction models.
 
