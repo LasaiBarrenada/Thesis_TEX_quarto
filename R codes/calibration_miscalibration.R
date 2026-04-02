@@ -39,7 +39,7 @@ for (i in seq_len(nrow(scenarios))) {
     scale_x_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
     scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
     coord_fixed() +
-    labs(x = "Predicted probability", y = "Observed probability") +
+    labs(x = "Predicted probability", y = "Observed prportion") +
     theme_classic(base_size = 11)
 
   ggsave(paste0("figures/Introduction/", s$filename, ".pdf"), pi,

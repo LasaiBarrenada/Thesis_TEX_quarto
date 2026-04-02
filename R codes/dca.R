@@ -63,7 +63,7 @@ default_df <- dca_df |>
   filter(strategy %in% c("Treat all", "Treat none"))
 
 # Ticks: denser between 0 and 20%, then every 20%
-primary_breaks <- c(0, 0.05, 0.10, 0.15, 0.20, 0.40, 0.60, 0.80)
+primary_breaks <- c(0, 0.05, 0.10, 0.15, 0.20,0.33, 0.50, 0.60, 0.80)
 hb_labels <- sapply(primary_breaks, \(pt) {
   if (pt == 0) return("0")
   ratio <- pt / (1 - pt)
@@ -102,7 +102,7 @@ p_dca <- ggplot() +
   annotate("text", x = prev - 0.01, y = -0.015, label = "Prevalence",
            size = 2.8, hjust = 1) +
   coord_cartesian(ylim = c(-0.05, max(dca_df$nb) + 0.02)) +
-  labs(x = "Threshold probability", y = "Net benefit",
+  labs(x = "Decision threshold", y = "Net benefit",
        color = "Strategy") +
   theme_classic(base_size = 11) +
   theme(
