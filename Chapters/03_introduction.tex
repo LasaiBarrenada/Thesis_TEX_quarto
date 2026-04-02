@@ -9,11 +9,8 @@ Meeting 02-04-2026:
 
 General follow funnel structure: from broad to detailed that should end being the resarch questions.
 - About CPMs: More on model development. 
-    - Put together the cluster-related chapters
 - About IOTA: Use review of models \cite{kaijserPresurgicalDiagnosisAdnexal2014}
     - Deep learning
-
-Divide papers in them into two groups
 
 \section{Background}
 
@@ -239,7 +236,7 @@ The decision threshold reflects the minimum predicted risk at which a clinician 
 \label{fig:dca}
 \end{figure}
 
-\subsection{Clustering}
+\subsection{Dealing with clustering in model development and evaluation}
 
 Clinical prediction models are increasingly developed and validated using data from multiple centres or studies, generally known as clusters. An analysis of models in the Tufts PACE database found that 64\% of models developed after 2000 used multicenter data \cite{wynantsUntappedPotentialMulticenter2019}. Clustering introduces dependencies among patients within the same cluster, which can affect both model development and evaluation. Performance, particularly calibration, varies across clusters due to differences in case mix, measurement practices, and local prevalence \cite{vancalsterValidationModelsDiagnose2020}. Ignoring clustering during validation can lead to misleading conclusions, as overall performance summaries may mask important heterogeneity between clusters \cite{wynantsDoesIgnoringClustering2018}. Figure~\ref{fig:cal:clustering} illustrates this with a simulated example: the overall calibration curve lies on the diagonal, suggesting excellent calibration, while the cluster-specific curves reveal substantial miscalibration in opposite directions. For these reasons, methods that account for clustering when developing and evaluating clinical prediction models should be developed and adopted \cite{debrayFrameworkMetaanalysisPrediction2019,debrayTransparentReportingMultivariable2023}. These includes meta-analytic techniques to summarise performance across clusters (e.g. \gls{IPD} meta-analysis), and a comprehensive analysis of the between cluster heterogeneity as outlined in \gls{TRIPOD}-Cluster guideline.
 
@@ -250,8 +247,8 @@ Clinical prediction models are increasingly developed and validated using data f
 \label{fig:cal:clustering}
 \end{figure}
 
-{\color{blue}
-\subsection{Meta-analysis and heterogeneity}
+
+\subsubsection{Meta-analysis and heterogeneity}
 
 The previous section highlighted that ignoring clustering can mask important differences in model performance across centres. When a prediction model is validated in multiple clusters, whether centres in a multicentre study or studies in a systematic review, each cluster might have a different performance in terms of \gls{AUC}, calibration intercept, observed-to-expected ratio or net benefit. These cluster-specific performances can be formally synthesised using random effects meta-analysis \cite{debrayGuideSystematicReview2017,debrayFrameworkMetaanalysisPrediction2019}. In this framework, each cluster's true performance is assumed to be drawn from a distribution with overall mean $\mu$ and between-cluster variance $\tau^2$. We assume that the performane is heterogeneous and that there is no single 'true' performance; instead, the true performance varies across clusters. The pooled estimate represents the expected performance in a typical cluster, while $\tau^2$ captures how much the true performance varies across clusters beyond what is expected from sampling variability alone.
 
@@ -292,7 +289,7 @@ Figure~\ref{fig:forest:methods} illustrates a simulated random effects meta-anal
 
 % In this thesis, random effects meta-analysis with $\tau^2$ and 95\% \glspl{PI} is used in the systematic reviews of \gls{ADNEX} performance (Chapters~\ref{sec:chp_ADNEXSR} and~\ref{sec:chp_ADNEXvsRMI}). Chapter~\ref{sec:chp_ClusteredCalibration} extends the quantification of heterogeneity to calibration curves, where prediction intervals indicate, for every predicted risk, the range of observed proportions expected in a new cluster. This shift from scalar summaries to heterogeneity across the full calibration curve provides a richer picture of how well a model generalises.
 % }
-\subsection{Mixed models}
+\subsubsection{Mixed models}
 
 Another approach to deal with clustering when developing or validating a prediction model are mixed effects models (also known as multilevel or hierarchical models) \cite{snijdersMultilevelAnalysisIntroduction2012,wynantsUntappedPotentialMulticenter2019}. These models include fixed effects, which capture the overall relationship between predictors and outcome, and random effects, which capture cluster-specific deviations from this overall relationship. For a binary outcome, a mixed effects logistic regression with a random intercept per cluster $j$ takes the form
 \begin{equation}
@@ -339,9 +336,9 @@ Since then, the \gls{IOTA} consortium has conducted a series of large-scale pros
 
 Several models have been proposed to support the preoperative characterisation of adnexal masses. The \gls{RMI}, published in 1990, was one of the first tools developed for this purpose \cite{jacobsRiskMalignancyIndex1990}. The \gls{RMI} combines a serum CA-125 level, menopausal status, and five binary ultrasound features into a single score. A threshold (commonly 200) is used to classify tumours as high or low risk for malignancy. Despite being developed on data from only 143 patients at a single hospital, the \gls{RMI} has been widely adopted and remains recommended by several national clinical guidelines \cite{timmermanESGOISUOGIOTA2021}.
 
-%% TODO: Add reference for Simple Rules (Timmerman et al. 2010 Ultrasound Obstet Gynecol)
-%% TODO: Add reference for LR2 (Timmerman et al. 2005 or Van Holsbeke et al. 2012)
 The \gls{IOTA} group developed several diagnostic models building on their standardised data collection framework. The \gls{IOTA} Simple Rules use ten ultrasound features (five suggestive of malignancy and five suggestive of a benign mass) to classify tumours without requiring a calculation. The \gls{IOTA} logistic regression models (LR1 and LR2) estimate the probability of malignancy using logistic regression with ultrasound and clinical variables. A two-step strategy combining Simple Rules as a first step with a model-based assessment for inconclusive cases has also been proposed \cite{timmermanESGOISUOGIOTA2021}.
+
+\subsubsection{ADNEX model}
 
 The most comprehensive \gls{IOTA} model is the \gls{ADNEX} model, published in 2014 \cite{vancalsterEvaluatingRiskOvarian2014}. Unlike earlier models that distinguish only between benign and malignant masses, \gls{ADNEX} is a multinomial logistic regression model that estimates the probability of five tumour types: benign, borderline, stage I primary invasive, stage II--IV primary invasive, and secondary metastatic. The model uses three clinical predictors (age, serum CA-125, and type of centre) and six ultrasound variables (maximal diameter of the lesion, proportion of solid tissue, number of papillary projections, presence of more than 10 cyst locules, acoustic shadows, and ascites). A version without CA-125 is also available for settings where the serum marker is not routinely measured. \gls{ADNEX} was developed using data from 5909 patients who underwent surgery at 24 centres across 10 countries.
 
@@ -351,7 +348,7 @@ Van Calster et al.\ \cite{vancalsterValidationModelsDiagnose2020} conducted the 
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
-\caption[Diagnostic models and tests for adnexal masses]{Overview of diagnostic models and tests for adnexal masses. In bold ADNEX model predictors; US = ultrasound.}
+\caption[Diagnostic models and tests for adnexal masses]{Non exhaustive overview of diagnostic models and tests for adnexal masses. In bold ADNEX model predictors; US = ultrasound.}
 \label{tab:intro:models}
 \begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}p{2cm} c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.4cm} @{}}
 \toprule
@@ -363,7 +360,7 @@ LR1 \cite{timmermanLogisticRegressionModel2005} & 2005 & Personal history of ova
 \addlinespace
 LR2 \cite{timmermanLogisticRegressionModel2005} & 2005 & \textbf{Age}, \textbf{ascites}, blood flow, max.\ diameter of the solid part, irregular walls, \textbf{shadows} (6) & Simplified version of LR1 \\
 \addlinespace
-ROMA \cite{mooreComparisonNovelMultiple2010} & 2010 & HE4, \textbf{CA-125}, menopausal status (3) & Serum biomarker algorithm \\
+ROMA \cite{mooreUseMultipleNovel2008} & 2008 & HE4, \textbf{CA-125}, menopausal status (3) & Serum biomarker algorithm \\
 \addlinespace
 ADNEX \cite{vancalsterEvaluatingRiskOvarian2014} & 2014 & \textbf{Age}, \textbf{CA-125}, \textbf{centre type}, \textbf{max.\ diameter lesion},\textbf{proportion of solid tissue}, \textbf{papillary projections}, \textbf{$>$10 locules}, \textbf{shadows}, \textbf{ascites} (9) & Multinomial logistic regression (Benign, Borderline, Stage I, Stage II-IV and Metastatic) \\
 \addlinespace
@@ -375,7 +372,7 @@ Two-step strategy \cite{landolfoBenignDescriptorsADNEX2023} & 2023 & Step 1: BDs
 \addlinespace
 RMI \cite{jacobsRiskMalignancyIndex1990} & 1990 & \textbf{CA-125}, menopausal status, US score (5 binary features) & Score-based; threshold commonly 200 \\
 \addlinespace
-Simple Rules \cite{timmermanSimpleUltrasoundbasedRules2008} & 2008 & 10 binary US features (5 Benign rules + 5 Malignant rules) & If only benign rules apply, the tumour is deemed benign and viceversa. $\sim$76\% applicable.  \\
+Simple Rules \cite{timmermanSimpleUltrasoundbasedRules2008} & 2008 & 10 binary US features (5 Benign rules + 5 Malignant rules) & If only benign rules apply, the tumour is deemed benign and viceversa. Applicable to $\sim$76\% of the masses.  \\
 \addlinespace
 Benign Descriptors \cite{ameyeClinicallyOrientedThreeStep2012} & 2012 & 4 benign US patterns (e.g.\ unilocular cyst, typical dermoid, typical endometrioma) & Triage tool to identify clearly benign masses from which 99.3\% were benign \\
 \addlinespace
@@ -391,11 +388,15 @@ Histopathology & --- & Microscopic examination of tissue samples & Gold standard
 
 Since its publication, \gls{ADNEX} has been recommended by the \gls{ISUOG}, the \gls{ESGO}, and the \gls{ESGE}, among others \cite{timmermanESGOISUOGIOTA2021}. Manufacturers of ultrasound machines have begun incorporating \gls{ADNEX} directly into their devices. Despite this widespread adoption and the robust evidence supporting its performance, \gls{ADNEX} model showed important heterogeneity in calibration across centres, with some centres showing substantial underestimation and others showing overestimation of the observed event rate \cite{vancalsterValidationModelsDiagnose2020}. This highlights the need for ongoing monitoring of model performance after deployment and for methods to account for clustering when developing and evaluating clinical prediction models.
 
+\subsubsection{Machine and deep learning models}
+
+In recent years, there has been a surge of interest in applying machine learning and deep learning techniques to the problem of diagnosing adnexal masses. These models often use more complex algorithms (e.g. random forests, support vector machines, neural networks, transformers) and may incorporate a wider range of predictors, including raw ultrasound images or volumes. Ledger et al. \cite{ledgerMachineLearningApproach2021} have demonstrated the potential of these approaches. While some studies have reported promising results, many of these models have been developed and validated on small datasets from single centres, raising concerns about overfitting and lack of generalisability \cite{barrenadaSystematicReviewMachine2024}. Rigorous external validation and head-to-head comparisons with established models like \gls{ADNEX} are needed to determine whether these newer approaches offer meaningful improvements in performance or clinical utility.
+
 \section{Open science}
 
 All studies in this thesis and the thesis itself adhere to open science principles.  The open science practices followed in this thesis are in line with the FAIR principles (Findable, Accessible, Interoperable, Reusable) \cite{wilkinsonFAIRGuidingPrinciples2016} and the TOP guidelines (Transparency and Openness Promotion) \cite{nosekPromotingOpenResearch2015}. All studies are published under open access licenses and deposited in public repositories. Data and code to reproduce results and figures are made publicly available through \gls{OSF} (https://osf.io/pgkjv/) or GitHub (https://github.com/LasaiBarrenada) repositories. 
 
-I present the number of days from submission to publication and the article processing charges for each study included in the thesis to provide transparency about the publication process and to raise awareness about the unreasonable costs of open access publishing. The open science practices followed in this thesis are not only a reflection of my commitment to transparency and reproducibility but also a response to the broader movement towards open science in the research community. By making studies, data and code publicly available, I aim to facilitate the verification of results, enable other researchers to build upon this work, and contribute to a more collaborative and inclusive scientific ecosystem. 
+I present the number of days from submission to publication and the article processing charges for each study included in the thesis to provide transparency about the publication process and to raise awareness about the unreasonable costs of open access publishing \cite{zhangShouldOpenAccess2022}. The open science practices followed in this thesis are not only a reflection of my commitment to transparency and reproducibility but also a response to the broader movement towards open science in the research community. By making studies, data and code publicly available, I aim to facilitate the verification of results, enable other researchers to build upon this work, and contribute to a more collaborative and inclusive scientific ecosystem. 
 
-I also advocate for more equitable and sustainable models of open access publishing that do not place an undue financial burden on researchers, especially those from low- and middle-income countries or early-career researchers. Open science should be a right, not a privilege, and the current landscape of open access publishing needs to be reformed to ensure that it is truly inclusive and accessible and not a for profit endeavour. 
+I also advocate for more equitable and sustainable models of open access publishing that do not place an undue financial burden on researchers, especially those from low- and middle-income countries or early-career researchers \cite{kwonOpenaccessPublishingFees2022, smithAssessingEffectArticle2021}. Open science should be a right, not a privilege, and the current landscape of open access publishing needs to be reformed to ensure that it is truly inclusive and accessible and not a for profit endeavour. 
 
