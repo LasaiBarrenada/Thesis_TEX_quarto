@@ -1,0 +1,128 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{thesis}[2025/11/26 PhD Thesis Template]
+
+% Base class
+\LoadClass[11pt,twoside]{book}
+
+% Page geometry (A4)
+\RequirePackage[a4paper]{geometry}
+\geometry{
+  inner=3cm,
+  outer=2.5cm,
+  top=2.5cm,
+  bottom=2.5cm
+}
+
+% Fonts
+\RequirePackage{fontspec}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Packages
+\RequirePackage{graphicx}
+\RequirePackage{subcaption}
+\captionsetup{font=footnotesize}
+\captionsetup[subfigure]{font=scriptsize}
+\RequirePackage{textpos}
+\RequirePackage{xcolor}
+\RequirePackage{pdfpages}
+\RequirePackage{bm}
+\RequirePackage{listings}
+\RequirePackage{makecell}
+\RequirePackage{rotating}
+\RequirePackage{xr-hyper}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[hyphens]{url}
+\RequirePackage[colorlinks=false]{hyperref}
+\RequirePackage{cleveref}
+\RequirePackage{booktabs}
+\RequirePackage{nicefrac}
+\RequirePackage{microtype}
+\RequirePackage{siunitx}
+\RequirePackage{enumitem}
+\RequirePackage{extpfeil}
+\RequirePackage{tabularx,longtable,multirow,array}
+\RequirePackage{caption}
+\RequirePackage[table]{xcolor}
+\RequirePackage{fancyhdr}
+\RequirePackage{etoolbox}
+\RequirePackage{titlesec}
+\RequirePackage[acronym,nonumberlist,nopostdot]{glossaries}
+\RequirePackage[backend=biber, style=numeric, sorting=none, citestyle=numeric-comp, giveninits=true]{biblatex}
+% Bibliography: suppress unwanted fields
+\AtEveryBibitem{
+    \clearfield{url}
+    \clearfield{issn}
+    % Suppress "visited on <date>"
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{urlday}
+}
+\addbibresource{references.bib}
+
+% Make quote environment use smaller font
+\AtBeginEnvironment{quote}{\small}
+
+% Colors
+\definecolor{strong}{HTML}{C6EFCE}
+\definecolor{moderate}{HTML}{FFEB9C}
+\definecolor{weak}{HTML}{FFC7CE}
+\definecolor{dibs_main}{RGB}{21,67,121}
+
+% Table & column types
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+% Float adjustments
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.8}
+
+% Fancy headers
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{#1}}}
+\fancyhead[RE]{\small\leftmark}
+\fancyhead[LO]{\small\rightmark}
+\fancyhead[LE,RO]{\small\thepage}
+\pagestyle{fancy}
+
+% Footnotes
+\makeatletter
+\patchcmd{\@footnotetext} {\reset@font\footnotesize} {\reset@font\small\itshape} {}{}
+\makeatother
+
+% Chapter formatting
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {Chapter \thechapter}
+  {1em}
+  {\Huge}
+
+% Glossaries
+\makeglossaries
+
+% Copyright page command
+\newcommand{\makecopyrightpage}[2]{%
+  % #1 = author name, #2 = address
+  \clearpage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \noindent
+  \reflectbox{\textcopyright}~\the\year{} KU Leuven -- Faculty of Medicine\\[0.5em]
+  Self-published, #1, #2\\[1em]
+  {\small
+ Copyleft: All rights reversed. This publication may be reproduced in any form by print, photoprint, microfilm, electronic or any other means, provided that appropriate credit is given and this exact freedom is passed on to all subsequent users.}\\[1.5em]
+  \doclicenseThis
+  \clearpage
+}
+
+% Blank page command
+\newcommand{\blankpage}{\clearpage \thispagestyle{empty} \null \clearpage}
+
+% Front & back cover commands
+\newcommand{\makefrontcover}{\blankpage}
+\newcommand{\makebackcover}{\blankpage}

@@ -1,0 +1,238 @@
+% Glossary terms (non-acronyms)
+% Use with \gls{<label>} in chapter text.
+% Case control:
+% - \gls{label}  -> lowercase form in running text
+% - \Gls{label}  -> sentence-initial uppercase form
+% The glossary list uses the 'name' field.
+
+\newglossaryentry{clinical_prediction_model}{
+  name={Clinical prediction model},
+  text={clinical prediction model},
+  first={\textbf{clinical prediction model}},
+  plural={clinical prediction models},
+  firstplural={\textbf{clinical prediction models}},
+  description={A statistical model that combines multiple predictors to estimate the probability of a clinical outcome for an individual patient}
+}
+
+\newglossaryentry{evidence_based_medicine}{
+  name={Evidence-based medicine},
+  text={evidence-based medicine},
+  first={\textbf{evidence-based medicine}},
+  plural={evidence-based medicines},
+  firstplural={\textbf{evidence-based medicines}},
+  description={An approach to medical practice intended to optimize decision-making by emphasizing the use of evidence from well designed and conducted research}
+}
+
+\newglossaryentry{discrimination}{
+  name={Discrimination},
+  text={discrimination},
+  first={\textbf{discrimination}},
+  description={The ability of a prediction model to assign higher predicted risks to individuals with the event than to those without the event}
+}
+
+\newglossaryentry{calibration}{
+  name={Calibration},
+  text={calibration},
+  first={\textbf{calibration}},
+  description={The agreement between predicted probabilities and observed outcome frequencies}
+}
+
+\newglossaryentry{clinical_utility}{
+  name={Clinical utility},
+  text={clinical utility},
+  first={\textbf{clinical utility}},
+  description={The extent to which using model predictions improves clinical decision-making and patient outcomes, typically assessed with decision-analytic measures such as net benefit}
+}
+
+\newglossaryentry{overfitting}{
+  name={Overfitting},
+  text={overfitting},
+  first={\textbf{overfitting}},
+  description={A phenomenon where a model captures noise or idiosyncrasies in the development data, leading to poorer performance in new data}
+}
+
+\newglossaryentry{underfitting}{
+  name={Underfitting},
+  text={underfitting},
+  first={\textbf{underfitting}},
+  description={A phenomenon where a model is too simple to capture relevant signal in the data, resulting in poor predictive performance}
+}
+
+\newglossaryentry{external_validation}{
+  name={External validation},
+  text={external validation},
+  first={\textbf{external validation}},
+  description={Evaluation of a prediction model in data that are independent from the model development data}
+}
+
+\newglossaryentry{internal_validation}{
+  name={Internal validation},
+  text={internal validation},
+  first={\textbf{internal validation}},
+  description={Assessment of model performance in the development dataset using resampling methods such as bootstrapping or cross-validation}
+}
+
+\newglossaryentry{decision_threshold}{
+  name={Decision threshold},
+  text={decision threshold},
+  first={\textbf{decision threshold}},
+  plural={decision thresholds},
+  firstplural={\textbf{decision thresholds}},
+  description={The risk probability above which a clinical action is recommended}
+}
+
+\newglossaryentry{net_benefit}{
+  name={Net benefit},
+  text={net benefit},
+  first={\textbf{net benefit}},
+  description={A decision-analytic measure that combines true positives and false positives using a chosen decision threshold. Mathematically defined as: $\text{Net Benefit} = \frac{\text{TP}}{N} - \frac{\text{FP}}{N} \times \frac{\text{threshold}}{1 - \text{threshold}}$, where TP is the number of true positives, FP is the number of false positives, and N is the total number of patients}
+}
+
+\newglossaryentry{case_mix}{
+  name={Case mix},
+  text={case mix},
+  first={\textbf{case mix}},
+  description={The distribution of patient characteristics and risk levels within a study population}
+}
+
+\newglossaryentry{heterogeneity}{
+  name={Heterogeneity},
+  text={heterogeneity},
+  first={\textbf{heterogeneity}},
+  description={Variation in model performance across clusters}
+}
+
+\newglossaryentry{random_effects_meta_analysis}{
+  name={Random effects meta-analysis},
+  text={random effects meta-analysis},
+  first={\textbf{random effects meta-analysis}},
+  description={A meta-analytic framework that allows true effects or performance measures to vary across studies}
+}
+
+\newglossaryentry{prediction_interval}{
+  name={Prediction interval},
+  text={prediction interval},
+  first={\textbf{prediction interval}},
+  description={An interval that represents the expected range of true model performance in an hypothetical new cluster}
+}
+
+\newglossaryentry{calibration_intercept}{
+  name={Calibration intercept},
+  text={calibration intercept},
+  first={\textbf{calibration intercept}},
+  description={The parameter that quantifies systematic overestimation or underestimation of predicted risks. A positive calibration intercept indicates systematic underestimation of risk, while a negative calibration intercept indicates systematic overestimation of risk.}
+}
+
+\newglossaryentry{calibration_slope}{
+  name={Calibration slope},
+  text={calibration slope},
+  first={\textbf{calibration slope}},
+  description={The parameter that quantifies whether predicted risks are too extreme or too moderate. It is estimated by regressing the observed outcomes on the predicted log-odds of the outcome. A calibration slope less than 1 indicates that predicted risks are too extreme, while a calibration slope greater than 1 indicates that predicted risks are too moderate.}
+}
+
+\newglossaryentry{mixed_effects_model}{
+  name={Mixed effects model},
+  text={mixed effects model},
+  first={\textbf{mixed effects model}},
+  plural={mixed effects models},
+  firstplural={\textbf{mixed effects models}},
+  description={A regression model that combines fixed effects and random effects to account for clustered data}
+}
+
+\newglossaryentry{shrinkage}{
+  name={Shrinkage},
+  text={shrinkage},
+  first={\textbf{shrinkage}},
+  description={The pull of cluster-specific or model coefficient estimates toward an overall estimate to reduce overfitting}
+}
+
+\newglossaryentry{variable_selection}{
+  name={Variable selection},
+  text={variable selection},
+  first={\textbf{variable selection}},
+  plural={variable selections},
+  firstplural={\textbf{variable selections}},
+  description={The process of choosing a subset of relevant features for use in model construction}
+}
+\newglossaryentry{properness}{
+  name={Properness},
+  text={proper},
+  first={\textbf{proper}},
+  description={A property of a performance measure that is optimized when the true probabilities are used}
+}
+\newglossaryentry{violin_plot}{
+  name={Violin plot},
+  text={violin plot},
+  first={\textbf{violin plot}},
+  plural={violin plots},
+  firstplural={\textbf{violin plots}},
+  description={A graphical method for displaying the distribution of a dataset, combining a box plot with a kernel density plot to show the full distribution of the data}
+}
+\newglossaryentry{logistic_calibration}{
+  name={Logistic calibration},
+  text={logistic calibration},
+  first={\textbf{logistic calibration}},
+  plural={logistic calibrations},
+  firstplural={\textbf{logistic calibrations}},
+  description={A method for assessing calibration by fitting a logistic regression model with the observed outcome as the dependent variable and the predicted log-odds of the outcome as the independent variable}}
+\newglossaryentry{LOESS}{
+  name={LOESS},
+  text={LOESS},
+  first={\textbf{LOESS}},
+  description={Locally Estimated Scatterplot Smoothing, a non-parametric method for fitting a smooth curve to data by fitting simple models to localized subsets of the data}
+}
+
+\newglossaryentry{calibration_plot}{
+  name={Calibration plot},
+  text={calibration plot},
+  first={\textbf{calibration plot}},
+  plural={calibration plots},
+  firstplural={\textbf{calibration plots}},
+  description={A graphical method for assessing calibration by plotting observed outcome frequencies against predicted probabilities. It is flexible if smoothing is applied often using LOESS, binning is applied, or a logistic calibration curve with splines is fitted}
+}
+
+\newglossaryentry{observed_expected_ratio}{
+  name={Observed-to-expected ratio},
+  text={observed-to-expected ratio},
+  first={\textbf{observed-to-expected ratio}},
+  description={A calibration measure comparing the total number of observed events to the total number of expected events from the model. A value of 1 indicates perfect agreement in the mean}
+}
+
+\newglossaryentry{restricted_cubic_splines}{
+  name={Restricted cubic splines},
+  text={restricted cubic splines},
+  first={\textbf{restricted cubic splines}},
+  description={A flexible regression approach that models non-linear relationships by joining piecewise cubic polynomials smoothly at predefined knot locations while constraining the function to be linear in the tails}
+}
+
+\newglossaryentry{decision_curve_analysis}{
+  name={Decision curve analysis},
+  text={decision curve analysis},
+  first={\textbf{decision curve analysis}},
+  description={A method to evaluate clinical usefulness of a prediction model across decision thresholds by plotting net benefit of model-guided decisions versus default strategies}
+}
+
+\newglossaryentry{empirical_bayes_estimates}{
+  name={Empirical Bayes estimates},
+  text={empirical Bayes estimates},
+  first={\textbf{empirical Bayes estimates}},
+  description={Cluster-specific estimates from mixed models that are shrunk toward the overall mean using estimated variance components}
+}
+
+\newglossaryentry{random_intercept}{
+  name={Random intercept},
+  text={random intercept},
+  first={\textbf{random intercept}},
+  plural={random intercepts},
+  firstplural={\textbf{random intercepts}},
+  description={A random effect that allows the baseline outcome level or risk to vary across clusters while keeping predictor effects fixed}
+}
+
+\newglossaryentry{random_slope}{
+  name={Random slope},
+  text={random slope},
+  first={\textbf{random slope}},
+  plural={random slopes},
+  firstplural={\textbf{random slopes}},
+  description={A random effect that allows predictor effects to vary across clusters}
+}

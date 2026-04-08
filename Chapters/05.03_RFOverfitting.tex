@@ -1,4 +1,4 @@
-\chapter[Random forest and overfitting]{Understanding overfitting in random forest for probability estimation: a visualization and simulation study}
+﻿\chapter[Random forest and overfitting]{Understanding overfitting in random forest for probability estimation: a visualization and simulation study}
 % Only include if the thesis is written as a collection of papers
 %_________________________
 \label{sec:chp_RFOverfitting}
@@ -184,7 +184,7 @@ Ranger estimates the probabilities with Malley's probability machine methods
 which averages the proportion of cases from each class over the terminal nodes
 from each of the trees
  \cite{malleyProbabilityMachinesConsistent2012,wrightRangerFastImplementation2017}.
-In \gls{MLR} models, we modeled continuous predictors using restricted cubic splines
+In \gls{MLR} models, we modeled continuous predictors using \gls{restricted_cubic_splines}
 (rcs) with 3 knots to allow nonlinear associations
  \cite{gauthierCubicSplinesModel2020,harrellRegressionModelingStrategies2015}.
 For each model, we calculated the train and test \gls{PDI} and multinomial calibration
@@ -199,7 +199,7 @@ ultrasound examination, were not pregnant, and underwent surgical removal of the
 adnexal mass within 120 days after the ultrasound examination. We randomly split
 the data ($N = 8398$) into training ($n = 5900$, 70\%) and test parts ($n =
 2498$, 30\%), and developed models on the training data using patient age (in
-years) and CA125 (in IU/L) as continuous variables, and five ultrasound based
+years) and \gls{CA125} (in IU/L) as continuous variables, and five ultrasound based
 categorical variables (proportion of solid tissue, number of papillary
 projections, if the mass has more than 10 locules, if the mass has shadows and
 if the mass has ascites). Note that the proportion of solid tissue is a

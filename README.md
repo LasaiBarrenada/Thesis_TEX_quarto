@@ -10,6 +10,7 @@ LaTeX source for a PhD thesis compiled as a collection of published papers. Uses
 ├── thesis.cls                # Custom document class (based on book)
 ├── references.bib            # Bibliography (biblatex + biber)
 ├── acronyms.tex              # Glossary / list of acronyms
+├── terms.tex                 # Glossary terms (non-acronyms)
 │
 ├── Chapters/
 │   ├── 01_acknowledgments.tex

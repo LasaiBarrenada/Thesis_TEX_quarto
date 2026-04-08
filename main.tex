@@ -1,5 +1,5 @@
 % !TEX program = lualatex
-\documentclass[11pt,twoside]{thesis}
+\documentclass[11pt,twoside]{thesisA4}
 \usepackage{rotating}
 \usepackage{csquotes}
 \usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
@@ -15,6 +15,7 @@
 % lualatex -interaction=nonstopmode main.tex
 
 \loadglsentries{acronyms}
+\loadglsentries{terms}
 
 \begin{document}
 
@@ -55,6 +56,12 @@
 \include{chapters/02_1_abstract_dutch}
 
 \tableofcontents
+
+\addcontentsline{toc}{chapter}{Glossary}
+\renewcommand*{\glossarypreamble}{\noindent\textit{Terms shown in bold at first mention are defined in this glossary. Definitions in this glossary are provided in the context of clinical prediction modelling and are tailored to the scope of this thesis.}\par\medskip}
+\printglossary[title={Glossary}]
+\renewcommand*{\glossarypreamble}{}
+\newpage
 
 \addcontentsline{toc}{chapter}{List of Acronyms}
 \glsaddall
