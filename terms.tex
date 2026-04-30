@@ -14,6 +14,31 @@
   description={A statistical model that combines multiple predictors to estimate the probability of a clinical outcome for an individual patient}
 }
 
+\newglossaryentry{predictor}{
+  name={Predictor},
+  text={predictor},
+  first={\textbf{predictor}},
+  plural={predictors},
+  firstplural={\textbf{predictors}},
+  description={A variable used in a prediction model to estimate the probability of an outcome. Also known as a feature, covariate, or independent variable}
+}
+\newglossaryentry{diagnosis}{
+  name={Diagnosis},
+  text={diagnosis},
+  first={\textbf{diagnosis}},
+  plural={diagnoses},
+  firstplural={\textbf{diagnoses}},
+  description={The process of determining the presence or absence of a disease or condition based on clinical information, which may include symptoms, signs, and model results}}
+\newglossaryentry{prognosis}{
+  name={Prognosis},
+  text={prognosis},
+  first={\textbf{prognosis}},
+  plural={prognoses},
+  firstplural={\textbf{prognoses}},
+  description={The process of predicting the future course or outcome of a disease or condition based on clinical information, which may include symptoms, signs, and model results}}
+ 
+
+
 \newglossaryentry{evidence_based_medicine}{
   name={Evidence-based medicine},
   text={evidence-based medicine},
@@ -34,7 +59,7 @@
   name={Calibration},
   text={calibration},
   first={\textbf{calibration}},
-  description={The agreement between predicted probabilities and observed outcome frequencies}
+  description={The agreement between predicted probabilities and observed outcome proportion}
 }
 
 \newglossaryentry{clinical_utility}{
@@ -81,6 +106,42 @@
   description={The risk probability above which a clinical action is recommended}
 }
 
+\newglossaryentry{true_positive}{
+  name={True positive},
+  text={true positive},
+  first={\textbf{true positive}},
+  plural={true positives},
+  firstplural={\textbf{true positives}},
+  description={A patient with the outcome who is correctly identified as positive by a prediction model or decision rule}
+}
+
+\newglossaryentry{false_positive}{
+  name={False positive},
+  text={false positive},
+  first={\textbf{false positive}},
+  plural={false positives},
+  firstplural={\textbf{false positives}},
+  description={A patient without the outcome who is incorrectly identified as positive by a prediction model or decision rule}
+}
+
+\newglossaryentry{true_negative}{
+  name={True negative},
+  text={true negative},
+  first={\textbf{true negative}},
+  plural={true negatives},
+  firstplural={\textbf{true negatives}},
+  description={A patient without the outcome who is correctly identified as negative by a prediction model or decision rule}
+}
+
+\newglossaryentry{false_negative}{
+  name={False negative},
+  text={false negative},
+  first={\textbf{false negative}},
+  plural={false negatives},
+  firstplural={\textbf{false negatives}},
+  description={A patient with the outcome who is incorrectly identified as negative by a prediction model or decision rule}
+}
+
 \newglossaryentry{net_benefit}{
   name={Net benefit},
   text={net benefit},
@@ -99,7 +160,7 @@
   name={Heterogeneity},
   text={heterogeneity},
   first={\textbf{heterogeneity}},
-  description={Variation in model performance across clusters}
+  description={Variation in model performance}
 }
 
 \newglossaryentry{random_effects_meta_analysis}{
@@ -136,14 +197,14 @@
   first={\textbf{mixed effects model}},
   plural={mixed effects models},
   firstplural={\textbf{mixed effects models}},
-  description={A regression model that combines fixed effects and random effects to account for clustered data}
+  description={A regression model that combines fixed effects and random effects to account for clustered data or hierarchical data structures}
 }
 
 \newglossaryentry{shrinkage}{
   name={Shrinkage},
   text={shrinkage},
   first={\textbf{shrinkage}},
-  description={The pull of cluster-specific or model coefficient estimates toward an overall estimate to reduce overfitting}
+  description={The reduction of regression coefficients  towards 0 to improve predictions in patients outside the development sample. In clustered data, shrinkage can also refer to the reduction of cluster-specific estimates towards the overall mean using empirical Bayes estimates from mixed models}
 }
 
 \newglossaryentry{variable_selection}{
@@ -154,6 +215,28 @@
   firstplural={\textbf{variable selections}},
   description={The process of choosing a subset of relevant features for use in model construction}
 }
+
+\newglossaryentry{mcar_mechanism}{
+  name={Missing completely at random},
+  text={missing completely at random},
+  first={\textbf{missing completely at random}},
+  description={A missing-data mechanism where the probability that a value is missing does not depend on observed data or unobserved data. Under MCAR, complete cases are a random subsample of all cases}
+}
+
+\newglossaryentry{mar_mechanism}{
+  name={Missing at random},
+  text={missing at random},
+  first={\textbf{missing at random}},
+  description={A missing-data mechanism where the probability that a value is missing may depend on observed data, but not on the unobserved value itself after conditioning on observed data}
+}
+
+\newglossaryentry{mnar_mechanism}{
+  name={Missing not at random},
+  text={missing not at random},
+  first={\textbf{missing not at random}},
+  description={A missing-data mechanism where the probability that a value is missing depends on the unobserved value itself, even after conditioning on observed data}
+}
+
 \newglossaryentry{properness}{
   name={Properness},
   text={proper},
@@ -174,7 +257,7 @@
   first={\textbf{logistic calibration}},
   plural={logistic calibrations},
   firstplural={\textbf{logistic calibrations}},
-  description={A method for assessing calibration by fitting a logistic regression model with the observed outcome as the dependent variable and the predicted log-odds of the outcome as the independent variable}}
+  description={A method for assessing calibration by fitting a logistic regression model with the observed outcome as the dependent variable and the predicted log-odds of the outcome as the independent variable. The intercept and slope of this model are the calibration intercept and slope, respectively}}
 \newglossaryentry{LOESS}{
   name={LOESS},
   text={LOESS},
@@ -188,14 +271,14 @@
   first={\textbf{calibration plot}},
   plural={calibration plots},
   firstplural={\textbf{calibration plots}},
-  description={A graphical method for assessing calibration by plotting observed outcome frequencies against predicted probabilities. It is flexible if smoothing is applied often using LOESS, binning is applied, or a logistic calibration curve with splines is fitted}
+  description={A graphical method for assessing calibration by plotting observed outcome proportions against predicted probabilities. It is flexible if smoothing is applied often using LOESS, binning is applied, or a logistic calibration curve with splines is fitted}
 }
 
 \newglossaryentry{observed_expected_ratio}{
   name={Observed-to-expected ratio},
   text={observed-to-expected ratio},
   first={\textbf{observed-to-expected ratio}},
-  description={A calibration measure comparing the total number of observed events to the total number of expected events from the model. A value of 1 indicates perfect agreement in the mean}
+  description={A calibration measure comparing the total number of observed events to the total number of expected events from the model. A value of 1 indicates perfect agreement in the mean. Values less than 1 indicate overestimation of risk, while values greater than 1 indicate underestimation of risk}
 }
 
 \newglossaryentry{restricted_cubic_splines}{
@@ -209,7 +292,7 @@
   name={Decision curve analysis},
   text={decision curve analysis},
   first={\textbf{decision curve analysis}},
-  description={A method to evaluate clinical usefulness of a prediction model across decision thresholds by plotting net benefit of model-guided decisions versus default strategies}
+  description={A method to evaluate clinical usefulness of a prediction model across decision thresholds by plotting net benefit of model-guided decisions versus default strategies of treating all or treating none of the patients}
 }
 
 \newglossaryentry{empirical_bayes_estimates}{
@@ -235,4 +318,36 @@
   plural={random slopes},
   firstplural={\textbf{random slopes}},
   description={A random effect that allows predictor effects to vary across clusters}
+}
+\newglossaryentry{hyperparameter_tuning}{
+  name={Hyperparameter tuning},
+  text={hyperparameter tuning},
+  first={\textbf{hyperparameter tuning}},
+  plural={hyperparameter tunings},
+  firstplural={\textbf{hyperparameter tunings}},
+  description={The process of selecting the optimal values for hyperparameters in a machine learning model}
+}
+
+\newglossaryentry{cross_validation}{
+  name={Cross-validation},
+  text={cross-validation},
+  first={\textbf{cross-validation}},
+  plural={cross-validations},
+  firstplural={\textbf{cross-validations}},
+  description={A resampling method for assessing model performance by partitioning the data into complementary subsets, training the model on one subset and validating it on the other subset, and repeating this process multiple times}
+}
+
+\newglossaryentry{bootstrap}{
+  name={Bootstrap},
+  text={bootstrap},
+  first={\textbf{bootstrap}},
+  plural={bootstraps},
+  firstplural={\textbf{bootstraps}},
+  description={A resampling method for assessing model performance by repeatedly sampling with replacement from the original dataset to create multiple bootstrap samples, fitting the model on each sample, and evaluating performance on the out-of-bag observations}
+} 
+\newglossaryentry{apparent_performance}{
+  name={Apparent performance},
+  text={apparent performance},
+  first={\textbf{apparent performance}},
+  description={Model performance assessed in the exact same data used for model development}
 }
