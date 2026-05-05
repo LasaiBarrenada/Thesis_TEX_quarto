@@ -26,7 +26,10 @@
 
 published as:
 \begin{quote}
-\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. Research Synthesis Methods. 2025;1--22. https://doi.org/10.1017/rsm.2025.10046
+\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. \textit{Research Synthesis Methods}. 2025;1--22. https://doi.org/10.1017/rsm.2025.10046
+\end{quote}
+\begin{quote}
+\textbf{Supplementary material and code} available in the online version and at \url{https://osf.io/erju9/}.
 \end{quote}
 \vspace{-0.5em}
 \noindent\scriptsize\textit{Submitted: 12/03/2025 \quad Published: 15/08/2025 \quad (156 days) \quad APC: 1960 \pounds (waived)}
@@ -36,7 +39,7 @@ published as:
 \section*{Summary}
 Evaluation of clinical prediction models often involves multiple clusters, whether centers or dataset. A comprehensive evaluation requires the assestement of model calibration. Although calibration is closely linked to the clinical utility of the model, there are no methodologies that account for clustering when evaluating calibration. We present three methodologies to solve this: (1) Clustered group calibration (\gls{CGC}), (2) two-stage meta-analysis calibration (\gls{TMAC}) and (3) mixed model calibration (\gls{MIXC}). After a simulation and synthetic data study we recommend using \gls{TMAC} with splines to estimate the overall curve and the 95\% \gls{PI} and \gls{MIXC} for the cluster specific curves. We provide ready-to-use code to construct flexible calibration curves in the \textit{CalibrationCurves} package.
 
-
+\newpage
 
 \section{Introduction}
 Clinical prediction models (\glspl{CPM}) are evidence-based tools that estimate the probability of health-related events either at the time of evaluation (diagnosis) or at some point in the future (prognosis) \cite{steyerbergClinicalPredictionModels2009,vansmedenClinicalPredictionModels2021}. These risk estimates play a crucial role in evidence-based decision-making and can be of great value when counselling patients. However, to ensure the reliability of risk estimates, \glspl{CPM} must exhibit good calibration \cite{vancalsterCalibrationHierarchyRisk2016}. Calibration assesses how well the predicted risks correspond to observed risks \cite{vancalsterCalibrationHierarchyRisk2016}. In recent years, there has been a notable increase in studies involving multiple clusters. The term "cluster" can refer to different groupings within the population under study, depending on the context. For example, in multicenter studies, a cluster commonly refers to different centers, whereas in meta-analysis, a cluster may pertain to each study or centers within the study where possible (e.g. individual patient data (\gls{IPD}) meta-analysis \cite{rileyIndividualParticipantData2021a}). In this work, the term "cluster" will specifically denote a center in a multicenter study, but the methods proposed apply more generally as well. An analysis of \glspl{CPM} included in Tufts PACE (Predictive Analytics + Comparative Effectiveness), developed after the year 2000, revealed that 64\% of the models utilized multicenter (clustered) data, indicating a growing trend in such studies \cite{wynantsUntappedPotentialMulticenter2019,wesslerTuftsPACEClinical2017}. \gls{TRIPOD} (Transparent Reporting of a Multivariable Prediction Model for Individual Prognosis or Diagnosis) has addressed this development by publishing an extension known as \gls{TRIPOD}-Cluster \cite{debrayTransparentReportingMultivariable2023}. This extension underscores the importance of taking clustering into account when developing or evaluating prediction models.
