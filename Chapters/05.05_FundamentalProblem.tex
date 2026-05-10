@@ -1,4 +1,4 @@
-﻿\chapter[Fundamental problem of risk prediction]{The fundamental problem of risk prediction for individuals: health AI, uncertainty, and personalized medicine}
+﻿﻿\chapter[Fundamental problem of risk prediction]{The fundamental problem of risk prediction for individuals: health AI, uncertainty, and personalized medicine}
 % Only include if the thesis is written as a collection of papers
 %_________________________
 \label{sec:chp_FundamentalProblem}
@@ -30,7 +30,7 @@ Clinical prediction models for a health condition are commonly evaluated regardi
 
 \section{Introduction}
 
-Clinical risk prediction models, which are increasingly based on artificial intelligence (AI), estimate the probability of a medical event occurring in a patient, conditional on a set of predictors \cite{steyerbergClinicalPredictionModels2019a}. Examples include models to estimate the 10-year risk of coronary heart disease \cite{hippisley-coxDevelopmentValidationQRISK32017}, early mortality in cardiac surgical patients \cite{nashefEuroSCOREII2012}, the risk of ovarian cancer \cite{vancalsterEvaluatingRiskOvarian2014}, the 10-year mortality risk of breast cancer patients \cite{candidodosreisUpdatedPREDICTBreast2017}, or the risk of deterioration in hospitalized patients with COVID \cite{guptaDevelopmentValidationISARIC2021}.
+Clinical risk prediction models, which are increasingly based on artificial intelligence (AI), estimate the probability of a medical event occurring in a patient, conditional on a set of predictors \cite{steyerberg2019clinical}. Examples include models to estimate the 10-year risk of coronary heart disease \cite{hippisley-coxDevelopmentValidationQRISK32017}, early mortality in cardiac surgical patients \cite{nashefEuroSCOREII2012}, the risk of ovarian cancer \cite{vancalsterEvaluatingRiskOvarian2014}, the 10-year mortality risk of breast cancer patients \cite{candidodosreisUpdatedPREDICTBreast2017}, or the risk of deterioration in hospitalized patients with COVID \cite{guptaDevelopmentValidationISARIC2021}.
 
 The performance of prediction models is usually assessed at the population level. To make informed decisions for an individual patient, however, the focus is on the risk estimates for that individual. The trustworthiness of individual risk estimates is commonly ignored in practice, and rarely evaluated or quantified \cite{altmanWhatWeMean2000}. We aim to present a structured framework of the key sources of uncertainty in risk estimation for individuals, and to expose the magnitude of uncertainty arising from sources that are typically hidden in practice. We illustrate this with a case study on estimating the risk of cancer in patients presenting with an ovarian tumor.
 
@@ -38,146 +38,35 @@ The performance of prediction models is usually assessed at the population level
 
 Uncertainty and the concept of `individual risk' have been studied for centuries \cite{sternAccuracyPreoperativeRisk2025,altmanWhatWeMean2000,hackingEmergenceProbabilityPhilosophical2006,finettiTheoryProbabilityCritical1979,vennLogicChance1876,vonmisesProbabilityStatisticsTruth1957,laplacePhilosophicalEssayProbabilities1902,lemeshowOutcomePredictionIndividual1995,hendersonIndividualSurvivalTime2005,steyerbergEquallyValidModels2005}. An individuals' risk of an event as estimated by a prediction model refers to the probability of that event in the subgroup of individuals with the same predictor values. Truly individual risks do not exist because of the `reference class problem': an individual can belong to an infinite number of subgroups. By choosing a different set of predictors to condition on, the reference class changes, and so does the risk. Yet, despite the philosophical challenges in defining a true individual risk, risk estimates are routinely used in practice, making it crucial to understand the different types of uncertainty they carry. For predictive modeling, a basic decomposition of uncertainty is into aleatoric and epistemic uncertainty (Table~\ref{tab:5:1} and Figure~\ref{fig:5:1}) \cite{hullermeierAleatoricEpistemicUncertainty2021,sengeReliableClassificationLearning2014}. Aleatoric uncertainty refers to the inherent random nature of the event we want to predict. Two patients who have the same values for the predictors in the best possible model may still have a different outcome. This does not invalidate the prediction. In contrast, epistemic uncertainty refers to lack of knowledge about the best possible model. We break down epistemic uncertainty for predictive modeling into three key categories: estimation, model, and applicability uncertainty (Table~\ref{tab:5:1}).
 
-{\small
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4698}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3484}}@{}}
+
+\begin{table}
+\centering
+\small
 \caption[Overview of epistemic uncertainty]{Overview of the categories of epistemic uncertainty.}
-\footnotesize
-\label{tab:5:1}\\
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Description}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Examples}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Actions}
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\textbf{ESTIMATION UNCERTAINTY} & & \\
-Instability of the fitted model due to having finite training sample size. & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  If we collect two datasets from the same population with the same sample size and sampling procedures, and train the same model on both datasets, the estimated model parameters will be different.
-\end{itemize}
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Increase sample size.
-\item
-  Quantify instability, e.g. with 95\% confidence intervals, or `effective sample size'  \cite{thomassenEffectiveSampleSize2024} associated with a prediction.
-\end{itemize}
-\end{minipage} \\
-& & \\
-\textbf{MODEL UNCERTAINTY} & & \\
-Uncertainty due to lack of knowledge about the optimal model specification. & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Choosing the model class (e.g. regression, random forest, convolutional neural network).
-\item
-  Specifying features, feature transformations, and feature selection strategy.
-\end{itemize}
+\label{tab:5:1}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+  \toprule
+  \textbf{Description} & \textbf{Examples} & \textbf{Actions} \\
+\midrule
+	\textbf{ESTIMATION UNCERTAINTY} & Instability of the fitted model due to finite training sample size. If we collect two datasets from the same population with the same sample size and sampling procedures, and train the same model on both datasets, the estimated model parameters will differ. & Increase sample size; quantify instability (e.g. 95\% confidence intervals or effective sample size) \cite{thomassenEffectiveSampleSize2024}. \\
+\addlinespace
+	\textbf{MODEL UNCERTAINTY} & Uncertainty due to lack of knowledge about the optimal model specification (model class, feature specification, transformations, selection, hyperparameter tuning). & Improve education about good modeling practice; conduct literature searches and exploratory studies; run pilot comparisons of model classes. \\
+\addlinespace
+	\textbf{APPLICABILITY UNCERTAINTY (DATA)} & Variability in data collection procedures: differing variable definitions, measurement methods, assay kits, inter-rater variability, and missing-data mechanisms \cite{luijkenImpactPredictorMeasurement2019,agnielBiasesElectronicHealth2018}. & Standardize definitions and measurement procedures; empirically compare measurement methods; invest in data cleaning, linkage, and harmonization. \\
+\addlinespace
+	\textbf{APPLICABILITY UNCERTAINTY (POPULATIONS)} & Variability between populations in case-mix, prevalence, treatment pathways, and associations between predictors and outcome; population drift over time \cite{davisCalibrationDriftRegression2017}. & Conduct multicenter studies; quantify heterogeneity (leave-center-out CV, meta-analysis with prediction intervals); consider local validation and updating \cite{swaminathanReflexiveRecalibrationCausal2025}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\begin{itemize}
-\item
-  Selecting which hyperparameters to tune and the tuning strategy.
-\end{itemize}
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Improve education about good modeling practice.
-\item
-  Conduct literature searches or exploratory studies to identify features.
-\item
-  Conduct pilot studies to compare model classes.
-\end{itemize}
-\end{minipage} \\
-& & \\
-\textbf{APPLICABILITY UNCERTAINTY REGARDING DATA} & & \\
-Uncertainty due to variability in data collection procedures. & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Variables may be defined in different ways. This applies to predictor and outcome measurements (e.g. central-line associated bloodstream infections \cite{gaoSystematicReviewFinds2023} and delirium).
-\item
-  Measurement procedures vary. Biomarkers can be measured with different assay kits using various body fluids (e.g., serum or urine). Patient characteristics or behaviors can be self-reported or measured objectively. Medical images can be taken using different types of machines with different acquisition settings. Moreover, inter-rater variability occurs when manually labeling medical images \cite{luijkenImpactPredictorMeasurement2019}.
-\item
-  The fraction, cause and handling of missing data may vary. In electronic health records data, the decision to acquire a certain measurement varies between hospital or even physician \cite{agnielBiasesElectronicHealth2018}. In prospective observational studies, there is variability regarding the effort to have complete measurements, local clinical protocols, and the financial cost of measurements. Missing values can be ignored (`complete case' analysis) or addressed using various statistical approaches (such as `imputation').
-\end{itemize}
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Standardize definitions and measurement procedures.
-\item
-  Conduct studies to empirically identify the best measurement procedure.
-\item
-  Secure resources to ensure proper data collection.
-\item
-  Avoid retrospective studies.
-\item
-  For prospective studies, invest in real-time monitoring of data collection.
-\item
-  If retrospective studies are unavoidable, invest in proper data extraction.
-\item
-  Invest in cleaning, linkage, and harmonization in line with the specific research question and intended application.
-\end{itemize}
-\end{minipage} \\
-\textbf{APPLICABILITY UNCERTAINTY REGARDING POPULATIONS} & & \\
-Uncertainty due to variability between population characteristics in different locations. & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Populations may vary in case-mix (distribution of predictors and variables not included as predictors), prevalence or incidence of the outcome event of interest, treatment pathways for prognostic outcomes, and/or in the associations between predictors and the outcome.
-\item
-  Within a specific setting, there is population uncertainty due to phenomena such as population drift: populations tend to evolve over time, owing to evolutions in care or referral patterns \cite{davisCalibrationDriftRegression2017}.
-\end{itemize}
-
-When a model is developed, the specific inclusion and exclusion criteria may further increase population uncertainty.
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-\begin{itemize}
-\item
-  Conduct multicenter studies to develop and validate models.
-\item
-  Quantify heterogeneity using methods such as leave-center-out cross-validation and meta-analysis of center-specific performance with prediction intervals.
-\item
-  Consider local model validation and updating.
-\item
-  Investigate causes of heterogeneity to allow targeted model improvements \cite{swaminathanReflexiveRecalibrationCausal2025}.
-\end{itemize}
-\end{minipage} \\
-\end{longtable}
-}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{figures/FundamentalProblem/F1.png}
-\caption[Framework of uncertainty in risk prediction]{A framework of uncertainty when predicting risk for individuals.}
-\label{fig:5:1}
+\includegraphics[width=0.9\textwidth]{figures/FundamentalProblem/F1.png}
+\caption[A framework of uncertainty when predicting risk for the individuals]{A framework of uncertainty when predicting risk for the individuals.}
 \end{figure}
 
-Estimation uncertainty (sometimes referred to as approximation uncertainty) refers to variability in the parameter estimates of a fitted model \cite{rileyStabilityClinicalPrediction2023,rileyClinicalPredictionModels2023}. Given a specified modeling approach, using different training samples of the same size and from the same population leads to different parameter estimates. This variability decreases with increasing sample size. The estimation uncertainty of risk estimates can be quantified using classic statistical confidence intervals, for example.
 
-Model uncertainty refers to uncertainty about model specification \cite{hullermeierAleatoricEpistemicUncertainty2021,gruberSourcesUncertaintyMachine2023,chatfieldModelUncertaintyData1995}. Specifying a model involves a substantial number of critical choices. This includes selecting the model class, the candidate predictors, and the methods for model configuration (e.g., hyperparameter tuning). Applicability uncertainty relates to the use of the model in a specific setting and context. We distinguish between two dimensions of applicability uncertainty \cite{gruberSourcesUncertaintyMachine2023}. Data uncertainty relates to variability in the measurement of predictors and the outcome. Predictors and outcomes can have different definitions, measurement procedures, types of measurement error, and missing data patterns. Population uncertainty refers to the general phenomenon of data drift: differences in populations and clinical practices between hospitals, countries, or time periods \cite{sahinerDataDriftMedical2023}.
-
-Within epistemic uncertainty, the researcher is a transversal source of uncertainty. Researchers exhibit variability in their levels of subject knowledge regarding the data, modeling expertise, and established best practices in predictive analytics. Systematic reviews reveal high frequencies of practices that are generally discouraged \cite{christodoulouSystematicReviewShows2019,andaurnavarroSystematicReviewIdentifies2023,dhimanMethodologicalConductPrognostic2022,wynantsPredictionModelsDiagnosis2020}. Examples include unnecessary dichotomization of predictors, unjustified discarding of incomplete cases, insufficient protection against overfit, using default values for hyperparameters, or ignoring competing events when predicting time-to-event outcomes. Additionally, researchers often have differing opinions and preferences regarding data collection and modeling approaches, such as the choice between regression, boosting, or deep learning algorithms. This variability in researcher\textquotesingle s knowledge, practices, and methodological choices constitutes a significant and transversal source of uncertainty \cite{rileyStabilityClinicalPrediction2023,rileyClinicalPredictionModels2023,ledgerMulticlassRiskModels2023,pateUncertaintyUsingRisk2019,liConsistencyVarietyMachine2020,rileyUncertaintyRiskEstimates2025}.
-
-\section{Illustrative case study: Estimating the risk of malignant ovarian cancer}
-
-Suppose we want to develop a model to estimate the risk that a suspicious ovarian tumor is malignant, to guide the decision to refer for specialized surgery by a gynecological oncologist. We use a dataset including 1122 patients from the University Hospitals Leuven (Belgium) who had surgery between 1999 and 2015 \cite{vancalsterEvaluatingRiskOvarian2014,vancalsterValidationModelsDiagnose2020}. One fixed test set of 100 patients was set aside to quantify variability in the risk estimates. Using the remaining 1022 patients, a synthetic training dataset of 100,000 patients is generated (see Figures S1 and S2 and Appendix 2 in Online Methods for details).
-
-Our preferred modeling approach is logistic regression using the following six predictors: patient age in years, maximal diameter of the lesion in mm, proportion solid tissue (values between 0 and 1), \gls{CA125} (IU/L), bilaterality (whether or not there were tumors on both ovaries), and presence of papillary projections with blood flow. The ultrasound examination was performed according to the standardized terms and definitions of the International Ovarian Tumor Analysis (IOTA) consortium \cite{timmermanTermsDefinitionsMeasurements2000}. The four continuous predictors are modeled using \gls{restricted_cubic_splines} with three knots. The minimum required sample size for such a model (10 parameters, 37\% prevalence of malignancy, and an assumed \gls{AUROC} of 0.88 based on the literature) is 359 \cite{rileyMinimumSampleSize2021,carolinevanholsbekeExternalValidationMathematical2007}. \gls{CA125} had 31\% missing values, which are related to the ultrasound appearance. Reasonably assuming `missingness at random' (MAR) we used regression imputation based on the other five predictors \cite{siskImputationMissingIndicators2023}.
-
-We applied the following steps to train the model: (1) we randomly drew a training sample of 400 patients with replacement, (2) imputed \gls{CA125} in the training sample, (3) trained the model, (4) applied the imputation model to the test set, and (5) applied the prediction model to the test set.
-
-\subsection{Variations on the modeling strategy}
-
-To evaluate the impact of all uncertainty categories, we considered simple variations on the preferred modeling approach (Supplementary Table S1). Regarding model uncertainty, we used 33 variations based on different approaches for handling continuous variables options, variable selection, penalization, and by replacing logistic regression with random forests or xgboost with various options for the depth of the trees. Regarding data uncertainty, we used 6 variations based on different approaches for defining tumor size and proportion solid tissue and for handling missing data. Regarding population uncertainty, we used 3 variations based on the hospital from which training data were recruited (Leuven, Rome, Malm\"o) (See Supplementary Table S2 for center-specific detailed information). Taken together, we have 594 variations or model training scenarios. Regarding estimation uncertainty, we repeated each of the 594 scenarios using 100 randomly drawn training samples, resulting in 59,400 trained models; then we repeated everything for training sample sizes of 2,000 and 10,000. The test set is always the same set of 100 real patients from Leuven. Hence, for each sample size, we obtain 59,400 probability estimates for each test set patient.
-
-For comparison we repeated the exercise with training sample size 400 using real data (1022 patients from Leuven, 1131 from Rome, 1048 from Malmö).
-
-\subsection{Model performance on the test set}
 
 We evaluated population-level performance using the \gls{AUROC} for discrimination, \gls{ECI} for calibration (\gls{ECI}=0 means perfect calibration), and relative utility (\gls{RU}) for clinical utility (\gls{RU}$\leq$0 means no utility) \cite{vanhoordeAssessingCalibrationMultinomial2014,bakerUsingRelativeUtility2009}. To evaluate individual-level variability, we calculated for each patient the 95\% range and \gls{DU} of 59,400 estimated risks per sample size. The 95\% range is the estimated risk at the 97.5th percentile minus the estimated risk at the 2.5th percentile. \gls{DU} is lowest of the proportions of models that yield an estimated risk \textless0.1 vs $\geq$0.1. This is a common threshold in this setting \cite{timmermanESGOISUOGIOTA2021}. If all models yield a risk on the same side of the threshold, there is no \gls{DU} (\gls{DU}=0). If half of the models yield a risk above the threshold, and half below, there is maximal uncertainty (\gls{DU}=0.5). See Appendix 1 in online methods for details.
 
@@ -187,59 +76,38 @@ We evaluated population-level performance using the \gls{AUROC} for discriminati
 
 Consider the estimated risk of ovarian cancer for 100 new patients (i.e. patients whose data was not used in model building) according to 100 identical models, each fitted on a different random sample from one population. For some patients, the risk estimates (on a scale from 0 to 1) varied considerably, particularly at small training sample sizes (Figure~\ref{fig:5:2}, left). The mean 95\% range of estimated risks for a new patient decreased from 0.22 for training sets with N=400 to 0.04 for training sets with N=10,000 (Table~\ref{tab:5:2}). When a risk estimate of 0.1 or higher was used as the threshold to recommend surgery for a single new patient, on average 6\% of models trained on a dataset of 400 patients would suggest a different decision than the majority of models. Increasing the training set to 10,000 patients reduced this decision uncertainty to 1\%. We observed that estimation uncertainty is higher and decreases more slowly with increasing training sample size for tree-based models compared to logistic regression (Table~\ref{tab:5:2} and Table S3, Supplementary Figure S3). In contrast to the indicators of uncertainty at the individual level, the population level discrimination and calibration remained rather stable across training sample sizes. The positive population level \gls{RU} indicates the model is useful to support clinical decision-making at all sample sizes.
 
-{\small
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1175}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0535}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0891}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0968}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1165}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1228}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1295}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1039}}
-  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1705}}@{}}
+\begin{table}
+\centering
 \footnotesize
 \caption[Population level performance and individual risk uncertainty]{Population level performance and individual risk uncertainty for the 100 test set patients.}
-\label{tab:5:2}\\
-\toprule\noalign{}
-\multicolumn{2}{@{}>{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1710} + 2\tabcolsep}}{%
-\begin{minipage}[b]{\linewidth}\centering
-\end{minipage}} & \begin{minipage}[b]{\linewidth}\centering
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\end{minipage} & \multicolumn{3}{>{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.3687} + 4\tabcolsep}}{%
-\begin{minipage}[b]{\linewidth}\centering
-Population level performance
-\end{minipage}} & \multicolumn{2}{>{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.2744} + 2\tabcolsep}@{}}{%
-\begin{minipage}[b]{\linewidth}\centering
-Individual level uncertainty
-\end{minipage}} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Source of uncertainty & Training data & \# models & \gls{AUROC},
+\label{tab:5:2}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l l c c c c c}
+\toprule
+ &  & \multicolumn{3}{c}{\textbf{Population level performance}} & \multicolumn{2}{c}{\textbf{Individual level uncertainty}} \\
+ \midrule
 
-mean (range) & \gls{ECI},
-
-mean (range) & RU,
-
-median\textsuperscript{a} (range) & 95\% range,
-
-mean (range) & \gls{DU},
-
-mean (range) & \\
-\multirow{3}{=}{Estimation uncertainty} & N=400 & 100 & .92 (.89; .93) & .11 (.02; .21) & .05 (-.61; .49) & .22 (.01; .65) & .06 (0; .49) & \\
-& N= 2000 & 100 & .92 (.91; .93) & .11 (.06; .14) & .20 (-.02; .49) & .10 (.01; .36) & .02 (0; .33) & \\
-& N=10000 & 100 & .93 (.92; .93) & .11 (.10; .13) & .18 (.02; .37) & .04 (.00; .14) & .01 (0; .31) & \\
-\multirow{3}{=}{All sources of uncertainty} & & N=400 & 59400 & .92 (.79; .98) & .11 (\textless.01; .93) & .16 (-2.2; .82) & .46 (.07; .91) & .12 (0; .50) \\
-& & N=2000 & 59400 & .93 (.84; .98) & .10 (\textless.01; .68) & .18 (-2.0; .82) & .41 (.06; .95) & .11 (0; .50) \\
-& & N=10000 & 59400 & .93 (.83; .98) & .09 (\textless.01; .55) & .18 (-1.5; .84) & .39 (.06; .98) & .11 (0; .50) \\
-\end{longtable}
+\multirow[c]{2}{*}{\textbf{Source}} & \multirow[c]{2}{*}{\textbf{Training data}} & \textbf{AUROC} & \textbf{ECI} & \textbf{RU} & \textbf{95\% range} & \textbf{DU} \\
+&  & \textit{mean (range)} & \textit{mean (range)} & \textit{median$^a$ (range)} & \textit{mean (range)} & \textit{mean (range)} \\
+\midrule
+\multirow[c]{3}{*}{Estimation} & 400 & .92~(.89;~.93) & .11~(.02;~.21) & .05~(-.61;~.49) & .22~(.01;~.65) & .06~(0;~.49) \\
+& 2000 & .92~(.91;~.93) & .11~(.06;~.14) & .20~(-.02;~.49) & .10~(.01;~.36) & .02~(0;~.33) \\
+& 10000 & .93~(.92;~.93) & .11~(.10;~.13) & .18~(.02;~.37) & .04~(.00;~.14) & .01~(0;~.31) \\
+\addlinespace
+\multirow[c]{3}{*}{All sources} & 400 & .92~(.79;~.98) & .11~($<$.01;~.93) & .16~(-2.2;~.82) & .46~(.07;~.91) & .12~(0;~.50) \\
+& 2000 & .93~(.84;~.98) & .10~($<$.01;~.68) & .18~(-2.0;~.82) & .41~(.06;~.95) & .11~(0;~.50) \\
+& 10000 & .93~(.83;~.98) & .09~($<$.01;~.55) & .18~(-1.5;~.84) & .39~(.06;~.98) & .11~(0;~.50) \\
+\bottomrule
+\end{tabular}
 }
-
-\gls{AUROC}: Area under the receiver operating characteristic curve; \gls{AUROC} 0.5 indicates that the model cannot discriminate between patients with and without ovarian cancer, \gls{AUROC} 1 indicates perfect discrimination. \gls{ECI}: Estimated calibration index; \gls{ECI} is scaled between 0 and 1 with 0 indicating that estimated risks correctly estimate risk at the population level. RU: Relative utility; RU can take values between $-\infty$ and 1 where positive values indicate the model has clinical utility to support decision making and values $\leq$ 0 indicate that the model has no clinical utility. 95\% range: range of the middle 95\% of risk estimates across all models for one individual; 0 indicates no uncertainty, 1 indicates maximal uncertainty. \gls{DU}: Decision uncertainty for an individual when using the model at a threshold of 0.1 on the risk of malignancy to suggest a management decision. \gls{DU} ranges between 0 and 0.5, with 0 indicating that all models suggest the same decision, and 0.5 that half of the models suggest to operate and the other half suggest conservative management.
+\begin{minipage}{\textwidth}
+\vspace{0.5em}
+\scriptsize
+AUROC: Area under the receiver operating characteristic curve; AUROC 0.5 indicates that the model cannot discriminate between patients with and without ovarian cancer, AUROC 1 indicates perfect discrimination. ECI: Estimated calibration index; ECI is scaled between 0 and 1 with 0 indicating that estimated risks correctly estimate risk at the population level. RU: Relative utility; RU can take on values between $-\infty$ and 1 where positive values indicate the model has clinical utility to support decision making and values $\leq$ 0 indicate that the model has no clinical utility. 95\% range: range of the middle 95\% of risk estimates across all models for one individual; 0 indicates no uncertainty, 1 indicates maximal uncertainty. DU: Decision uncertainty for an individual when using the model at a threshold of 0.1 on the risk of malignancy to suggest a management decision. DU ranges between 0 and 0.5, with 0 indicating that all models suggest the same decision, and 0.5 that half of the models suggest to operate and the other half suggest conservative management.
 
 \textsuperscript{a} We used median because negative values for RU can be very low and distort the results.
+\end{minipage}
+\end{table}
 
 \begin{figure}
 \centering
@@ -279,6 +147,3 @@ In conclusion, a fundamental problem in risk prediction is that individual risk 
 \subsection*{Competing interests} Authors declare that they have no competing interests.
 
 \subsection*{Data and materials availability} Synthetic and real data are not publicly available, but we provide the individual risk estimations of all the different models and explanatory code to reproduce all the results in this work in the OSF repository (https://osf.io/uxvhq/)
-
-
-

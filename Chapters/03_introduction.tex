@@ -1,4 +1,4 @@
-﻿\chapter{Introduction}
+﻿﻿﻿﻿\chapter{Introduction}
 \label{sec:general_introduction}
 \glsunset{MCAR}
 \glsunset{MAR}
@@ -311,7 +311,7 @@ Beyond the pooled estimate, understanding and quantifying \gls{heterogeneity} is
 \centering
 \caption[Heterogeneity measures in random effects meta-analysis]{Summary of heterogeneity measures in random effects meta-analysis of prediction model performance.}
 \label{tab:intro:heterogeneity}
-\begin{tabularx}{\textwidth}{p{2.5cm} X X}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
 \toprule
 Measure & Definition & Interpretation \\
 \midrule
@@ -410,7 +410,7 @@ The latest recomendation is the two-step strategy, where the Benign Descriptors 
 \setlength{\tabcolsep}{4pt}
 \caption[Diagnostic models and tests for adnexal masses]{Non exhaustive overview of diagnostic models and tests for preoperative diagnosis of adnexal masses. In bold ADNEX model predictors; US = ultrasound.}
 \label{tab:intro:models}
-\begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}p{2cm} c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X @{}}
+\begin{tabularx}{\textwidth}{@{} l c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X @{}}
 \toprule
 \textbf{Model/Test} & \textbf{Year} & \textbf{Predictors (n)} & \textbf{Notes} \\
 \midrule
@@ -456,13 +456,19 @@ In recent years, there has been a surge of interest in applying machine learning
 
 \section{Open science}
 
-All studies in this thesis and the thesis itself adhere to open science principles.  The open science practices followed in this thesis are in line with the FAIR principles (Findable, Accessible, Interoperable, Reusable) \cite{wilkinsonFAIRGuidingPrinciples2016} and the TOP guidelines (Transparency and Openness Promotion) \cite{nosekPromotingOpenResearch2015}. All studies are published under open access licenses and deposited in public repositories. Data and code to reproduce results and figures are made publicly available as much as possible through \gls{OSF} (https://osf.io/pgkjv/) or GitHub (https://github.com/LasaiBarrenada) repositories. 
+All studies in this thesis and the thesis itself adhere to open science principles.  The open science practices followed in this thesis are in line with the FAIR principles (Findable, Accessible, Interoperable, Reusable) \cite{wilkinsonFAIRGuidingPrinciples2016} and the TOP guidelines (Transparency and Openness Promotion) \cite{nosekPromotingOpenResearch2015}. All studies are published under open access licenses and deposited in public repositories. Data and code to reproduce results and figures are made publicly available as much as possible through \gls{OSF} (https://osf.io/pgkjv/) or GitHub (https://github.com/LasaiBarrenada) repositories. The computational code utilized in the preparation of the introduction, as well as the complete LaTeX typesetting source for this manuscript, are hosted in a public GitHub repository and can be accessed at https://github.com/LasaiBarrenada/Thesis_TEX_quarto.
 
 I present the number of days from submission to publication and the article processing charges for each study included in the thesis to provide transparency about the publication process and to raise awareness about the unreasonable costs of open access publishing \cite{zhangShouldOpenAccess2022}. The open science practices followed in this thesis are not only a reflection of my commitment to transparency and reproducibility but also a response to the broader movement towards open science in the research community. By making studies, data and code publicly available, I aim to facilitate the verification of results, enable other researchers to build upon this work, and contribute to a more collaborative and inclusive scientific ecosystem. 
 
 I also advocate for more equitable and sustainable models of open access publishing that do not place an undue financial burden on researchers, especially those from low- and middle-income countries or early-career researchers \cite{kwonOpenaccessPublishingFees2022, smithAssessingEffectArticle2021}. Open science should be a right, not a privilege, and the current landscape of open access publishing needs to be reformed to ensure that it is truly inclusive and accessible and not a for-profit endeavour. 
 
 % Restore default glossary commands for the next chapters.
+\section{Conclusion}
+
+This introduction positioned clinical prediction models as tools to support evidence-informed decision-making by translating heterogeneous patient information into probabilistic risk estimates. It also highlighted why rigorous evaluation is essential before such probabilities are acted upon: strong discrimination alone is insufficient when decisions depend on absolute risk, calibration can vary across centres, and the practical value of a model depends on clinical utility at relevant decision thresholds.
+
+Against this background, ovarian mass presurgical diagnosis provides a clinically important and methodologically rich case study. The remainder of this thesis therefore combines applied evidence on the performance and utility of \gls{ADNEX} with methodological work on probability estimation, calibration in clustered data, and the interpretation of uncertainty in individual risk predictions. Together, these chapters aim to strengthen the evidence base and the methods needed for safe and transparent use of prediction models in clinical practice.
+
 \let\gls\introOriggls
 \let\Gls\introOrigGls
 \let\glspl\introOrigglspl

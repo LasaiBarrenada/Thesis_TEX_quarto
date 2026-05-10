@@ -106,8 +106,7 @@ Since there is no commonly accepted way to estimate calibration curves for predi
 \small
 \caption[Overview introduced methods]{Overview of introduced methodologies for creating flexible calibration curves accounting for clustering. Implementation in the code included in the OSF. For the implementation in \textit{CalibrationCurves} package go to the package documentation.}
 \label{tab:4:1}
-\begin{tabular}{p{1.2cm}p{4cm}p{3.2cm}p{4.2cm}p{3cm}p{2.2cm}}
-\toprule
+\begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
 \textbf{Method} & \textbf{Estimation of observed proportion} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Implementation} & \textbf{Illustration} \\
 \midrule
 CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by quantile per cluster \newline \textbf{Interval:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by estimated risk interval & Model agnostic \newline Pointwise CI and PI \newline All clusters have the same number of groups & Computation time \newline Groups can contain observations with very different estimated risks within and between clusters (grouped version) \newline Clusters may not have the same number of groups (e.g., risk intervals without observations) (interval version) \newline Curves depend on the number of groups & CGC(method = ``grouped'') \newline CGC(method = ``interval'') & Supplementary Figures S2--S3 \newline Supplementary Figures S4--S5 \\
@@ -116,7 +115,7 @@ CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transfo
 \addlinespace
 MIX-C & Logistic generalized linear mixed model with \gls{restricted_cubic_splines} & Curve-wise CI and PI \newline Also provides shrunken curves per center & Computation time & MIXC(model = ``slope'') & Supplementary Figure S8 (slope) \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{sidewaystable}
 
 \subsection{Clustered group calibration (CG-C)}
@@ -362,4 +361,3 @@ This research was supported by the Research Foundation -- Flanders (FWO) under g
 
 \subsection*{Conflicts of interest}
 The authors declare that there is no conflict of interest.
-

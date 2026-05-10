@@ -1,13 +1,15 @@
 
 # PhD Thesis — Lasai Barreñada
 
-LaTeX source for a PhD thesis compiled as a collection of published papers. Uses a custom document class (`thesis.cls`) and requires **LuaLaTeX**.
+LaTeX source for a PhD thesis compiled as a collection of published papers. Uses a small wrapper class (`thesislayout.cls`) to switch between `thesis.cls` and `thesisA4.cls`, and requires **LuaLaTeX**.
 
 ## Project Structure
 
 ```
 ├── main.tex                  # Main document (includes all chapters)
+├── thesislayout.cls          # Wrapper class that selects thesis.cls or thesisA4.cls
 ├── thesis.cls                # Custom document class (based on book)
+├── thesisA4.cls              # A4 variant of the custom document class
 ├── references.bib            # Bibliography (biblatex + biber)
 ├── acronyms.tex              # Glossary / list of acronyms
 ├── terms.tex                 # Glossary terms (non-acronyms)
