@@ -29,6 +29,32 @@
 \RequirePackage{pdfpages}
 \RequirePackage{bm}
 \RequirePackage{listings}
+% Define a listings style for R code with readable colors and formatting
+\lstdefinelanguage{R}{%
+  morekeywords={function,if,else,for,while,repeat,break,next,return,TRUE,FALSE,NULL,NA},%
+  morekeywords=[2]{library,require,package,install.packages,data.frame,rnorm,rbinom,plogis,nb_varsel,all_subset_plot,VIF_plot},%
+  morekeywords=[3]{c,df,result,harms,n,outcome_var,costs,mode,folds,permutations,allow_parallel},%
+  alsoletter={._$},%
+  morecomment=[l]{#}
+}
+\lstdefinestyle{Rstyle}{
+  language=R,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{dibs_main}\bfseries,
+  keywordstyle=[2]\color{blue!70!black}\bfseries,
+  keywordstyle=[3]\color{teal!60!black},
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red!60!black},
+  showstringspaces=false,
+  breaklines=true,
+  columns=flexible,
+  keepspaces=true,
+  tabsize=2,
+  xleftmargin=2pt,
+  xrightmargin=2pt
+}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
 \RequirePackage{makecell}
 \RequirePackage{rotating}
 \RequirePackage{xr-hyper}
@@ -63,6 +89,26 @@
 
 % Make quote environment use smaller font
 \AtBeginEnvironment{quote}{\small}
+
+% Code box for examples (Box 1 style)
+\newtcblisting{codebox}[1][]{
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=black,
+  left=4pt,
+  right=4pt,
+  top=6pt,
+  bottom=6pt,
+  boxrule=0.8pt,
+  arc=0pt,
+  auto outer arc,
+  fonttitle=\bfseries,
+  title=#1,
+  listing engine=listings,
+  listing only,
+  listing options={style=Rstyle}
+}
 
 % Colors
 \definecolor{strong}{HTML}{C6EFCE}

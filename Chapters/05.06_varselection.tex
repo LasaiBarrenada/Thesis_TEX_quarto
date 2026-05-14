@@ -1,15 +1,17 @@
 \chapter[Cost-based variable selection]{Cost-based variable selection to improve clinical utility of prediction models}
 \label{sec:chp_varselection}
 
-\includegraphics*[width=0.3\linewidth]{logos/arxiv-logo.png}\vspace{0.5cm}
+\begin{flushleft}
+{\huge\sffamily In preparation}
+\end{flushleft}
 
-published as: 
+as: 
 \begin{quote}
 Barreñada L, Vickers A, Steyerberg E, Timmerman D, Wynants L, Van Calster B. Cost-based variable selection to improve clinical utility of prediction models. Diag. Prog. Res. (submitted).
 \end{quote}
-\vspace{-0.5em}
-\noindent\scriptsize\textit{Submitted: X/X/X \quad Published: -- \quad APC: XXX€}
-\normalsize\vspace{-0.5em}
+% \vspace{-0.5em}
+% \noindent\scriptsize\textit{Submitted: X/X/X \quad Published: -- \quad APC: XXX€}
+% \normalsize\vspace{-0.5em}
 
 \section*{Summary}\label{abstract}
 Clinical prediction models guide diagnostic and prognostic decision-making. However, traditional variable selection methods rely primarily on statistical properties, often ignoring clinical utility and measurement costs. This study introduces a novel variable selection algorithm that selects predictors by maximizing harm-adjusted Net Benefit (NB). By incorporating the "test tradeoff", the specific harm or clinical cost associated with measuring a predictor, into the NB calculation , the algorithm evaluates predictor subsets to identify the clinically optimal model. For high-dimensional datasets, a backward elimination extension is provided, alongside a permutation-based NB variable importance metric to guide selection when harms are difficult to quantify. Demonstrated through a real world ovarian cancer dataset, the utility-guided approach favors simpler, cost-effective models, demonstrating that statistical performance does not necessarily equate to optimal clinical cost-utility.
@@ -18,15 +20,15 @@ Clinical prediction models guide diagnostic and prognostic decision-making. Howe
 
 \section{Introduction}
 
-Determining a patient's condition based on their current characteristics is called diagnosis and is key to initiate any treatment and minimize future complications. Different conditions require exploring different characteristics. For example, a bone fracture can be diagnosed through medical imaging and COVID-19 through a PCR test. Clinical prediction models are statistical tools that estimate the probability that a patient has or will develop a condition in the future Steyerberg (2019) \cite{steyerberg2019clinical}. These models try to link the outcome (event or condition) with a series of predictors in a dataset, a task often called supervised learning James et al. (2021) \cite{james2021introduction}. These predictors should be information readily available at the time of diagnosis, not too costly to measure and measured with reasonable precision Steyerberg (2019) \cite{steyerberg2019clinical}. However, there might be a vast number of predictors that meet these criteria and selecting among them is needed Chowdhury \& Turin (2020) \cite{chowdhury2020variable}.
+Determining a patient's condition based on their current characteristics is called diagnosis and is key to initiate any treatment and minimize future complications. Different conditions require exploring different characteristics. For example, a bone fracture can be diagnosed through medical imaging and COVID-19 through a PCR test. Clinical prediction models are statistical tools that estimate the probability that a patient has or will develop a condition in the future \cite{steyerberg2019clinical}. These models try to link the outcome (event or condition) with a series of predictors in a dataset, a task often called supervised learning \cite{jamesIntroductionStatisticalLearning2021}. These predictors should be information readily available at the time of diagnosis, not too costly to measure and measured with reasonable precision \cite{steyerberg2019clinical}. However, there might be a vast number of predictors that meet these criteria and selecting among them is needed \cite{chowdhuryVariableSelectionStrategies2020}.
 
-Variable selection, best subset selection, feature selection, and feature engineering are terms used in prediction modelling to describe the process of selecting which predictors to use when training a model. Different approaches for variable selection have been presented. Heinze and colleagues Heinze et al. (2018) \cite{heinze2018variable} categorized methods into five groups based on the criteria to select the variables: (1) based on significance testing, (2) based on information criteria (e.g.\ AIC, BIC), (3) based on penalized likelihood (e.g.\ LASSO, elastic-net), (4) based on change-in-estimate or performance (e.g.\ backward elimination, stepwise selection), or (5) based on background or domain knowledge. Across machine learning literature, it is often observed that variable selection methods are grouped into filter, wrapper and embedded methods Nguyen (2025) \cite{nguyen2025foundations}. Filter methods use statistical properties to select variables and are therefore equivalent to significance testing and information criteria-based approaches. Wrapper methods, in contrast, use model performance to select the best subset, which corresponds to Heinze's change-in-estimate criterion. Finally, embedded methods perform variable selection as part of the model training; this includes penalized likelihood but also other approaches such as feature importance calculation in tree-based or genetic algorithms Archer \& Kimes (2008), Zhang et al. (2018) \cite{archer2008empirical,zhang2018variable}. This work will focus on change-in-estimate or wrapper methods for variable selection in clinical prediction models.
+Variable selection, best subset selection, feature selection, and feature engineering are terms used in prediction modelling to describe the process of selecting which predictors to use when training a model. Different approaches for variable selection have been presented. Heinze and colleagues \cite{heinzeVariableSelectionReview2018} categorized methods into five groups based on the criteria to select the variables: (1) based on significance testing, (2) based on information criteria (e.g.\ AIC, BIC), (3) based on penalized likelihood (e.g.\ LASSO, elastic-net), (4) based on change-in-estimate or performance (e.g.\ backward elimination, stepwise selection), or (5) based on background or domain knowledge. Across machine learning literature, it is often observed that variable selection methods are grouped into filter, wrapper and embedded methods \cite{Nguyen2025Vol1}. Filter methods use statistical properties to select variables and are therefore equivalent to significance testing and information criteria-based approaches. Wrapper methods, in contrast, use model performance to select the best subset, which corresponds to Heinze's change-in-estimate criterion. Finally, embedded methods perform variable selection as part of the model training; this includes penalized likelihood but also other approaches such as feature importance calculation in tree-based or genetic algorithms \cite{archerEmpiricalCharacterizationRandom2008,zhangVariableSelectionLogistic2018}. This work will focus on change-in-estimate or wrapper methods for variable selection in clinical prediction models.
 
-To be used in clinical practice, prediction models need to show good performance in external validation in terms of discrimination (area under the ROC curve), calibration (calibration plot), and clinical utility (Net Benefit) Van Calster et al. (2025) \cite{calsterPerformanceEvaluationPredictive2024}. Variable selection is usually performed by considering only the statistical properties of the predictors (filter methods), without accounting for the clinical benefit or utility. Utility refers to the quality of decision-making when a risk model is used to decide whether a patient requires treatment Van Calster et al. (2018) \cite{vancalsterReportingInterpretingDecision2018}. Regarding model validation there is increasing awareness that classical statistical measures are insufficient Steyerberg (2019), Van Calster et al. (2025) \cite{steyerberg2019clinical,calsterPerformanceEvaluationPredictive2024}. Models that are not clinically useful are more likely to be forgotten quickly or even never be implemented in real practice Wyatt \& Altman (1995) \cite{wyatt1995commentary}. Consequently, we aim to include clinical utility in the model development process through a clinical utility guided variable selection.
+To be used in clinical practice, prediction models need to show good performance in external validation in terms of discrimination (area under the ROC curve), calibration (calibration plot), and clinical utility (Net Benefit) \cite{calsterPerformanceEvaluationPredictive2024}. Variable selection is usually performed by considering only the statistical properties of the predictors (filter methods), without accounting for the clinical benefit or utility. Utility refers to the quality of decision-making when a risk model is used to decide whether a patient requires treatment \cite{vancalsterReportingInterpretingDecision2018}. Regarding model validation there is increasing awareness that classical statistical measures are insufficient \cite{steyerberg2019clinical,calsterPerformanceEvaluationPredictive2024}. Models that are not clinically useful are more likely to be forgotten quickly or even never be implemented in real practice \cite{wyattCommentaryPrognosticModels1995}. Consequently, we aim to include clinical utility in the model development process through a clinical utility guided variable selection.
 
-Preliminary efforts to add utility to variable selection have struggled with the generation of utility values and the complexity of the methods Fouskakis et al. (2009) \cite{fouskakis2009bayesian}. Fouskakis and colleagues proposed using stochastic optimization to select the model with the best cost-adjusted Bayesian Information Criterion (BIC). The cost-adjusted BIC extends standard model selection by penalizing the total measurement cost of predictors rather than solely the number of variables included. However, implementing this method requires the specification of a cost-penalized prior, a task that proves difficult for clinicians who must quantify the trade-off between statistical gain and data collection burden.
+Preliminary efforts to add utility to variable selection have struggled with the generation of utility values and the complexity of the methods  \cite{fouskakisBayesianVariableSelection2009}. Fouskakis and colleagues proposed using stochastic optimization to select the model with the best cost-adjusted Bayesian Information Criterion (BIC). The cost-adjusted BIC extends standard model selection by penalizing the total measurement cost of predictors rather than solely the number of variables included. However, implementing this method requires the specification of a cost-penalized prior, a task that proves difficult for clinicians who must quantify the trade-off between statistical gain and data collection burden.
 
-Utility values, relating to misclassification costs (i.e., the benefit of treating the diseased and the harm of treating the healthy), are hard to elicit at an absolute scale. However, it is known that the ratio of harm to benefit is directly related to the risk threshold for classifying a patient as high risk Van Calster et al. (2018) \cite{vancalsterReportingInterpretingDecision2018}. Net Benefit (NB), a simple metric for clinical utility, uses this relationship. NB is calculated as benefit minus harm multiplied by the exchange rate, or harm-to-benefit ratio Vickers \& Elkin (2006) \cite{vickers2006decision}. In statistical terms, this is the number of true positives minus the number of false positives weighted by the exchange rate. This exchange rate reflects how many false positives a clinician is willing to accept per true positive. For example, if a surgeon is willing to perform 9 surgeries on benign tumors to catch 1 malignant tumor, the exchange rate is 1/9, corresponding to a 10\% risk threshold. However, NB should often be presented across a range of thresholds, given variability across clinicians and settings Vickers et al. (2019) \cite{vickers2019simple}. NB is a semi-proper metric. A proper metric is one where the expected value is maximized when the model used is correct. NB is semi-proper because it can also be maximized by some incorrect models, provided the imperfect model perfectly classifies at the decision threshold Van Calster et al. (2025) \cite{calsterPerformanceEvaluationPredictive2024}. The use of NB and related metrics to evaluate a new variable was discussed by Baker and colleagues several years ago Baker et al. (2012) \cite{baker2012evaluating}. However, it has never been implemented as a variable selection algorithm for clinical prediction models.
+Utility values, relating to misclassification costs (i.e., the benefit of treating the diseased and the harm of treating the healthy), are hard to elicit at an absolute scale. However, it is known that the ratio of harm to benefit is directly related to the risk threshold for classifying a patient as high risk \cite{vancalsterReportingInterpretingDecision2018}. Net Benefit (NB), a simple metric for clinical utility, uses this relationship. NB is calculated as benefit minus harm multiplied by the exchange rate, or harm-to-benefit ratio \cite{vickersDecisionCurveAnalysis2006}. In statistical terms, this is the number of true positives minus the number of false positives weighted by the exchange rate. This exchange rate reflects how many false positives a clinician is willing to accept per true positive. For example, if a surgeon is willing to perform 9 surgeries on benign tumors to catch 1 malignant tumor, the exchange rate is 1/9, corresponding to a 10\% risk threshold. However, NB should often be presented across a range of thresholds, given variability across clinicians and settings \cite{vickersSimpleStepbystepGuide2019}. NB is a semi-proper metric. A proper metric is one where the expected value is maximized when the model used is correct. NB is semi-proper because it can also be maximized by some incorrect models, provided the imperfect model perfectly classifies at the decision threshold \cite{calsterPerformanceEvaluationPredictive2024}. The use of NB and related metrics to evaluate a new variable was discussed by Baker and colleagues several years ago \cite{bakerEvaluatingNewMarker2012}. However, it has never been implemented as a variable selection algorithm for clinical prediction models.
 
 The aim of this paper is therefore to develop a simple and interpretable variable selection algorithm based on clinical utility to determine the predictors to include in the model. Additionally, we will explore the effect on performance of this method with respect to traditional procedures. We will use and implement the method in the context of a logistic regression to estimate the probability of a binary outcome, but the rationale extends to more flexible machine learning or AI probabilistic algorithms.
 
@@ -56,6 +58,39 @@ The proposed variable selection algorithm does not involve modifying coefficient
 
 Code implementing the Net Benefit based variable selection and the associated visualizations is available in the open-source R package NBvarsel (\url{https://lasaibarrenada.github.io/NB_varsel/}, Box~1).
 
+\begin{codebox}[Box 1: Implementing the Methodology in R]
+n <- 500
+df <- data.frame(
+	X1 = rnorm(n),
+	X2 = rbinom(n, 1, 0.7),
+	X3 = rnorm(n),
+	X4 = rbinom(n, 1, 0.5)
+)
+df$y <- rbinom(n, 1, plogis(2 + 1*df$X1 + 1.5*df$X2 + 0.2*df$X3))
+
+## Step 1: Install the package (once)
+# install.packages("NB_varsel")
+library(NB_varsel)
+
+## Step 2: (Optional) Define harms for predictors
+harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.0001, X4 = 0)
+
+## Step 3: Run the core variable-selection routine
+result <- nb_varsel(
+	data = df,
+	outcome_var = "y",
+	costs = harms,
+	mode = "exhaustive",
+	folds = 5,
+	permutations = TRUE,
+	allow_parallel = FALSE
+)
+
+## Step 4: Visualisations (built-in)
+all_subset_plot(result$all_models)
+VIF_plot(result$all_models, color = "darkgreen")
+\end{codebox}
+
 \subsection{Large dimensional settings}
 
 The algorithm presented in Section~2.1 becomes computationally too demanding when the number of candidate predictors increases. For a dataset with 20 candidate predictors, there are more than one million predictor combinations; consequently, the method fits 5 million models when using 5-fold cross-validation. In most trials or observational studies, the sample size is limited; therefore, the number of candidate predictors should also be kept small. Our methodology should always be used in compliance with these sample size criteria as explained in Section~2.2. However, in those cases where the dimensionality of the data is large (e.g.\ electronic health records), we propose an extension of the methodology that we called groupwise (as opposed to exhaustive) net benefit variable selection.
@@ -64,17 +99,17 @@ In this extension, instead of calculating all the possible combinations, we use 
 
 \subsection{Note on Sample size}
 
-Across systematic reviews of prediction model development and validation studies, a common issue is that there is no rationale for the sample size used Barreñada et al. (2024), Wynants et al. (2020) \cite{barrenada2024systematic,wynants2020prediction}. International guidelines for prediction modelling, such as TRIPOD+AI and PROBAST+AI, recommend always justifying sample size Collins et al. (2024), Moons et al. (2025) \cite{collins2024tripod,moons2025probast}.
+Across systematic reviews of prediction model development and validation studies, a common issue is that there is no rationale for the sample size used \cite{barrenadaADNEXRiskPrediction2024,wynantsPredictionModelsDiagnosis2020}. International guidelines for prediction modelling, such as TRIPOD+AI and PROBAST+AI, recommend always justifying sample size \cite{collinsTRIPODAIStatementUpdated2024,moonsPROBASTAIUpdatedQuality2025}.
 
-The ratio of the number of events and potential number of predictors is called events per variable (EPV) or events per potential predictor (EPP). We prefer the latter because it explicitly states that its value should always be based on potential predictors, prior to data-driven variable selection; otherwise, the coefficients will be biased Steyerberg et al. (2011) \cite{steyerbergLogisticRegressionModeling2011}. In traditional logistic and linear regression, EPP indicates relationship between the number of coefficients to be estimated and the amount of available information. The first recommendations indicated that an EPP of greater than ten was adequate Concato et al. (1995), Peduzzi et al. (1996) \cite{concato1995importance,peduzzi1996simulation}. Some years later, several authors disputed this rule, concluding that there is no single EPP rule that would guarantee accurate estimation Courvoisier et al. (2011), van Smeden et al. (2016), Vittinghoff \& McCulloch (2007) \cite{courvoisier2011performance,vansmuden2016rationale,vittinghoff2007relaxing}.
+The ratio of the number of events and potential number of predictors is called events per variable (EPV) or events per potential predictor (EPP). We prefer the latter because it explicitly states that its value should always be based on potential predictors, prior to data-driven variable selection; otherwise, the coefficients will be biased  \cite{steyerbergLogisticRegressionModeling2011}. In traditional logistic and linear regression, EPP indicates relationship between the number of coefficients to be estimated and the amount of available information. The first recommendations indicated that an EPP of greater than ten was adequate \cite{concatoImportanceEventsIndependent1995,peduzziSimulationStudyNumber1996}. Some years later, several authors disputed this rule, concluding that there is no single EPP rule that would guarantee accurate estimation \cite{vittinghoffRelaxingRuleTen2007,courvoisierPerformanceLogisticRegression2011,vansmedenNoRationale12016}.
 
-Moving beyond rules of thumb, Riley and colleagues have developed several minimum sample size calculation techniques for developing and validating multivariable binary, continuous and time-to-event models Archer et al. (2021), Pate et al. (2023), Riley et al. (2022, 2024, 2019) \cite{archer2021minimum,pate2023minimum,riley2022minimum,riley2024minimum,riley2019minimum1,riley2019minimum2}. Recently, the group has published a general framework that applies both to linear models and to more flexible AI-based algorithms such as random forests Riley et al. (2025) \cite{riley2025general}, that had shown to be more ``data hungry'' Austin et al. (2024), van der Ploeg et al. (2014) \cite{austin2024relative,vander2014modern}. These criteria are based on overfitting and optimism control and precise estimation of the intercept.
+Moving beyond rules of thumb, Riley and colleagues have developed several minimum sample size calculation techniques for developing and validating multivariable binary, continuous and time-to-event models \cite{archerMinimumSampleSize2021,pateMinimumSampleSize2023,rileyMinimumSampleSize2022,rileyEvaluationClinicalPrediction2024a,rileyMinimumSampleSize2019,rileyMinimumSampleSize2019a}. Recently, the group has published a general framework that applies both to linear models and to more flexible AI-based algorithms such as random forests \cite{rileyGeneralSampleSize2026}, that had shown to be more ``data hungry'' \cite{austinRelativeDataHungriness2024,vanderploegModernModellingTechniques2014}. These criteria are based on overfitting and optimism control and precise estimation of the intercept.
 
-When sample data is limited, a two-stage approach is often recommended: first selecting a subset of predictors based on subject matter knowledge and then performing a data-driven variable selection Harrell (2015), Steyerberg (2019) \cite{harrell2015regression,steyerberg2019clinical}. Because it is prone to overfitting like any data-driven process, the methodology presented here must always adhere to the recommended minimum sample size.
+When sample data is limited, a two-stage approach is often recommended: first selecting a subset of predictors based on subject matter knowledge and then performing a data-driven variable selection \cite{harrellRegressionModelingStrategies2015,steyerberg2019clinical}. Because it is prone to overfitting like any data-driven process, the methodology presented here must always adhere to the recommended minimum sample size.
 
 \subsection{Test harms}
 
-The concept of placing benefit and harm on the same scale is the principle of net benefit (NB) and decision curve analysis (DCA), yet it has not been applied directly to variable selection. In this work, we aim to introduce this concept in model development by defining a harm adjusted NB. Harm is therefore accounted for twice. First, to calculate NB, we set a threshold that should be related to the test harm (harm of misclassifying a patient). Second, the harm of measuring a predictor is introduced in the NB scale by quantifying the minimal expected benefit required to measure a variable. The harm of misclassifying a patient is widely discussed in the literature Vickers et al. (2019), Vickers \& Elkin (2006) \cite{vickers2019simple,vickers2006decision}. The harm of measuring a predictor can be quantified as the number of tests that a doctor is willing to perform to find an event. If the number is higher, then the cost of the predictor is lower. However, specifying this number upfront might be difficult, therefore, the difference in NB ($\Delta NB$) can be used to derive the test tradeoff (TT). TT is the minimum number of tests per true positive that we have to accept to make the model worthwhile given its cost Van Calster et al. (2018) \cite{vancalsterReportingInterpretingDecision2018}. TT is defined as:
+The concept of placing benefit and harm on the same scale is the principle of net benefit (NB) and decision curve analysis (DCA), yet it has not been applied directly to variable selection. In this work, we aim to introduce this concept in model development by defining a harm adjusted NB. Harm is therefore accounted for twice. First, to calculate NB, we set a threshold that should be related to the test harm (harm of misclassifying a patient). Second, the harm of measuring a predictor is introduced in the NB scale by quantifying the minimal expected benefit required to measure a variable. The harm of misclassifying a patient is widely discussed in the literature \cite{avickersSimpleStepbystepGuide2019vickersDecisionCurveAnalysis2006}. The harm of measuring a predictor can be quantified as the number of tests that a doctor is willing to perform to find an event. If the number is higher, then the cost of the predictor is lower. However, specifying this number upfront might be difficult, therefore, the difference in NB ($\Delta NB$) can be used to derive the test tradeoff (TT). TT is the minimum number of tests per true positive that we have to accept to make the model worthwhile given its cost\cite{vancalsterReportingInterpretingDecision2018}. TT is defined as:
 
 \begin{equation}
 TT = \frac{\Delta NB}{q \cdot (1-q)}
@@ -84,9 +119,9 @@ where $\Delta NB$ is the NB difference between the model with the additional pre
 
 \subsection{Variable importance}
 
-When the test tradeoff or $TT$ is difficult to quantify, an alternative approach to help decide which variable to include in a model is computing each variable's contribution to the clinical utility. Variable importance is typically assessed using the statistical properties of the model being analysed. For instance, in a logistic regression model, coefficients can be used to compare the relative contribution of each predictor, while in random forest the Gini importance is often used to rank predictors by their contribution to the reduction of impurity. Other model-agnostic procedures have been proposed in the explainable AI field Dwivedi et al. (2023) \cite{dwivedi2023explainable}, with the SHAP (SHapley Additive exPlanations) values and Local interpretable model-agnostic explanations (LIME) being arguably the most popular Lundberg \& Lee (2017), Ribeiro et al. (2016) \cite{lundberg2017unified,ribeiro2016why}.  However, these techniques assess variable importance based on predicted probabilities rather than the clinical utility of the model.
+When the test tradeoff or $TT$ is difficult to quantify, an alternative approach to help decide which variable to include in a model is computing each variable's contribution to the clinical utility. Variable importance is typically assessed using the statistical properties of the model being analysed. For instance, in a logistic regression model, coefficients can be used to compare the relative contribution of each predictor, while in random forest the Gini importance is often used to rank predictors by their contribution to the reduction of impurity. Other model-agnostic procedures have been proposed in the explainable AI field \cite{dwivediExplainableAIXAI2023}, with the SHAP (SHapley Additive exPlanations) values and Local interpretable model-agnostic explanations (LIME) being arguably the most popular \cite{lundbergUnifiedApproachInterpreting2017,ribeiroWhyShouldTrust2016}.  However, these techniques assess variable importance based on predicted probabilities rather than the clinical utility of the model.
 
-In his seminal paper introducing random forests, Breiman introduced permutation variable importance Breiman (2001) \cite{breiman2001random}. The algorithm proceeds as follows:
+In his seminal paper introducing random forests, Breiman introduced permutation variable importance \cite{breimanRandomForests2001}. The algorithm proceeds as follows:
 
 \begin{enumerate}
 \item A model is trained on training data
@@ -110,46 +145,75 @@ In this model $X_1$ and $X_2$ are strongly predictive, $X_3$ and $X_4$ are weakl
 % Placeholder for Table 1 (Simple illustration results)
 \begin{table}[h!]
 \centering
-\footnotesize
-\begin{tabular}{ccccccc}
+\small
+\caption{Variable selection results for the simple illustration (N=1000)}
+\begin{tabularx}{\textwidth}{XXXXXXX}
 \toprule
 \textbf{Incl.} & \textbf{Rem.} & \textbf{Total} & \textbf{NB} & \textbf{NB} & \textbf{AUC} & \textbf{Brier} \\
  &  & \textbf{harm} &  & \textbf{w/o harm} &  & \\
 \midrule
-$X_1, X_4^a$ & $X_2, X_3$ & 0.100 & 0.439 & 0.339 & 0.852 & 0.148 \\
+$X_1, X_4$\textsuperscript{a} & $X_2, X_3$ & 0.100 & 0.439 & 0.339 & 0.852 & 0.148 \\
 $X_1$ & $X_2, X_3, X_4$ & 0.100 & 0.432 & 0.332 & 0.851 & 0.147 \\
-$X_1, X_2^b$ & $X_3, X_4$ & 0.150 & 0.452 & 0.302 & 0.869 & 0.138 \\
+$X_1, X_2$\textsuperscript{b} & $X_3, X_4$ & 0.150 & 0.452 & 0.302 & 0.869 & 0.138 \\
 $X_1, X_2, X_4$ & $X_3$ & 0.150 & 0.450 & 0.300 & 0.871 & 0.139 \\
 $X_4$ & $X_1, X_2, X_3$ & 0.000 & 0.288 & 0.288 & 0.473 & 0.231 \\
 $X_1, X_3, X_4$ & $X_2$ & 0.200 & 0.434 & 0.234 & 0.589 & 0.222 \\
 \bottomrule
-\end{tabular}
-\caption{Variable selection results (N=1000). Incl. = included predictors, Rem. = removed, NB = net benefit; $^a$ best by NB, $^b$ best by fastbw.}
+\end{tabularx}
+\par\noindent\makebox[\textwidth][l]{%
+\begin{minipage}[t]{\textwidth}
+\raggedright\footnotesize
+Incl. = included predictors, Rem. = removed, NB = net benefit
+
+\textsuperscript{a} best by NB.
+
+\textsuperscript{b} best by fastbw.
+\end{minipage}%
+}
 \label{tab:varsel:simple}
 \end{table}
 
 % Placeholder for Figure 1A and 1B
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig1_importance.png}
-\caption{(A) Net benefit based variable importance for the simple illustration. NB: Net benefit. (B) All subset plot for the simple illustration.}
+\begin{subfigure}[t]{0.48\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/varselection/fig-simple_illustration_train-1.png}
+	\caption{Net benefit based variable importance for the simple illustration. NB: Net benefit.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/varselection/fig-simple_illustration_train-2.png}
+	\caption{All-subset plot for the simple illustration.}
+\end{subfigure}
 \label{fig:varsel:importance}
 \end{figure}
 
 This simple illustration serves as an example on how the best subset of predictors based on performance in statistical terms does not necessarily mean better cost-utility. Then, using the same data generating mechanism we generated a larger test dataset (N = 100,000) for the three possible models based on the variable selection procedure selected. Table~\ref{tab:varsel:models} presents the results of the three models in 1000 bootstrap samples. In Figure~\ref{fig:varsel:dca} we illustrate the harm adjusted decision curves (A) of the three models and flexible calibration curves (B) using restricted cubic splines as smoother. As expected, the best model according to the harm-adjusted NB is always the simpler model. The right plot illustrates that calibration for that model is slightly worse, showcasing the need to find a balance between statistical performance and decision-making.
 
+
 % Placeholder for Figure 2 (Decision curve and calibration)
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig2_dca_calibration.png}
-\caption{(A) Decision curve analysis for the simple illustration. NB: Net benefit. (B) Calibration plot for the simple illustration.}
+\begin{subfigure}[t]{0.48\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/varselection/fig-simple_illustration_test-1.png}
+	\caption{Decision curve analysis for the simple illustration. NB: Net benefit.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/varselection/fig-simple_illustration_test-2.png}
+	\caption{Calibration plot for the simple illustration.}
+\end{subfigure}
 \label{fig:varsel:dca}
 \end{figure}
 
+
 \begin{table}[h!]
 \centering
-\footnotesize
-\begin{tabular}{lcccccc}
+\small
+\caption{Model comparison (mean ± 95\% CI over 1000 bootstraps on test set of 100k observations; NB threshold 10\%).}
+\begin{tabularx}{\textwidth}{XXXXXXX}
 \toprule
 \textbf{Method} & \textbf{AUC} & \textbf{Brier} & \textbf{O:E} & \textbf{Net} & \textbf{Harm} \\
  & & & \textbf{ratio} & \textbf{Benefit} & \textbf{Adj. NB} \\
@@ -157,10 +221,8 @@ This simple illustration serves as an example on how the best subset of predicto
 Backward elim. & 0.970 & 0.068 & 0.987 & 0.522 & 0.371 \\
 Perform. (CV) & 0.974 & 0.064 & 0.990 & 0.522 & 0.361 \\
 Net Benefit & 0.966 & 0.074 & 0.974 & 0.522 & 0.421 \\
-(harm adj. CV) & & & & & \\
 \bottomrule
-\end{tabular}
-\caption{Model comparison (mean ± 95\% CI over 1000 bootstraps on test set of 100k observations; NB threshold 10\%).}
+\end{tabularx}
 \label{tab:varsel:models}
 \end{table}
 
@@ -172,11 +234,11 @@ The analysis was performed on an HP EliteDesk 8 Tower G11 Desktop AI PC equipped
 
 \subsection{Ovarian cancer diagnosis -- IOTA data}
 
-The optimal management of patients with an ovarian tumour depends on the histology of the mass. Benign masses do not always need to be removed and can be monitored with ultrasound follow up Carley et al. (2002) \cite{carley2002laparoscopy}. According to a recent study with 2 year follow-up, most of these masses spontaneously resolve, which reduces the risk of surgical complications Froyman et al. (2019) \cite{froyman2019risk}. If the mass is malignant, management in specialised oncology centers is suggested Timmerman et al. (2021) \cite{timmerman2021esgo}. The IOTA group has developed and implemented several prediction models that use ultrasound and clinical characteristics to estimate the risk of malignancy of ovarian masses preoperatively Kaijser et al. (2013) \cite{kaijser2013improving}. In 2014, the ADNEX model was published using data from the IOTA phases 1-3 (N = 5909) Van Calster et al. (2014) \cite{vancalsterEvaluatingRiskOvarian2014}. The model has shown excellent performance across different settings and populations, as shown in recent systematic reviews and meta-analyses Barreñada et al. (2024) \cite{barrenada2024ADNEX,barrenada2024headtohead}. ADNEX is a multinomial model that predicts the risk of benign, borderline, stage I invasive cancer, stage II-IV invasive cancer or metastatic cancer. In this work, we will treat it as a binary model, where the risk of malignancy is equal to the sum of the four malignant subtypes. As a validation dataset we will use IOTA phase 5 study (N = 6847) which was prospectively collected to externally validate ADNEX Van Calster et al. (2020) \cite{vancalster2020validation}.
+The optimal management of patients with an ovarian tumour depends on the histology of the mass. Benign masses do not always need to be removed and can be monitored with ultrasound follow up  \cite{carleyLaparoscopyLaparotomyManagement2002}. According to a recent study with 2 year follow-up, most of these masses spontaneously resolve, which reduces the risk of surgical complications  \cite{froymanRiskComplicationsPatients2019}. If the mass is malignant, management in specialised oncology centers is suggested \cite{timmermanESGOISUOGIOTA2021}. The IOTA group has developed and implemented several prediction models that use ultrasound and clinical characteristics to estimate the risk of malignancy of ovarian masses preoperatively  \cite{kaijserImprovingStrategiesDiagnosing2013}. In 2014, the ADNEX model was published using data from the IOTA phases 1-3 (N = 5909) Van Calster et al. (2014) \cite{vancalsterEvaluatingRiskOvarian2014}. The model has shown excellent performance across different settings and populations, as shown in recent systematic reviews and meta-analyses \cite{bbarrenadaADNEXRiskPrediction2024,barrenadaHeadHeadComparison2025}. ADNEX is a multinomial model that predicts the risk of benign, borderline, stage I invasive cancer, stage II-IV invasive cancer or metastatic cancer. In this work, we will treat it as a binary model, where the risk of malignancy is equal to the sum of the four malignant subtypes. As a validation dataset we will use IOTA phase 5 study (N = 6847) which was prospectively collected to externally validate ADNEX  \cite{vancalsterValidationModelsDiagnose2020}.
 
-The variable selection procedure is detailed in the supplementary material of the original publication Van Calster et al. (2014) \cite{vancalsterEvaluatingRiskOvarian2014}, we refer the reader there for details. The original ADNEX model utilized nine predictors: three clinical (age, serum CA125, and center type) and six ultrasound-based (lesion diameter, solid tissue proportion, >10 cyst locules, number of papillary projections, acoustic shadows, and ascites). While family history was initially considered, it was excluded during the variable selection process. For our analysis, missing CA125 values were handled via a regression-based imputation using all other ADNEX predictors, following recent methodological recommendations Sisk et al. (2023) \cite{sisk2023imputation}. Then this model was applied to the development and validation dataset to impute missing values. In the validation dataset, some of the tumours were classified as uncertain for various reasons. In the published validation study, these values were also imputed with multiple imputation. We use those imputed values for our analysis.
+The variable selection procedure is detailed in the supplementary material of the original publication \cite{vancalsterEvaluatingRiskOvarian2014}, we refer the reader there for details. The original ADNEX model utilized nine predictors: three clinical (age, serum CA125, and center type) and six ultrasound-based (lesion diameter, solid tissue proportion, >10 cyst locules, number of papillary projections, acoustic shadows, and ascites). While family history was initially considered, it was excluded during the variable selection process. For our analysis, missing CA125 values were handled via a regression-based imputation using all other ADNEX predictors, following recent methodological recommendations \cite{siskImputationMissingIndicators2023}. Then this model was applied to the development and validation dataset to impute missing values. In the validation dataset, some of the tumours were classified as uncertain for various reasons. In the published validation study, these values were also imputed with multiple imputation. We use those imputed values for our analysis.
 
-We extended the original predictor set with five additional features: bilateral masses, irregular internal cyst walls, Doppler color score, maximum solid component diameter, and lesion-associated pain. In total 65,536 predictor combinations were evaluated across decision thresholds from 1\% to 20\% risk with 20-fold cross validation. We then compute discrimination in terms of AUC, clustered calibration and decision curve analysis Barreñada et al. (2026) \cite{barrenada2026clustered}. Adjusted NB was also calculated with costs based on three group of variables: clinical history variables (no cost, should be available for all patients from the records), ultrasound based variables (TT = 200), blood based variables (TT = 80). We compared NB based variables selections to LASSO and backward elimination. The total time to run the algorithm was 1h 25 minutes.
+We extended the original predictor set with five additional features: bilateral masses, irregular internal cyst walls, Doppler color score, maximum solid component diameter, and lesion-associated pain. In total 65,536 predictor combinations were evaluated across decision thresholds from 1\% to 20\% risk with 20-fold cross validation. We then compute discrimination in terms of AUC, clustered calibration and decision curve analysis \cite{barrenadaClusteredFlexibleCalibration2026}. Adjusted NB was also calculated with costs based on three group of variables: clinical history variables (no cost, should be available for all patients from the records), ultrasound based variables (TT = 200), blood based variables (TT = 80). We compared NB based variables selections to LASSO and backward elimination. The total time to run the algorithm was 1h 25 minutes.
 
 All models removed family history of ovarian cancer. The LASSO model also removed presence of papillary projections. NB based models removed instead maximum diameter of the solid part of the tumour and in addition the adjusted NB removed CA125 biomarker. According to the variable importance calculations, the least important predictor was family history and the most important one was the proportion of solid tissue.
 
@@ -185,8 +247,9 @@ The models showed comparable performance, with BE and NB-based approaches outper
 % Placeholder for Table showing IOTA results
 \begin{table}[h!]
 \centering
-\footnotesize
-\begin{tabular}{lccccc}
+\small
+\caption{IOTA variable selection comparison (VS = procedure, BE = backward elimination, Fam hist = family history, Pap = papillary projections, MSD = max solid diameter, Adj = adjusted).}
+\begin{tabularx}{\textwidth}{XXXXXX}
 \toprule
 \textbf{VS Procedure} & \textbf{Removed} & \textbf{AUC} & \textbf{O:E} & \textbf{NB} & \textbf{Adj} \\
  &  & & \textbf{ratio} & \textbf{(10\%)} & \textbf{NB} \\
@@ -196,22 +259,21 @@ LASSO & Fam hist, Pap & 0.953 & 0.929 & 0.223 & 0.205 \\
 NB & Fam hist, MSD & 0.961 & 0.974 & 0.227 & 0.209 \\
 Adj NB & Fam hist, CA125 & 0.960 & 0.968 & 0.226 & 0.219 \\
 \bottomrule
-\end{tabular}
-\caption{IOTA variable selection comparison (VS = procedure, BE = backward elimination, Fam hist = family history, Pap = papillary projections, MSD = max solid diameter, Adj = adjusted).}
+\end{tabularx}
 \label{tab:varsel:iota}
 \end{table}
 
 % Placeholder for DCA figure
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig3_iota_dca.png}
+\includegraphics[width=0.8\textwidth]{figures/varselection/ADNEX_dca.png}
 \caption{Decision curve analysis for unadjusted (left) and harm-adjusted (right) for the different variable selection procedures (IOTA ovarian cancer data).}
 \label{fig:varsel:iota}
 \end{figure}
 
 \subsection{Emergency department hospitalization -- MIMIC IV ED (Large dimensional setting)}
 
-For the second case study we will use the well-known MIMIC IV emergency department (MIMIC IV ED) data combined with the MIMIC IV to predict the risk of hospitalization after visiting the emergency department Johnson et al. (2023, 2024) \cite{johnson2023mimic,johnson2024mimic,johnson2023mimic_ed}. MIMIC IV ED contains electronic health records data collected retrospectively from more than 425,000 emergency department stays in the Beth Israel Deaconess Medical Center in Boston, between 2011 and 2019. We use the benchmark proposed by Xie et al., but with the latest version of MIMIC IV (v3.1) and MIMIC ED (v2.2) Xie et al. (2022) \cite{xie2022benchmarking}. The authors propose this benchmark to allow different model developers to make fair comparisons when using MIMIC IV data, therefore we followed the same procedure to obtain the training and test data according to their guidelines. The training data contains 334,420 (80\%) patients and the testing data 83605 (20\%).
+For the second case study we will use the well-known MIMIC IV emergency department (MIMIC IV ED) data combined with the MIMIC IV to predict the risk of hospitalization after visiting the emergency department \cite{PhysioNet-mimiciv-3.1,hysioNet-mimic-iv-ed-2.2,johnsonMIMICIVFreelyAccessible2023}. MIMIC IV ED contains electronic health records data collected retrospectively from more than 425,000 emergency department stays in the Beth Israel Deaconess Medical Center in Boston, between 2011 and 2019. We use the benchmark proposed by Xie et al., but with the latest version of MIMIC IV (v3.1) and MIMIC ED (v2.2) Xie et al. (2022) \cite{xieBenchmarkingEmergencyDepartment2022}. The authors propose this benchmark to allow different model developers to make fair comparisons when using MIMIC IV data, therefore we followed the same procedure to obtain the training and test data according to their guidelines. The training data contains 334,420 (80\%) patients and the testing data 83605 (20\%).
 
 They propose 64 predictors to develop models to predict risk of hospitalization when a patient arrives to the emergency department, and they develop models using different algorithms, but we will focus on the LR model, that we denote as baseline model. The predictor distribution across test and training datasets is identical and is displayed in Table S6. If we were to use the exhaustive approach as in the ovarian cancer case this would mean approximately $2^{64}$ (million trillion) combinations, which obviously is not feasible. Therefore we will use the groupwise approach with group sizes 1 and 2.
 
@@ -223,7 +285,9 @@ The most important predictors according to NB variable selection were triage acu
 \begin{table}[h!]
 \centering
 \footnotesize
-\begin{tabular}{lccccc}
+\caption{MIMIC-ED variable selection comparison (Pred. = predictors, Mean NB = mean net benefit).}
+
+\begin{tabularx}{0.6\textwidth}{XXXXX}
 \toprule
 \textbf{Method} & \textbf{Pred.} & \textbf{AUC} & \textbf{Time} & \textbf{Mean NB} \\
  & \textbf{Removed} & & & (20--80\%) \\
@@ -232,24 +296,23 @@ Baseline & 0 & 0.810 & -- & 0.234 \\
 Groupwise (1) & 8 & 0.811 & 1.45h & 0.241 \\
 Groupwise (2) & 12 & 0.809 & 1.17d & 0.239 \\
 \bottomrule
-\end{tabular}
-\caption{MIMIC-ED variable selection comparison (Pred. = predictors, Mean NB = mean net benefit).}
+\end{tabularx}
 \label{tab:varsel:mimic}
 \end{table}
 
 % Placeholder for Calibration plot
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig4_mimic_calibration.png}
+\includegraphics[width=0.8\textwidth]{figures/varselection/calibration_groupwise_mimic.pdf}
 \caption{Calibration plot for the MIMIC-ED case study. Calibration for groupwise 1 and 2 are fully overlapping. (Results: Groupwise 1 time 1.458248 hours, Groupwise 2 time 1.165657 days)}
 \label{fig:varsel:mimic}
 \end{figure}
 
 \subsection{Non typhoidal Salmonella (NTS) - DeNTS trial}
 
-The last case study will use prospective cohort data to predict the risk of non-typhoidal Salmonella (NTS) bloodstream infection in children under five to guide the choice of empirical antibiotics Tack et al. (2025) \cite{tack2025developing}. The dataset contains clinical information collected prospectively from 2,327 paediatric hospital admissions with severe febrile illness at the Kisantu district hospital in the Democratic Republic of Congo. We use the a priori clinical predictors proposed by Tack et al., applying their exact variable definitions and restricted cubic spline transformations for continuous predictors. The authors propose this specific set of predictors based on a systematic literature review to ensure clinical relevance and avoid data-driven bias; therefore, we followed the same procedure to obtain our variables according to their guidelines. They propose 11 predictors to develop models for antibiotic triage, and they develop a simplified clinical scoring system alongside it, but we will focus on their main multivariable logistic regression (LR) model.
+The last case study will use prospective cohort data to predict the risk of non-typhoidal Salmonella (NTS) bloodstream infection in children under five to guide the choice of empirical antibiotics  \cite{tackDevelopingClinicalPrediction2025}. The dataset contains clinical information collected prospectively from 2,327 paediatric hospital admissions with severe febrile illness at the Kisantu district hospital in the Democratic Republic of Congo. We use the a priori clinical predictors proposed by Tack et al., applying their exact variable definitions and restricted cubic spline transformations for continuous predictors. The authors propose this specific set of predictors based on a systematic literature review to ensure clinical relevance and avoid data-driven bias; therefore, we followed the same procedure to obtain our variables according to their guidelines. They propose 11 predictors to develop models for antibiotic triage, and they develop a simplified clinical scoring system alongside it, but we will focus on their main multivariable logistic regression (LR) model.
 
-In their work, variables were selected using a double backward elimination process and the final model was fitted using Firth's correction Puhr et al. (2017) \cite{puhr2017firth}. We will compare their approach to the introduced net benefit variable selection including splines for continuous predictors and then fitting the final model also using Firth's correction. In our algorithm, continuous predictors were introduced either with splines or were removed. The authors propose the reasonable range of thresholds to be between 20\% and 50\% so this were the range of thresholds used in the variable selection procedure.
+In their work, variables were selected using a double backward elimination process and the final model was fitted using Firth's correction  \cite{puhrFirthsLogisticRegression2017}. We will compare their approach to the introduced net benefit variable selection including splines for continuous predictors and then fitting the final model also using Firth's correction. In our algorithm, continuous predictors were introduced either with splines or were removed. The authors propose the reasonable range of thresholds to be between 20\% and 50\% so this were the range of thresholds used in the variable selection procedure.
 
 If we were to use the exhaustive variable selection approach as in previous case studies, this would mean evaluating exactly 2,047 combinations. No test data was available, therefore, we present apparent results first and then to correct for optimism and compare the published approach and our algorithm we repeated the process across 1000 bootstrap samples.
 
@@ -260,7 +323,7 @@ According to NB variable selection, the model removed the age, malnutrition and 
 % Placeholder for Figure showing risk distribution
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig5_dents_risk.png}
+\includegraphics[width=0.8\textwidth]{figures/varselection/fig-auc_dents-1.png}
 \caption{Distribution of individual risks for the model based on NB variable selection and the published model by outcome. Plots in the margin depict densities per outcome.}
 \label{fig:varsel:dents}
 \end{figure}
@@ -290,7 +353,7 @@ Mean NB & 0.156 & 0.167 & +0.011 \\
 % Placeholder for optimism-corrected DCA figure
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/fig6_dents_dca.png}
+\includegraphics[width=0.8\textwidth]{figures/varselection/DCA_bootstrap_dents_zoomed.pdf}
 \caption{Optimism corrected decision curve analysis based on 1000 bootstraps (Median results) for the DeNTS trial.}
 \label{fig:varsel:dents_dca}
 \end{figure}
@@ -307,7 +370,7 @@ The results highlight that the ``best'' model in purely statistical terms (e.g.,
 
 \subsection{Contextualization Within Existing Literature}
 
-There is growing recognition in the field of clinical prediction modelling that traditional performance measures are insufficient to guarantee a model's clinical value Steyerberg (2019), Van Calster et al. (2025) \cite{steyerberg2019clinical,calsterPerformanceEvaluationPredictive2024}. However, embedding utility directly into the variable selection phase has historically been difficult. While Baker et al. Baker et al. (2012) \cite{baker2012evaluating} discussed the use of Net Benefit to evaluate new markers, it was not operationalized as an automated variable selection algorithm. Previous attempts to introduce cost-based selection, such as the cost-adjusted Bayesian Information Criterion (BIC) proposed by Fouskakis and colleagues Fouskakis et al. (2009) \cite{fouskakis2009bayesian}, struggled with complexity, requiring clinicians to specify difficult cost-penalized priors. Our approach bridges this methodological gap by anchoring the penalty to Net Benefit and the Test Tradeoff, providing a much more intuitive scale for clinicians to quantify the harm-to-benefit ratio.
+There is growing recognition in the field of clinical prediction modelling that traditional performance measures are insufficient to guarantee a model's clinical value \cite{steyerberg2019clinical,calsterPerformanceEvaluationPredictive2024}. However, embedding utility directly into the variable selection phase has historically been difficult. While Baker et al. (2012) \cite{bakerEvaluatingNewMarker2012} discussed the use of Net Benefit to evaluate new markers, it was not operationalized as an automated variable selection algorithm. Previous attempts to introduce cost-based selection, such as the cost-adjusted Bayesian Information Criterion (BIC) proposed by Fouskakis and colleagues \cite{fouskakisBayesianVariableSelection2009}, struggled with complexity, requiring clinicians to specify difficult cost-penalized priors. Our approach bridges this methodological gap by anchoring the penalty to Net Benefit and the Test Tradeoff, providing a much more intuitive scale for clinicians to quantify the harm-to-benefit ratio.
 
 \subsection{Limitations}
 
@@ -325,13 +388,13 @@ Despite its advantages, this methodology has several limitations:
 
 \subsection{Implications}
 
-Prediction models that require burdensome, invasive, or expensive data collection for only marginal statistical gains are rarely adopted in routine care Wyatt \& Altman (1995) \cite{wyatt1995commentary}. By integrating clinical utility directly into the model training pipeline, developers can ensure that their final models are both statistically rigorous and practically viable. The open-source NBvarsel R package (\url{https://lasaibarrenada.github.io/NB_varsel/}) and its associated visualizations provide researchers with accessible tools to make informed, utility-driven decisions about variable selection.
+Prediction models that require burdensome, invasive, or expensive data collection for only marginal statistical gains are rarely adopted in routine care \cite{wyattCommentaryPrognosticModels1995}. By integrating clinical utility directly into the model training pipeline, developers can ensure that their final models are both statistically rigorous and practically viable. The open-source NBvarsel R package (\url{https://lasaibarrenada.github.io/NB_varsel/}) and its associated visualizations provide researchers with accessible tools to make informed, utility-driven decisions about variable selection.
 
 \subsection{Future Research}
 
 Future research should focus on extensive evaluation of the methodology under controlled setting with simulation studies and to extend the methodology to other modelling algorithms. For logistic regression, the methodology would also benefit of further utilities such as full control over variable interactions and spline terms. The package is intended to be continuously updated, and we made it open-source welcoming contributions from the community.
 
-Another approach to account for clinical utility directly into parameter estimation could be using harm-adjusted NB as the optimization criterion for a loss function in deep learning architectures Vickers et al. (2025) \cite{vickers2025hypothesis}.
+Another approach to account for clinical utility directly into parameter estimation could be using harm-adjusted NB as the optimization criterion for a loss function in deep learning architectures \cite{vickersHypothesisNetBenefit2025}.
 
 \subsection{Conclusion}
 

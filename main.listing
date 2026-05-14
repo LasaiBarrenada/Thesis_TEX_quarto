@@ -1,0 +1,30 @@
+n <- 500
+df <- data.frame(
+	X1 = rnorm(n),
+	X2 = rbinom(n, 1, 0.7),
+	X3 = rnorm(n),
+	X4 = rbinom(n, 1, 0.5)
+)
+df$y <- rbinom(n, 1, plogis(2 + 1*df$X1 + 1.5*df$X2 + 0.2*df$X3))
+
+## Step 1: Install the package (once)
+# install.packages("NB_varsel")
+library(NB_varsel)
+
+## Step 2: (Optional) Define harms for predictors
+harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.0001, X4 = 0)
+
+## Step 3: Run the core variable-selection routine
+result <- nb_varsel(
+	data = df,
+	outcome_var = "y",
+	costs = harms,
+	mode = "exhaustive",
+	folds = 5,
+	permutations = TRUE,
+	allow_parallel = FALSE
+)
+
+## Step 4: Visualisations (built-in)
+all_subset_plot(result$all_models)
+VIF_plot(result$all_models, color = "darkgreen")
