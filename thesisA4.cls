@@ -161,8 +161,8 @@
   \reflectbox{\textcopyright}~\the\year{} KU Leuven -- Faculty of Medicine\\[0.5em]
   Self-published, #1, #2\\[1em]
   {\small
- Copyleft: All rights reversed. This publication may be reproduced in any form by print, photoprint, microfilm, electronic or any other means, provided that appropriate credit is given and this exact freedom is passed on to all subsequent users.}\\[1.5em]
-  \doclicenseThis
+ Copyleft: All rights reversed. This publication may be reproduced in any form by print, photoprint, microfilm, electronic or any other means, provided that appropriate credit is given and this exact freedom is passed on to all subsequent users.\\[1.5em]
+ \textit{Cover art exception}: "La Clairvoyance" (1936) and "Le Retour" (1940) by Ren\'e Magritte are used with permission from the artist's estate {\copyright} Succession Ren\'e Magritte, SABAM Belgium 2026. The copyleft license does not apply to these images.\\[1.5em]}
   \clearpage
 }
 

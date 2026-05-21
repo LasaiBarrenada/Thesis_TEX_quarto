@@ -26,7 +26,7 @@
 
 published as:
 \begin{quote}
-\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. \textit{Research Synthesis Methods}. 2025;1--22. https://doi.org/10.1017/rsm.2025.10046
+\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. \textit{Research Synthesis Methods}. 2025;1--22. \url{https://doi.org/10.1017/rsm.2025.10046}
 \end{quote}
 \begin{quote}
 \textbf{Supplementary material and code} available in the online version and at \url{https://osf.io/erju9/}.
@@ -104,7 +104,7 @@ Since there is no commonly accepted way to estimate calibration curves for predi
 \begin{sidewaystable}
 \centering
 \small
-\caption[Overview introduced methods]{Overview of introduced methodologies for creating flexible calibration curves accounting for clustering. Implementation in the code included in the OSF. For the implementation in \textit{CalibrationCurves} package go to the package documentation.}
+\caption[Overview introduced methods]{Overview of introduced methodologies for creating flexible calibration curves accounting for clustering.}
 \label{tab:4:1}
 \begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
 \textbf{Method} & \textbf{Estimation of observed proportion} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Implementation} & \textbf{Illustration} \\
@@ -116,6 +116,11 @@ CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transfo
 MIX-C & Logistic generalized linear mixed model with \gls{restricted_cubic_splines} & Curve-wise CI and PI \newline Also provides shrunken curves per center & Computation time & MIXC(model = ``slope'') & Supplementary Figure S8 (slope) \\
 \bottomrule
 \end{tabularx}
+\begin{tablenotes}
+\footnotesize
+\raggedleft
+\item Note: Implementation in the code included in the OSF. For the implementation in \textit{CalibrationCurves} package go to the package documentation.
+\end{tablenotes}
 \end{sidewaystable}
 
 \subsection{Clustered group calibration (CG-C)}
@@ -201,12 +206,12 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
-\caption[Median MSCE for varying validation sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying validation events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. $^a$Deciles is calculated only with 10 points instead of 100.}
+\caption[Median MSCE for varying validation sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying validation events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. }
 \label{tab:4:2}
 \begin{tabular}{rrrr llllll}
 \toprule
  & \textbf{N.} & & & \textbf{Standard flexible} & & & & & \\
-\textbf{EPC} & \textbf{Cent} & \textbf{ICC} & \textbf{AUC} & \textbf{logistic} & \textbf{CG-C group}$^a$ & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
+\textbf{EPC} & \textbf{Cent} & \textbf{ICC} & \textbf{AUC} & \textbf{logistic} & \textbf{CG-C group}\textsuperscript{a} & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
 \midrule
 20 & 5 & 0.05 & 0.75 & 0.31 (0.10--0.68) & 0.46 (0.34--0.66) & 0.85 (0.47--1.51) & 0.38 (0.21--0.85) & 3.26 (1.78--4.79) & \textbf{0.25 (0.10--0.57)} \\
 20 & 5 & 0.05 & 0.9 & 0.40 (0.16--0.81) & 0.52 (0.35--0.70) & 0.90 (0.66--1.42) & 0.39 (0.23--0.78) & 0.89 (0.55--1.32) & \textbf{0.28 (0.12--0.64)} \\
@@ -227,6 +232,11 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 200 & 30 & 0.2 & 0.75 & 2.50 (1.68--3.97) & 0.08 (0.04--0.21) & 0.23 (0.08--0.45) & 0.12 (0.05--0.34) & 0.51 (0.31--0.72) & \textbf{0.11 (0.03--0.29)} \\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}
+\footnotesize
+\raggedleft
+\item \textsuperscript{a}Deciles are calculated only with 10 points instead of 100.
+\end{tablenotes}
 \end{sidewaystable}
 
 \begin{figure}

@@ -57,7 +57,7 @@ Patients were recruited at 39 oncology and non-oncology centres across 15 countr
 
 \subsection{Procedures and variable measurements}
 
-Patients were recruited by ultrasound examiners. The ultrasound examiners were gynaecologists with expertise in gynaecological ultrasound. They were either \gls{IOTA} trainers or had passed the \gls{IOTA} certification test. When recruiting, the ultrasound examiners followed a standardised research protocol (https://clinicaltrials.gov/study/NCT01698632). Standardized clinical information was collected and a standardised transvaginal ultrasound examination was performed supplemented with abdominal ultrasound if necessary. The recruitment examination included scanning the uterus, both adnexa, and the whole pelvis outside these organs. Grey scale and colour or power Doppler ultrasound was used to characterise the morphology and vascularisation of each adnexal mass. Information on a set of predefined ultrasound variables, including those used in the \gls{ADNEX} model, was collected, and the \gls{IOTA} terminology was used to describe the ultrasound findings \cite{timmermanTermsDefinitionsMeasurements2000}. In addition, the ultrasound examiners provided a diagnosis based on their subjective assessment by classifying each lesion as benign, borderline, or malignant, and by specifying the degree of certainty of their classification (certain, probable, or uncertain). Based on pattern recognition they also suggested a specific histology for each mass choosing from a list of 18 predefined diagnoses \cite{valentinUseMorphologyCharacterize2004}.
+Patients were recruited by ultrasound examiners. The ultrasound examiners were gynaecologists with expertise in gynaecological ultrasound. They were either \gls{IOTA} trainers or had passed the \gls{IOTA} certification test. When recruiting, the ultrasound examiners followed a standardised research protocol (\url{https://clinicaltrials.gov/study/NCT01698632}). Standardized clinical information was collected and a standardised transvaginal ultrasound examination was performed supplemented with abdominal ultrasound if necessary. The recruitment examination included scanning the uterus, both adnexa, and the whole pelvis outside these organs. Grey scale and colour or power Doppler ultrasound was used to characterise the morphology and vascularisation of each adnexal mass. Information on a set of predefined ultrasound variables, including those used in the \gls{ADNEX} model, was collected, and the \gls{IOTA} terminology was used to describe the ultrasound findings \cite{timmermanTermsDefinitionsMeasurements2000}. In addition, the ultrasound examiners provided a diagnosis based on their subjective assessment by classifying each lesion as benign, borderline, or malignant, and by specifying the degree of certainty of their classification (certain, probable, or uncertain). Based on pattern recognition they also suggested a specific histology for each mass choosing from a list of 18 predefined diagnoses \cite{valentinUseMorphologyCharacterize2004}.
 
 When multiple adnexal masses were found on ultrasound, the dominant mass was included in the statistical analysis. The dominant mass was the mass with the most complex ultrasound morphology. If multiple masses had similar morphology, the largest mass or the mass that was most easily accessible with ultrasound was denoted dominant. We encouraged centres to measure the patients' serum \gls{CA125} level, but this was not a requirement for inclusion in the study. Measurement of \gls{CA125} was left to clinical judgement and local protocols. Due to the prospective study design, predictor measurements were blinded to tumour outcome.
 
@@ -91,7 +91,7 @@ We analysed performance for pre-specified subgroups: (1) postmenopausal versus p
 
 \subsection{Independent external validation}
 
-The recalibrated and refitted coefficients of ADNEX2 are not shown because they will be included in a CE-labelled app offered by Gynaia Inc. (https://www.gynaia.com/). Members of the ovarian programme of Gynaia will have access to the app to use it as a decision support tool.
+The recalibrated and refitted coefficients of ADNEX2 are not shown because they will be included in a CE-labelled app offered by Gynaia Inc. (\url{https://www.gynaia.com/}). Members of the ovarian programme of Gynaia will have access to the app to use it as a decision support tool.
 
 Researchers that aim to externally validate the model can do it by using evaluatr R package (in development). This package provides a safe environment for model developers and model evaluators where the developer does not have access to the patient data, and the evaluator does not have access to the model coefficients but can obtain a vector of predicted risks to evaluate the model's aggregate performance. Access to the model is given case by case, upon reasonable request to the model developers.
 
@@ -111,7 +111,7 @@ Researchers that aim to externally validate the model can do it by using evaluat
     \toprule
         Variable & Benign Descriptors apply  & Benign Descriptors do not apply & All patients \\ 
         \midrule
-        Number of cases & 2190 & 4657 & 6847 \\ 
+        \textbf{Number of cases} & 2190 & 4657 & 6847 \\ 
         \quad Benign & 1987 (91\%) & 2638 (57\%) & 4625 (68\%) \\ 
         \quad Borderline & 4 (0.2\%) & 387 (8\%) & 391 (6\%) \\ 
         \quad Stage I invasive cancer & 2 (0.1\%) & 301 (6\%) & 303 (4\%) \\ 
@@ -129,19 +129,19 @@ Researchers that aim to externally validate the model can do it by using evaluat
         CA125 missing  & 1498 (68\%) & 1728 (37\%) & 3226 (47\%) \\ 
         Shadows\textsuperscript{b} & 378 (17\%) & 926 (20\%) & 1304 (19\%) \\ 
         Ascites\textsuperscript{b} & 8 (0.4\%) & 482 (10\%) & 490 (7\%) \\
-        \multicolumn{4}{l}{Number of papillations\textsuperscript{b}} \\ 
+        \multicolumn{4}{l}{\textbf{Number of papillations\textsuperscript{b}}} \\ 
         \quad None & 2190 (100\%) & 3677 (79\%) & 5867 (85\%) \\ 
         \quad 1 & 0 (0\%) & 464 (10\%) & 464 (6\%) \\ 
         \quad 2 & 0 (0\%) & 143 (3\%) & 143 (2\%) \\ 
         \quad 3 & 0 (0\%) & 95 (2\%) & 95 (1\%) \\ 
         \quad 4 or more & 0 (0\%) & 278 (6\%) & 278 (4\%) \\ 
         More than 10 cyst locules\textsuperscript{b} & 0 (0\%) & 634 (14\%) & 634 (9\%) \\ 
-        \multicolumn{4}{l}{Colour score of intratumoral flow} \\ 
+        \multicolumn{4}{l}{\textbf{Colour score of intratumoral flow}} \\ 
         \quad 1: No blood flow & 1574 (72\%) & 1263 (27\%) & 2837 (41\%) \\ 
         \quad 2: minimal blood flow & 449 (21\%) & 1314 (28\%) & 1763 (26\%) \\ 
         \quad 3: moderate blood flow & 161 (7\%) & 1376 (30\%) & 1537 (22\%) \\ 
         \quad 4: very strong flow & 6 (0.3\%) & 704 (15\%) & 710 (10\%) \\ 
-        \multicolumn{4}{l}{Tumour type using IOTA terminology} \\ 
+        \multicolumn{4}{l}{\textbf{Tumour type using IOTA terminology}} \\ 
         \quad Unilocular & 2190 (100\%) & 388 (8\%) & 2578 (38\%) \\ 
         \quad Unilocular solid & 0 (0\%) & 630 (13\%) & 630 (9\%) \\ 
         \quad Multilocular & 0 (0\%) & 1438 (31\%)               & 1438 (21\%)               \\ 
@@ -329,7 +329,7 @@ DT and TB are co-founders of and have stock options in Gynaia Inc., a company pr
 
 \subsection{Protocol}
 
-The \gls{IOTA}5 protocol was registered in clinicaltrials.gov (https://clinicaltrials.gov/study/NCT01698632) and the statistical analysis plan was preregistered in an Open Science Foundation (\gls{OSF}) preregistration.
+The \gls{IOTA}5 protocol was registered in clinicaltrials.gov (\url{https://clinicaltrials.gov/study/NCT01698632}) and the statistical analysis plan was preregistered in an Open Science Foundation (\gls{OSF}) preregistration.
 
 \subsection{Data Sharing}
 
@@ -341,4 +341,4 @@ All code to produce the results and visualisations in the document will be share
 
 \subsection{Patient and public involvement}
 
-The \gls{IOTA} group has a patient representative from Esperanza support group (https://esperanza-lotgenotengroep.be/), who is involved in the design and conduct of the studies. The patient representative is involved in the interpretation of the results and in the writing of the manuscript. The patient representative is also involved in the dissemination of the results to patients and the public.
+The \gls{IOTA} group has a patient representative from Esperanza support group (\url{https://esperanza-lotgenotengroep.be/}), who is involved in the design and conduct of the studies. The patient representative is involved in the interpretation of the results and in the writing of the manuscript. The patient representative is also involved in the dissemination of the results to patients and the public.
