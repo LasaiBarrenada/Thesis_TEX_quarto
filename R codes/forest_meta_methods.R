@@ -216,7 +216,7 @@ p <- ggplot(plot_data, aes(x = est, y = ypos)) +
            hjust = 0, size = 3, fontface = "bold") +
   annotate("text", x = 1.03, y = top_y, label = "AUC [95% CI/CrI]",
            hjust = 0, size = 3, fontface = "bold") +
-  annotate("text", x = 1.19, y = top_y, label = "95% PI",
+  annotate("text", x = 1.19, y = top_y, label = "     95% PI",
            hjust = 0, size = 3, fontface = "bold", colour = "grey40") +
   # Reference line at REML+HKSJ pooled estimate
   geom_vline(

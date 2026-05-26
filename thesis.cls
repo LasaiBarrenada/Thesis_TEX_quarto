@@ -22,7 +22,7 @@
 % Packages
 \RequirePackage{graphicx}
 \RequirePackage{subcaption}
-\captionsetup{font=footnotesize}
+\captionsetup{font=small, labelfont=bf}
 \captionsetup[subfigure]{font=scriptsize}
 \RequirePackage{textpos}
 \RequirePackage{xcolor}

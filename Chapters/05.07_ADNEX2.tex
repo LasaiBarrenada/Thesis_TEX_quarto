@@ -109,7 +109,7 @@ Researchers that aim to externally validate the model can do it by using evaluat
 \label{tab:ADNEX2:1}
    \begin{tabularx}{\textwidth}{XXXX}
     \toprule
-        Variable & Benign Descriptors apply  & Benign Descriptors do not apply & All patients \\ 
+       \textbf{Variable} & \textbf{BD apply}  & \textbf{BD do not apply} & \textbf{All patients} \\ 
         \midrule
         \textbf{Number of cases} & 2190 & 4657 & 6847 \\ 
         \quad Benign & 1987 (91\%) & 2638 (57\%) & 4625 (68\%) \\ 
@@ -151,6 +151,7 @@ Researchers that aim to externally validate the model can do it by using evaluat
     \end{tabularx}
 \par\noindent\makebox[\textwidth][l]{%
 \begin{minipage}[t]{\textwidth}
+\addlinespace[0.5em]
 \raggedright\footnotesize
 Results are presented as median (IQR) [range] for continuous variables, or N (\%) for categorical variables. 
 
@@ -182,7 +183,7 @@ ADNEX2 with \gls{CA125} if available performed better than ADNEX2 without \gls{C
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{figures/ADNEX2/Figure2clusteredcal.pdf}
-\caption{Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125 if benign descriptors do not apply (n = 4657), and the two-step strategy with ADNEX2 without CA125 and the two-step strategy with ADNEX without CA125 in all patients (n = 6847). The shaded blue and orange area indicate the 95\% prediction interval for the calibration.}
+\caption[Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125]{Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125 if benign descriptors do not apply (n = 4657), and the two-step strategy with ADNEX2 without CA125 and the two-step strategy with ADNEX without CA125 in all patients (n = 6847). The shaded blue and orange area indicate the 95\% prediction interval for the calibration.}
 \label{fig:ADNEX2:2}
 \end{figure}
 
@@ -214,9 +215,9 @@ For the 10\% threshold, sensitivity ranged between 0.85 and 0.96 and specificity
 \scriptsize
 \caption[Performance measures of ADNEX and ADNEX2]{Summary of performance measures of ADNEX and ADNEX2 in the different populations and strategies. 10\% decision threshold was used for Sensitivity, Specificity, Net Benefit and p-useful.}
 \label{tab:ADNEX2:2}
- \begin{tabularx}{\textwidth}{p{2cm}XXXXp{1cm}p{1cm}}
+ \begin{tabularx}{\textwidth}{p{2.80cm}XXXXp{0.75cm}p{1.05cm}}
     \toprule
-        Model & AUC (CI) &  OE (CI) & Sensitivity (CI) & Specificity (CI) & Δ NB & P-useful \\ 
+       \textbf{Model} & \textbf{AUC (CI)} &  \textbf{OE (CI)} & \textbf{Sensitivity (CI)} & \textbf{Specificity (CI)} & \textbf{Δ NB} & \textbf{P-useful} \\ 
         \midrule
         \multicolumn{7}{c}{Where benign descriptors do not apply (N = 4657)}  \\ 
         \midrule
@@ -229,10 +230,10 @@ For the 10\% threshold, sensitivity ranged between 0.85 and 0.96 and specificity
         \multicolumn{7}{c}{All patients (N=6847)} \\ 
         \midrule
 
-        2SS+ADNEX2 without CA125 & 0.94 (0.93-0.95) & 1.05 (0.95-1.14) & 0.93 (0.89-0.95) & 0.83 (0.78-0.87) & 0.0596 & 98\% \\ 
-        2SS+ADNEX2 with CA125 if available & 0.95 (0.93-0.96)  & 1.04 (0.94-1.14) & 0.93 (0.89-0.95) & 0.84 (0.79-0.87) & 0.0594 & 97\% \\ 
-        2SS+ADNEX without CA125 & 0.94 (0.93-0.95)  & 1.16 (1.08-1.24) & 0.92 (0.87-0.95) & 0.84 (0.79-0.88) & 0.0594 & 97\% \\ 
-        2SS+ADNEX with CA125 if available & 0.95 (0.93-0.96) & 1.13 (1.05-1.22) & 0.92 (0.87-0.95) & 0.85 (0.80-0.89) & 0.0592 & 98\% \\ 
+        BD+ADNEX2 without CA125 & 0.94 (0.93-0.95) & 1.05 (0.95-1.14) & 0.93 (0.89-0.95) & 0.83 (0.78-0.87) & 0.0596 & 98\% \\ 
+        BD+ADNEX2 with CA125 if available & 0.95 (0.93-0.96)  & 1.04 (0.94-1.14) & 0.93 (0.89-0.95) & 0.84 (0.79-0.87) & 0.0594 & 97\% \\ 
+        BD+ADNEX without CA125 & 0.94 (0.93-0.95)  & 1.16 (1.08-1.24) & 0.92 (0.87-0.95) & 0.84 (0.79-0.88) & 0.0594 & 97\% \\ 
+        BD+ADNEX with CA125 if available & 0.95 (0.93-0.96) & 1.13 (1.05-1.22) & 0.92 (0.87-0.95) & 0.85 (0.80-0.89) & 0.0592 & 98\% \\ 
         ADNEX2 without CA125 & 0.94 (0.93-0.95)  & 1.04 (0.94-1.12) & 0.93 (0.89-0.95) & 0.83 (0.78-0.87) & 0.0596 & 98\% \\ 
         ADNEX2 with CA125 if available & 0.95 (0.93-0.96)  & 1.03 (0.92-1.13) & 0.92 (0.89-0.95) & 0.84 (0.79-0.87) & 0.0593 & 97\% \\ 
         ADNEX without CA125 & 0.94 (0.93-0.95)  & 1.14 (1.05-1.22) & 0.92 (0.87-0.95) & 0.84 (0.79-0.88) & 0.0594 & 97\% \\ 
@@ -241,7 +242,9 @@ For the 10\% threshold, sensitivity ranged between 0.85 and 0.96 and specificity
     \end{tabularx}
     \noindent\begin{minipage}{\textwidth}
 \raggedright\footnotesize
-AUC: Area Under the receiver operating characteristic curve, ECI: Estimated calibration index, CI: Confidence interval, OE: Observed over expected ratio, Δ NB: Delta Net Benefit calculated at the 10\% decision threshold. This is the net benefit of using the model minus the maximum net benefit of treat all or treat none, P-useful: Probability of being useful in a hypothetical new centre at the 10\% decision threshold. 2SS: Two-step strategy 
+\addlinespace[0.5em]
+
+AUC: Area Under the receiver operating characteristic curve, ECI: Estimated calibration index, CI: Confidence interval, OE: Observed over expected ratio, Δ NB: Delta Net Benefit calculated at the 10\% decision threshold. This is the net benefit of using the model minus the maximum net benefit of treat all or treat none, P-useful: Probability of being useful in a hypothetical new centre at the 10\% decision threshold. BD: Benign descriptors. 
 \end{minipage}
 \end{table}
 
@@ -271,6 +274,7 @@ AUC: Area Under the receiver operating characteristic curve, ECI: Estimated cali
         Stage I vs Metastatic & 0.73 (0.69-0.77) & 0.73 (0.69-0.77) & 0.72 (0.67-0.76) & 0.71 (0.67-0.76) & 0.73 (0.69-0.77) & 0.73 (0.69-0.77) & 0.71 (0.67-0.76) & 0.71 (0.67-0.75) \\ 
         Stage II-IV vs Metastatic & 0.65 (0.61-0.69) & 0.80 (0.76-0.83) & 0.66 (0.62-0.70) & 0.80 (0.77-0.83) & 0.65 (0.61-0.69) & 0.80 (0.76-0.83) & 0.66 (0.62-0.70) & 0.80 (0.77-0.83) \\ 
         \bottomrule
+        \addlinespace[0.5em]
     \end{tabularx}
 \footnotesize \raggedright BD: Benign descriptors, PDI: Polytomous discrimination index
 \end{sidewaystable}

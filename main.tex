@@ -3,6 +3,7 @@
 \documentclass[11pt,twoside,a4paper]{thesislayout}
 \usepackage{rotating}
 \usepackage{csquotes}
+\usepackage{threeparttable}
 \usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
@@ -25,31 +26,31 @@
 
 
 
-\makefrontcover
+% \makefrontcover
 
-\includepdf[pages=-]{title_page/title_page.pdf}
+% \includepdf[pages=-]{title_page/title_page.pdf}
 
-\makecopyrightpage{Lasai Barreñada}{Herestraat 49, 3000 Leuven (Belgium)}
+% \makecopyrightpage{Lasai Barreñada}{Herestraat 49, 3000 Leuven (Belgium)}
 
-\newpage
-\thispagestyle{empty}
+% \newpage
+% \thispagestyle{empty}
 
-\vspace*{\fill}
-\begin{center}
-	\begin{minipage}{0.85\textwidth}
-		\itshape\large
-		We shall try not to use statistics as a drunken man uses lamp-posts,
-		for support rather than for illumination.
+% \vspace*{\fill}
+% \begin{center}
+% 	\begin{minipage}{0.85\textwidth}
+% 		\itshape\large
+% 		We shall try not to use statistics as a drunken man uses lamp-posts,
+% 		for support rather than for illumination.
 
-		\par\vspace{1em}
-		\raggedleft\normalfont
-		-- Andrew Lang, Scottish poet and novelist
-	\end{minipage}
-\end{center}
-\vspace*{\fill}
+% 		\par\vspace{1em}
+% 		\raggedleft\normalfont
+% 		-- Andrew Lang, Scottish poet and novelist
+% 	\end{minipage}
+% \end{center}
+% \vspace*{\fill}
 
-\blankpage
-\newpage
+% \blankpage
+% \newpage
 
 \pagenumbering{roman}
 
@@ -114,13 +115,13 @@
 \renewcommand*{\bibfont}{\footnotesize}
 \printbibliography[heading=bibintoc]
 
-\part{Back matter}
-\label{part:backmatter}
-\markboth{}{}
+% \part{Back matter}
+% \label{part:backmatter}
+% \markboth{}{}
 
-\include{chapters/07_additional_statements}
-\include{chapters/08_ai_use_statement}
-\include{chapters/09_CV}
-\include{chapters/10_Publications}
-\makebackcover
+% \include{chapters/07_additional_statements}
+% \include{chapters/08_ai_use_statement}
+% \include{chapters/09_CV}
+% \include{chapters/10_Publications}
+% \makebackcover
 \end{document}

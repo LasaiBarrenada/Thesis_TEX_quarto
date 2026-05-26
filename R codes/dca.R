@@ -5,17 +5,17 @@ inv_logit <- \(x) 1 / (1 + exp(-x))
 set.seed(6192)
 
 n <- 2000
-# Outcome driven by the very good model; intercept targets ~35% prevalence
-lp_vgood <- rnorm(n, mean = -1.2, sd = 2.5)
-p_vgood <- inv_logit(lp_vgood)
-y <- rbinom(n, 1, p_vgood)
+# Outcome driven by the Model 1; intercept targets ~35% prevalence
+lp_best <- rnorm(n, mean = -1.2, sd = 2.5)
+p_best <- inv_logit(lp_best)
+y <- rbinom(n, 1, p_best)
 
-# Good model: correlated with true risk but noisier
-lp_good <- qlogis(p_vgood) + rnorm(n, 0, 1.5)
+# Model 2: correlated with true risk but noisier
+lp_good <- qlogis(p_best) + rnorm(n, 0, 1.5)
 p_good <- inv_logit(lp_good)
 
-# Poor model: weakly correlated with true risk
-lp_poor <- qlogis(p_vgood) + rnorm(n, 0, 4)
+# Model 3: weakly correlated with true risk
+lp_poor <- qlogis(p_best) + rnorm(n, 0, 4)
 p_poor <- inv_logit(lp_poor)
 
 prev <- mean(y)
@@ -39,22 +39,22 @@ dca_df <- bind_rows(
          nb = 0,
          strategy = "Treat none"),
   tibble(threshold = thresholds,
-         nb = calc_nb(y, p_vgood, thresholds),
-         strategy = "Very good model"),
+         nb = calc_nb(y, p_best, thresholds),
+         strategy = "Model 1"),
   tibble(threshold = thresholds,
          nb = calc_nb(y, p_good, thresholds),
-         strategy = "Good model"),
+         strategy = "Model 2"),
   tibble(threshold = thresholds,
          nb = calc_nb(y, p_poor, thresholds),
-         strategy = "Poor model")
+         strategy = "Model 3")
 ) |>
   mutate(strategy = factor(strategy,
-    levels = c("Very good model", "Good model", "Poor model", "Treat all", "Treat none"),
-    labels = c("Very good model", "Good model", "Poor model", "Treat all", "Treat none")))
+    levels = c("Model 1", "Model 2", "Model 3", "Treat all", "Treat none"),
+    labels = c("Model 1", "Model 2", "Model 3", "Treat all", "Treat none")))
 
 # Loess smooth the three model lines
 model_df <- dca_df |>
-  filter(strategy %in% c("Very good model", "Good model", "Poor model")) |>
+  filter(strategy %in% c("Model 1", "Model 2", "Model 3")) |>
   group_by(strategy) |>
   mutate(nb_smooth = predict(loess(nb ~ threshold, span = 0.25))) |>
   ungroup()
@@ -77,16 +77,17 @@ hb_labels <- sapply(primary_breaks, \(pt) {
 
 p_dca <- ggplot() +
   geom_vline(xintercept = primary_breaks, color = "grey90", linewidth = 0.3) +
+  geom_vline(xintercept = 0.1, color = "black", linetype = "dashed", linewidth = 0.4)+
   geom_line(data = default_df, aes(x = threshold, y = nb, color = strategy),
             linewidth = 0.8) +
   geom_line(data = model_df, aes(x = threshold, y = nb_smooth, color = strategy),
             linewidth = 0.8) +
   scale_color_manual(
-    breaks = c("Very good model", "Good model", "Poor model", "Treat all", "Treat none"),
+    breaks = c("Model 1", "Model 2", "Model 3", "Treat all", "Treat none"),
     values = c(
-      "Very good model" = "#08519C",
-      "Good model"      = "#4292C6",
-      "Poor model"      = "#9ECAE1",
+      "Model 1" = "#08519C",
+      "Model 2"      = "#4292C6",
+      "Model 3"      = "#9ECAE1",
       "Treat all"       = "#E41A1C",
       "Treat none"      = "#4DAF4A"
   )) +

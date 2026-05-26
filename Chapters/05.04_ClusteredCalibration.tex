@@ -104,9 +104,11 @@ Since there is no commonly accepted way to estimate calibration curves for predi
 \begin{sidewaystable}
 \centering
 \small
+\begin{threeparttable}
 \caption[Overview introduced methods]{Overview of introduced methodologies for creating flexible calibration curves accounting for clustering.}
 \label{tab:4:1}
 \begin{tabularx}{\linewidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
 \textbf{Method} & \textbf{Estimation of observed proportion} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Implementation} & \textbf{Illustration} \\
 \midrule
 CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by quantile per cluster \newline \textbf{Interval:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by estimated risk interval & Model agnostic \newline Pointwise CI and PI \newline All clusters have the same number of groups & Computation time \newline Groups can contain observations with very different estimated risks within and between clusters (grouped version) \newline Clusters may not have the same number of groups (e.g., risk intervals without observations) (interval version) \newline Curves depend on the number of groups & CGC(method = ``grouped'') \newline CGC(method = ``interval'') & Supplementary Figures S2--S3 \newline Supplementary Figures S4--S5 \\
@@ -115,12 +117,10 @@ CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transfo
 \addlinespace
 MIX-C & Logistic generalized linear mixed model with \gls{restricted_cubic_splines} & Curve-wise CI and PI \newline Also provides shrunken curves per center & Computation time & MIXC(model = ``slope'') & Supplementary Figure S8 (slope) \\
 \bottomrule
+\addlinespace[0.5em]
+\multicolumn{6}{l}{\textbf{Note}: Implementation in the code included in the OSF. For the implementation in \textit{CalibrationCurves} package go to the package documentation.}
 \end{tabularx}
-\begin{tablenotes}
-\footnotesize
-\raggedleft
-\item Note: Implementation in the code included in the OSF. For the implementation in \textit{CalibrationCurves} package go to the package documentation.
-\end{tablenotes}
+\end{threeparttable}
 \end{sidewaystable}
 
 \subsection{Clustered group calibration (CG-C)}
@@ -206,6 +206,7 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
+\begin{threeparttable}
 \caption[Median MSCE for varying validation sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying validation events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. }
 \label{tab:4:2}
 \begin{tabular}{rrrr llllll}
@@ -231,12 +232,10 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 200 & 30 & 0.2 & 0.75 & 1.25 (0.85--1.83) & 0.06 (0.02--0.14) & 0.59 (0.41--0.88) & 0.15 (0.04--0.33) & 5.73 (4.70--7.18) & \textbf{0.06 (0.02--0.15)} \\
 200 & 30 & 0.2 & 0.75 & 2.50 (1.68--3.97) & 0.08 (0.04--0.21) & 0.23 (0.08--0.45) & 0.12 (0.05--0.34) & 0.51 (0.31--0.72) & \textbf{0.11 (0.03--0.29)} \\
 \bottomrule
+\addlinespace[0.5em]
+\multicolumn{10}{l}{\textsuperscript{a}Deciles are calculated only with 10 points instead of 100.}
 \end{tabular}
-\begin{tablenotes}
-\footnotesize
-\raggedleft
-\item \textsuperscript{a}Deciles are calculated only with 10 points instead of 100.
-\end{tablenotes}
+\end{threeparttable}
 \end{sidewaystable}
 
 \begin{figure}
@@ -250,7 +249,7 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
-\caption[Median MSCE for varying training sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying training sample events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. $^a$Deciles is calculated only with 10 points instead of 100.}
+\caption[Median MSCE for varying training sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying training sample events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100.}
 \label{tab:4:3}
 \begin{tabular}{rrrr llllll}
 \toprule
@@ -275,6 +274,8 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 200 & 30 & 0.2 & 0.75 & 0.13 (0.09--0.19) & 0.05 (0.02--0.14) & 1.17 (0.62--2.05) & 0.05 (0.02--0.12) & 6.71 (5.57--7.72) & \textbf{0.04 (0.02--0.10)} \\
 200 & 30 & 0.2 & 0.9 & 0.31 (0.24--0.51) & 0.07 (0.02--0.18) & 0.16 (0.09--0.32) & 0.08 (0.01--0.20) & 0.62 (0.46--0.85) & \textbf{0.07 (0.01--0.19)} \\
 \bottomrule
+\addlinespace[0.5em]
+\multicolumn{10}{l}{\textsuperscript{a}Deciles are calculated only with 10 points instead of 100.}
 \end{tabular}
 \end{sidewaystable}
 
@@ -311,6 +312,7 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 \centering
 \footnotesize
 \setlength{\tabcolsep}{4pt}
+\begin{threeparttable}
 \caption[Median MSCE for center-specific results in the synthetic data]{Median MSCE for the synthetic data study for center-specific results. MSCE is presented multiplied by 100. Bold numbers indicate best performance across approaches. The center-specific true curves are based on a flexible logistic model with restricted cubic splines.}
 \label{tab:4:4}
 \begin{tabular}{rr lll lll}
@@ -341,6 +343,7 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 1000 & 10 & 0.03 (0.01--0.06) & 0.04 (0.02--0.07) & \textbf{0.02 (0.01--0.04)} & 0.10 (0.05--0.15) & \textbf{0.04 (0.02--0.07)} & 0.06 (0.02--0.11) \\
 \bottomrule
 \end{tabular}
+\end{threeparttable}
 \end{sidewaystable}
 
 \begin{figure}
