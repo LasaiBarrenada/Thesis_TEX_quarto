@@ -4,6 +4,7 @@
 \usepackage{rotating}
 \usepackage{csquotes}
 \usepackage{threeparttable}
+\usepackage{orcidlink}
 \usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
@@ -18,7 +19,7 @@
 
 \loadglsentries{acronyms}
 \loadglsentries{terms}
-% \includeonly{chapters/03_introduction,chapters/04_objectives,chapters/06_discussion}
+% \includeonly{chapters/05.06_varselection}
 
 \begin{document}
 
@@ -26,13 +27,13 @@
 
 
 
-% \makefrontcover
+\makefrontcover
 
-% \includepdf[pages=-]{title_page/title_page.pdf}
+\includepdf[pages=-]{title_page/title_page.pdf}
 
-% \makecopyrightpage{Lasai Barreñada}{Herestraat 49, 3000 Leuven (Belgium)}
+\makecopyrightpage{Lasai Barreñada}{Herestraat 49, 3000 Leuven (Belgium)}
 
-% \newpage
+\newpage
 % \thispagestyle{empty}
 
 % \vspace*{\fill}
@@ -58,17 +59,10 @@
 \include{chapters/02_abstract}
 \include{chapters/02_1_abstract_dutch}
 
-\tableofcontents
-
-\addcontentsline{toc}{chapter}{Glossary}
-\renewcommand*{\glossarypreamble}{\noindent\textit{Terms shown in bold at first mention are defined in this glossary. Definitions in this glossary are provided in the context of clinical prediction modelling and are tailored to the scope of this thesis.}\par\medskip}
-\printglossary[title={Glossary}]
-\renewcommand*{\glossarypreamble}{}
+% \blankpage
 \newpage
 
-\addcontentsline{toc}{chapter}{List of Acronyms}
-\glsaddall
-\printglossary[type=\acronymtype, title={List of Acronyms}]
+\tableofcontents
 \newpage
 
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -77,6 +71,17 @@
 
 \addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
+\newpage
+
+
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\glsaddall
+\printglossary[type=\acronymtype, title={List of Acronyms}]
+
+\addcontentsline{toc}{chapter}{Glossary}
+\renewcommand*{\glossarypreamble}{\noindent\textit{Terms shown in bold at first mention are defined in this glossary. Definitions in this glossary are provided in the context of clinical prediction modelling and are tailored to the scope of this thesis.}\par\medskip}
+\printglossary[title={Glossary}]
+\renewcommand*{\glossarypreamble}{}
 \blankpage
 
 \newpage
@@ -115,13 +120,13 @@
 \renewcommand*{\bibfont}{\footnotesize}
 \printbibliography[heading=bibintoc]
 
-% \part{Back matter}
-% \label{part:backmatter}
-% \markboth{}{}
+\part{Back matter}
+\label{part:backmatter}
+\markboth{}{}
 
-% \include{chapters/07_additional_statements}
-% \include{chapters/08_ai_use_statement}
-% \include{chapters/09_CV}
-% \include{chapters/10_Publications}
-% \makebackcover
+\include{chapters/07_additional_statements}
+\include{chapters/08_ai_use_statement}
+\include{chapters/09_CV}
+\include{chapters/10_Publications}
+\makebackcover
 \end{document}

@@ -1,3 +1,4 @@
+# Toy example with simulated data
 n <- 500
 df <- data.frame(
 	X1 = rnorm(n),
@@ -5,26 +6,41 @@ df <- data.frame(
 	X3 = rnorm(n),
 	X4 = rbinom(n, 1, 0.5)
 )
-df$y <- rbinom(n, 1, plogis(2 + 1*df$X1 + 1.5*df$X2 + 0.2*df$X3))
+df$Y <- rbinom(n, 1, plogis(2 * df$X1 + 1.5 * df$X2 + 0.2 * df$X3))
 
-## Step 1: Install the package (once)
-# install.packages("NB_varsel")
-library(NB_varsel)
+## Step 1: Download package
+pak::pak("LasaiBarrenada/NBvarsel")
+# OR
+install.packages("NBvarsel")
 
-## Step 2: (Optional) Define harms for predictors
-harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.0001, X4 = 0)
+## Step 2: Define harms (optional)
+harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.1, X4 = 0.0001)
 
-## Step 3: Run the core variable-selection routine
+## Step 3: Core function
 result <- nb_varsel(
 	data = df,
-	outcome_var = "y",
+	outcome_var = "Y",
 	costs = harms,
 	mode = "exhaustive",
-	folds = 5,
-	permutations = TRUE,
+	splines = FALSE,
+	permutation = TRUE,
 	allow_parallel = FALSE
 )
 
-## Step 4: Visualisations (built-in)
-all_subset_plot(result$all_models)
+## Step 4: Analysis of results
+# Best model (highest cost-adjusted Net Benefit)
+result$best_model_stats
+# All evaluated models, sorted by cost adjusted net benefit
+result$all_models
+
+## Step 5: Built-in visualizations
+# Two-panel plot: metric overview + predictor inclusion heatmap
+all_subset_plot(
+    result$all_models,
+    highlight_color = "steelblue",
+    tile_color = "lightgray"
+)
+# Permutation importance bar chart
 VIF_plot(result$all_models, color = "darkgreen")
+
+Detailed and up to date documentation available at \url{https://lasaibarrenada.github.io/NB_varsel/}

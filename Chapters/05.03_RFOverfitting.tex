@@ -184,7 +184,7 @@ and low-risk estimates, the greyscale in the heatmaps is bounded to the minimum
 and maximum predicted probabilities by each model in each panel. We also include
 figures using the same scale for all heatmaps in Additional file 1.
 
-The \gls{RF} models were trained with ranger package, with $\textit{ntree} = 500$,
+The \gls{RF} models were trained with \texttt{ranger} package, with $\textit{ntree} = 500$,
 $\textit{mtry} = \lceil\sqrt{P}\rceil$, and $\textit{min.node.size} = 2$.
 Ranger estimates the probabilities with Malley's probability machine methods
 which averages the proportion of cases from each class over the terminal nodes
@@ -351,7 +351,7 @@ validation.
 
 \subsection{Methods}
 We fitted models on training datasets of size 200 (small) or 4000 (large), and
-for \gls{RF} models we used values for \textit{min.node.size} of 2 or 20 and ranger
+for \gls{RF} models we used values for \textit{min.node.size} of 2 or 20 and \texttt{ranger}
 package for training. As a result, there were $2 \times 2 \times 3 \times 2
 \times 2 \times 2 \times 2 = 192$ scenarios. For each scenario, 1000 simulation
 runs were performed (i.e., 1000 different training datasets). For \gls{RF},
@@ -523,10 +523,10 @@ since they capture calibration
  \cite{probstHyperparametersTuningStrategies2019}. In their work, Ledger and
 colleagues tuned \textit{min.node.size} by optimizing logloss based on tenfold
 cross-validation for 30 random values for mtry and \textit{min.node.size} using
-the trainControl and train functions from the caret R package
+the \textit{trainControl()} and \textit{train()} functions from the caret R package
  \cite{ledgerMulticlassRiskModels2023}. This resulted in $\textit{mtry} = 3$ and
 $\textit{min.node.size} = 15$, with competitive results in test data. Applying
-the tuneRanger R package with 200 iterations for our case studies based on
+the \texttt{tuneRanger} R package with 200 iterations for our case studies based on
 logloss yielded an optimal \textit{min.node.size} of 8 (0.1\% of training set
 size) for ovarian cancer data, 261 (2.1\%) for \gls{CRASH}3 data and 591 (3.9\%) for
 \gls{IST} data \cite{probstHyperparametersTuningStrategies2019}. These values are
@@ -602,7 +602,7 @@ fully grown trees in \gls{RF} leads to suboptimal risk estimates
 However, this is rarely mentioned and hence it is common to see that low minimum
 node sizes are recommended because the problem is treated as a classification
 problem instead of a probability estimation problem (e.g., see default for
-randomForest package or scikit-learn). We think that the current study sheds
+\texttt{randomForest} package or \texttt{scikit-learn}). We think that the current study sheds
 further light on probability estimation in \gls{RF}. Of course, a generic alternative
 that works for any miscalibrated model is to recalibrate the probabilities of
 the \gls{RF} afterward using new data
@@ -635,7 +635,7 @@ thereby increasing training discrimination but decreasing test discrimination.
 It is well documented that this affects variable importance measures
  \cite{stroblBiasRandomForest2007}, but it may also be relevant for model
 performance. The problem can be addressed by using an adapted \gls{RF} algorithm such
-as cforest from the partykit package
+as cforest from the \texttt{partykit} package
  \cite{hothornUnbiasedRecursivePartitioning2006}. These adapted algorithms grow
 conditional inference trees (\gls{CIT}) instead of classification trees. For the case
 studies, we observed that tuning and using the adapted \gls{RF} yields a less

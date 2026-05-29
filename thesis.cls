@@ -34,7 +34,7 @@
   morekeywords={function,if,else,for,while,repeat,break,next,return,TRUE,FALSE,NULL,NA},%
   morekeywords=[2]{library,require,package,install.packages,data.frame,rnorm,rbinom,plogis,nb_varsel,all_subset_plot,VIF_plot},%
   morekeywords=[3]{c,df,result,harms,n,outcome_var,costs,mode,folds,permutations,allow_parallel},%
-  alsoletter={._$},%
+  alsoletter={._},%
   morecomment=[l]{#}
 }
 \lstdefinestyle{Rstyle}{
