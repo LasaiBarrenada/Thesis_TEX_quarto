@@ -1,58 +1,59 @@
 
 # PhD Thesis — Lasai Barreñada
 
-LaTeX source for a PhD thesis compiled as a collection of published papers. Uses a small wrapper class (`thesislayout.cls`) to switch between `thesis.cls` and `thesisA4.cls`, and requires **LuaLaTeX**.
+LaTeX source for a PhD thesis compiled as a collection of published papers. The main entry point is `main.tex`. The project uses a small wrapper class (`thesislayout.cls`) to select between the custom classes `thesis.cls` (book-like layout) and `thesisA4.cls` (A4 variant). The document is compiled with LuaLaTeX and uses `biblatex`/`biber` for references and the `glossaries` package for acronyms.
 
-## Project Structure
+## Quick overview
 
-```
-├── main.tex                  # Main document (includes all chapters)
-├── thesislayout.cls          # Wrapper class that selects thesis.cls or thesisA4.cls
-├── thesis.cls                # Custom document class (based on book)
-├── thesisA4.cls              # A4 variant of the custom document class
-├── references.bib            # Bibliography (biblatex + biber)
-├── acronyms.tex              # Glossary / list of acronyms
-├── terms.tex                 # Glossary terms (non-acronyms)
-│
-├── Chapters/
-│   ├── 01_acknowledgments.tex
-│   ├── 02_abstract.tex
-│   ├── 03_introduction.tex          # Not yet included
-│   ├── 04_objectives.tex            # Not yet included
-│   ├── 05.01_ADNEXSR.tex            # BMJ Medicine 2024
-│   ├── 05.02_ADNEXvsRMI.tex         # BMJ Open 2025
-│   ├── 05.03_RFOverfitting.tex      # DPR 2024
-│   ├── 05.04_ClusteredCalibration.tex  # RSM 2025
-│   ├── 05.05_FundamentalProblem.tex # npj Digital Medicine (submitted)
-│   ├── 06_discussion.tex            # Not yet included
-│   ├── 07_additional_statements.tex
-│   ├── 08_ai_use_statement.tex
-│   ├── 09_CV.tex
-│   └── 10_Publications.tex
-│
-├── figures/                  # Figures organized by chapter
-│   ├── ADNEXSR/
-│   ├── ADNEXvsRMI/
-│   ├── RFOverfitting/
-│   ├── ClusteredCalibration/
-│   └── FundamentalProblem/
-│
-├── Cover/                    # Thesis cover (PDF + source)
-├── title_page/               # Title page (PDF + source)
-├── logos/                    # Journal logos
-├── copyrights/               # Copyright information
-└── images/                   # General images
-```
+- Main file: `main.tex`
+- Document classes: `thesislayout.cls`, `thesis.cls`, `thesisA4.cls`
+- Bibliography: `references.bib` (biblatex + biber)
+- Chapters: stored in `Chapters/` (each chapter is a separate `.tex` file)
+- Figures: organized under `figures/` by chapter
+- Supporting directories: `Cover/`, `title_page/`, `logos/`, `copyrights/`, `images/`
 
-## Building
+Several chapters are published or in preparation as stand-alone papers (see `Chapters/` for current status and author notes).
 
-Requires the full build sequence (LuaLaTeX + glossaries + biber):
+## Build (recommended)
 
-```bash
+Preferred explicit sequence (use this when debugging build problems):
+
+```powershell
 lualatex -interaction=nonstopmode main.tex
 makeglossaries main
 biber main
 lualatex -interaction=nonstopmode main.tex
 lualatex -interaction=nonstopmode main.tex
 ```
+
+A convenient one-line continuous-preview command (uses `latexmk` and LuaLaTeX):
+
+```powershell
+latexmk -pvc -pdf -pdflatex="lualatex %O %S" main.tex
+```
+
+Clean auxiliary files produced by `latexmk` with:
+
+```powershell
+latexmk -c
+```
+
+Notes:
+- If packages are missing, install them with your TeX distribution (TinyTeX users can run `tlmgr install <package>`).
+- The build sequence intentionally runs LuaLaTeX multiple times to ensure cross-references, glossary entries, and bibliography are fully resolved.
+
+## Common tasks
+
+- Compile once (fast check): run the explicit sequence above.
+- Continuous compile while editing: use the `latexmk` command above.
+- Regenerate glossaries: `makeglossaries main` (run after the first LaTeX pass and before the final LaTeX pass).
+
+## Reproducibility and code
+
+Supporting R code and supplementary materials are available in project-specific OSF repositories linked from chapter front-matter. See individual chapters for exact OSF links and data availability notes.
+
+## Troubleshooting
+
+- If compilation fails, open `main.log` and look for the first error. Most common issues are missing packages, unescaped special characters in chapter text, or mismatched braces.
+- For bibliography errors, ensure `biber` is in PATH and run `biber main` after the first LaTeX pass.
 
