@@ -181,7 +181,7 @@
   name={Calibration intercept},
   text={calibration intercept},
   first={\textbf{calibration intercept}},
-  description={The parameter that quantifies systematic overestimation or underestimation of predicted risks. A positive calibration intercept indicates systematic underestimation of risk, while a negative calibration intercept indicates systematic overestimation of risk. Analogous to the Observed-to-expected ratio.}
+  description={The parameter that quantifies systematic overestimation or underestimation of predicted risks. A positive calibration intercept indicates systematic underestimation of risk, while a negative calibration intercept indicates systematic overestimation of risk. Analogous to the observed-to-expected ratio.}
 }
 
 \newglossaryentry{calibration_slope}{
@@ -241,7 +241,7 @@
   name={Properness},
   text={proper},
   first={\textbf{proper}},
-  description={A property of a performance measure that is optimized when the true model is used, which means that the true probabilities are used. If it is only optimized with the true model, it is said to be strictly proper. Instead if it is optimized by the true model but also by other models, it is said to be semi-proper.}
+  description={A property of a performance measure that is optimized when the true model is used, which means that the true probabilities are used. If it is only optimized with the true model, it is said to be strictly proper. Instead if it is optimized by the true model but also by other models, it is said to be semi-proper. Improper measures can be higher for models that are not the true model.}
 }
 \newglossaryentry{violin_plot}{
   name={Violin plot},
@@ -278,7 +278,7 @@
   name={Observed-to-expected ratio},
   text={observed-to-expected ratio},
   first={\textbf{observed-to-expected ratio}},
-  description={A calibration measure comparing the total number of observed events to the total number of expected events from the model. A value of 1 indicates perfect agreement in the mean. Values less than 1 indicate overestimation of risk, while values greater than 1 indicate underestimation of risk.}
+  description={A calibration measure comparing the total number of observed events to the total number of expected events from the model. A value of 1 indicates perfect agreement in the mean. Values less than 1 indicate overestimation of risk, while values greater than 1 indicate underestimation of risk. Analogous to the calibration intercept.}
 }
 
 \newglossaryentry{restricted_cubic_splines}{
@@ -350,4 +350,12 @@
   text={apparent performance},
   first={\textbf{apparent performance}},
   description={Model performance assessed in the exact same data (i.e. training data) used for model development.}
+}
+\newglossaryentry{binned calibration}{
+  name={Binned calibration},
+  text={binned calibration},
+  first={\textbf{binned calibration}},
+  plural={binned calibrations},
+  firstplural={\textbf{binned calibrations}},
+  description={A method for assessing calibration by binning the data into groups based on predicted probabilities and plotting observed outcome proportions against mean predicted probabilities within each bin.}
 }

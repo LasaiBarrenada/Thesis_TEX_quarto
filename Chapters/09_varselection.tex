@@ -13,17 +13,16 @@ as:
 \begin{quote}
 \textbf{Preliminary supplementary material and code} available at \url{https://osf.io/nehd7/overview?view_only=90d559ca319541dcbd8499b393522787}.
 \end{quote}
+\vspace{0.2em}
+\noindent\scriptsize\textit{Accepted for presentation at ISCB 2026 in Freiburg, Germany}
+% \quad Published: -- \quad APC: --}
 % \vspace{-0.5em}
 % \noindent\scriptsize\textit{Submitted: X/X/X \quad Published: -- \quad APC: XXX€}
 % \normalsize\vspace{-0.5em}
 
 \section*{Summary}\label{abstract}
-\textbf{Objective}: Variable selection (VS) for clinical prediction models is usually performed on statistical grounds, for example using information criteria or p-values. These approaches ignore the cost of misclassification and the cost of measuring predictors. We propose a decision-analytic variable-selection method based on net benefit and implement it in the open-source \texttt{NBvarsel} R package. \\
-\textbf{Materials and Methods}: The proposed algorithm selects predictors by exhaustively comparing the net benefit of all candidate subsets using cross-validation, with an extension based on backward elimination for high-dimensional settings. It provides variable-importance measures as the contribution of each predictor to utility and allows the user to specify the cost of measuring a predictor. We illustrate the package with a simulation study and three real case studies, evaluating discrimination, calibration, and clinical utility. \\
-\textbf{Results}: Across the three case studies, \texttt{NBvarsel} produced more parsimonious models that maintained or improved clinical utility with minimal loss of discrimination and calibration. If costs of measuring predictors are considered, the method tends to exclude costly predictors that contribute little to utility. \\
-\textbf{Discussion}: \texttt{NBvarsel} is a promising approach for integrating clinical utility directly into variable selection, allowing prediction models to maximize patient benefit while minimizing unnecessary clinical burden. \\
-\textbf{Conclusion}: We present an easy-to-use algorithm based on the utility that a model would have in the clinic to select the best subset of predictors, which leads to simpler models maintaining the same utility.
- 
+
+We introduce `NBvarsel`, an R package that implements a decision-analytic variable-selection algorithm which selects predictor subsets by maximising net benefit via cross-validation, with a groupwise/backward-elimination extension for high-dimensional settings. The method reports variable-importance as each predictor's contribution to clinical utility and allows specifying measurement costs; it is demonstrated in a simulation and three case studies (ovarian cancer/IOTA, MIMIC IV ED, DeNTS). Across studies, `NBvarsel` yielded more parsimonious models that preserved or improved clinical utility with minimal loss in discrimination and calibration, and tends to exclude costly predictors with little added utility. The package and its visualizations facilitate development of prediction models that maximise patient benefit while minimising measurement burden.
 
 \newpage
 
@@ -285,7 +284,7 @@ The models showed comparable performance, with BE and \texttt{NBvarsel} approach
 \centering
 \footnotesize
 \renewcommand{\arraystretch}{1.2} % Slightly tighter rows
-\caption{Performance metrics of the different models varying the variable selection procedure.}
+\caption[Performance metrics comparison for the ovarian cancer case study]{Performance metrics of the different models varying the variable selection procedure in the ovarian cancer case study.}
 \label{tab:varsel:iota}
 \begin{tabularx}{\textwidth}{@{} 
   >{\raggedright\arraybackslash}p{3cm} 
@@ -395,7 +394,7 @@ According to \texttt{NBvarsel}, the model removed age, nutritional status and ha
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{figures/varselection/4_0_scatter_dents_apparent.pdf}
-\caption[Individual risk distribution per model and outcome]{Distribution of individual risks for the model based on \texttt{NBvarsel} and the published model by outcome. Plots in the margin depict densities per outcome.}
+\caption[Individual risk distribution per model and outcome in the DeNTS trial]{Distribution of individual risks for the model based on \texttt{NBvarsel} and the published model by outcome. Plots in the margin depict densities per outcome.}
 \label{fig:varsel:dents}
 \end{figure}
 
@@ -408,7 +407,7 @@ Discrimination and calibration metrics showed similar results for both models (T
 % Placeholder for Table showing DeNTS results
 \begin{table}[h!]
 \centering
-\caption[DENTS case study bootstrap results]{DENTS case study bootstrap results. Median (Q1 - Q3) [Min - Max] across 1000 bootstrap runs.}
+\caption[Bootstrap results for the DeNTS trial]{Bootstrap results for the DeNTS trial. Median (Q1 - Q3) [Min - Max] across 1000 bootstrap runs.}
 \label{tab:varsel:dents}
 \footnotesize
 \begin{tabularx}{\textwidth}{lXX}

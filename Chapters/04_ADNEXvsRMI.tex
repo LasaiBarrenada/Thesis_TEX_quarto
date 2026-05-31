@@ -22,11 +22,11 @@
 \glsunset{ROC}
 \glsunset{RU}
 \glsunset{TRIPOD}
-
+\vspace{0.5cm}
 
 published as: 
 \begin{quote}
- \textbf{Barreñada L}, Ledger A, Kotlarz A et al. Head-to-head comparison of the RMI and ADNEX models to estimate the risk of ovarian malignancy: a systematic review and meta-analysis of external validation studies. \textit{BMJ Open} 2025;15:e104141. \url{https://doi.org/10.1136/bmjopen-2025-104141}
+ \textbf{Barreñada L}, Ledger A, Kotlarz A et al. Head-to-head comparison of the RMI and ADNEX models to estimate the risk of ovarian malignancy: a systematic review and meta-analysis of external validation studies. \textit{BMJ Open}. 2025;15:e104141. \url{https://doi.org/10.1136/bmjopen-2025-104141}
 \end{quote}
 \begin{quote}
  \textbf{Supplementary material and code} available in the online version and at \url{https://osf.io/nt89z/}.
@@ -39,7 +39,7 @@ published as:
 
 \section*{Summary}
 We extended the systematic review and meta-analysis of external validations of the \gls{ADNEX} model
- \cite{barrenadaADNEXRiskPrediction2024} to perform a head-to-head comparison of the performance of the \gls{ADNEX} and \gls{RMI} models. We included 11 studies with 8271 tumours. The performance of \gls{ADNEX} was better than that of \gls{RMI} in terms of discrimination and clinical utility. The probability of the test being useful in a hypothetical new centre in operated patients was 96\% for \gls{ADNEX} with CA125 and 15\% for \gls{RMI} at the 10\%  threshold. The results support the use of \gls{ADNEX} instead of \gls{RMI} for triaging patients with ovarian tumours for referral to an oncology centre.
+ \cite{barrenadaADNEXRiskPrediction2024} to perform a head-to-head comparison of the performance of the \gls{ADNEX} and \gls{RMI} models. We included 11 studies with 8271 tumours. The performance of \gls{ADNEX} was better than that of \gls{RMI} in terms of discrimination and clinical utility. The probability of the model being useful in a hypothetical new centre in operated patients was 96\% for \gls{ADNEX} with CA125 and 15\% for \gls{RMI} at the 10\%  threshold. The results support the use of \gls{ADNEX} instead of \gls{RMI} for triaging patients with ovarian tumours for referral to an oncology centre.
 
 \newpage
 
@@ -167,11 +167,11 @@ non-\gls{IOTA} papers, by discussion with authors BVC, LV and JYJV.
 Information was collected and entered into a standardised data extraction form in
 Microsoft Excel by LB, AL, PD and GSC. The extraction process focused on study
 design, target population, reference standards, sample size, performance results,
-completeness of reporting, quality of methodology and risk of bias. The extraction
+completeness of reporting, quality of methodology and risk of bias (Table S1). The extraction
 form was structured based on \gls{CHARMS} (Checklist for critical Appraisal and data
 extraction for systematic reviews of prediction Modelling Studies), \gls{TRIPOD}
 (Transparent Reporting of a multivariable prediction model for Individual Prognosis
-Or Diagnosis) and \gls{PROBAST} (Prediction model Risk of Bias Assessment Tool) tools
+Or Diagnosis) (Table S2) and \gls{PROBAST} (Prediction model Risk of Bias Assessment Tool) tools
  \cite{moonsCriticalAppraisalData2014,collinsTransparentReportingMultivariable2015,moonsPROBASTToolAssess2019}.
 
 To describe the performance of \gls{ADNEX}, we collected information regarding
@@ -243,7 +243,7 @@ utility were computed using \gls{JAGS} version 4.3.0.
 
 \section{Results}
 
-Thirteen studies presented results for both \gls{ADNEX} and \gls{RMI}
+Thirteen studies presented results for both \gls{ADNEX} and \gls{RMI} (Figure S1 and Table S3)
  \cite{vancalsterValidationModelsDiagnose2020,diazOvarianTumorsRisk2017a,tugPreoperativeDiscriminatingPerformance2020,behnamfarComparisonUltrasoundTumor2022,meysEstimatingRiskMalignancy2017,qianComparisonDiagnosticPerformances2021,sandalComparisionRiskMalignancy2018a,szubertPerformanceSelectedModels2020,wangEvaluatingRiskMalignancy2023,borgesProspectiveExternalValidation2024,ounPreoperativeRiskAssessment2023,poonyakanokProspectiveComparativeTrial2023,vilendecicAccuracyIOTASimple2023}.
 Two studies were excluded from the systematic review and the meta-analysis because
 they validated only \gls{RMI} 2
@@ -262,51 +262,52 @@ extraction data and code to reproduce the results and figures are available in t
 \small
 \caption[Characteristics of included studies]{Characteristics of the eleven included studies.}
 \label{tab:2:1}
-\begin{tabularx}{0.7\textwidth}{lrl}
+\begin{tabularx}{0.7\textwidth}{lc >{\raggedright\arraybackslash}p{2.8cm}}
 \toprule
-\textbf{Study characteristics} & \textbf{N (\%)} \\
+\textbf{Study characteristics} & \textbf{N (\%)} & \textbf{Comments} \\
 \midrule
-\textbf{Unit of analysis} & \\
-\quad Patient & 10 (91) \\
-\quad Tumour & 1 (9) \\
+\textbf{Unit of analysis} & &\\
+\quad Patient & 10 (91) & \\
+\quad Tumour & 1 (9) & \\
 \addlinespace
-\textbf{Region} & \\
-\quad Asia & 6 (55)  \\
-\quad Europe & 4 (36) \\
-\quad South America & 1 (9) \\
+\textbf{Region} & &\\
+\quad Asia & 6 (55) &  Includes two
+studies from Türkiye\\
+\quad Europe & 4 (36) & \\
+\quad South America & 1 (9) & \\
 \addlinespace
-\textbf{Number of centres} & \\
-\quad 1 & 7 (64) \\
-\quad 2--5 & 3 (27) \\
-\quad $>$5 & 1 (9) \\
+\textbf{Number of centres} & &\\
+\quad 1 & 7 (64) & \\
+\quad 2--5 & 3 (27) & \\
+\quad $>$5 & 1 (9) & \\
 \addlinespace
-\textbf{Type of centre} & \\
-\quad Oncology centre(s) & 8 (73)\\
-\quad Non-oncology centre(s) & 0 \\
-\quad Both types of centres & 1 (9) \\
-\quad Unclear & 2 (18) \\
+\textbf{Type of centre} & &\\
+\quad Oncology centre(s) & 8 (73) &\\
+\quad Non-oncology centre(s) & 0 & \\
+\quad Both types of centres & 1 (9) & \\
+\quad Unclear & 2 (18) & \\
 \addlinespace
-\textbf{Type of study} & \\
-\quad Prospective & 4 (36) \\
-\quad Retrospective & 5 (45) \\
-\quad Unclear & 2 (18) \\
+\textbf{Type of study} & &\\
+\quad Prospective & 4 (36) & \\
+\quad Retrospective & 5 (45) & \\
+\quad Unclear & 2 (18) & \\
 \addlinespace
-\textbf{ADNEX version} & \\
-\quad With CA125 & 11 (100) \\
-\quad Without CA125 & 4 (36) \\
+\textbf{ADNEX version} & &\\
+\quad With CA125 & 11 (100) &  7 only used ADNEX with CA125, 4 used both \\
+\quad Without CA125 & 4 (36) & \\
 \addlinespace
-\textbf{Target population} & \\
-\quad Surgically managed patients & 10 (91)\\
-\quad Surgically and non-surgically managed & 1 (9)\\
+\textbf{Target population} & &\\
+\quad Surgically managed patients & 10 (91) &\\
+\quad Surgically and non-surgically managed & 1 (9) &\\
 \bottomrule
 \addlinespace[0.5em]
-\multicolumn{2}{l}{ADNEX: Assessment of Different NEoplasias in the adneXa.}
+\multicolumn{3}{l}{ADNEX: Assessment of Different NEoplasias in the adneXa.}
 \end{tabularx}
 \end{table}
 
 \subsection{Critical appraisal: reporting and risk of bias}
 The 11 studies reported on average 19 out of 28 (68\%) \gls{TRIPOD} items for the
-validation of \gls{ADNEX}, and 17.18 (61\%) \gls{TRIPOD} items for the validation of \gls{RMI}. The
+validation of \gls{ADNEX}, and 17.18 (61\%) \gls{TRIPOD} items for the validation of \gls{RMI} (Figure S2 and Table S4). The
 items that were reported in less than 35\% of the validations both for \gls{ADNEX} and \gls{RMI}
 were justification of sample size (item 8) and justification of missing data
 management (item 9), specifying relevant measures of performance (item 10d) with
@@ -317,7 +318,7 @@ original data with those in the validation data and discussing any differences (
 Based on \gls{PROBAST}, 12 of 15 validations (80\%) of \gls{ADNEX} were rated as overall high
 risk of bias, while 9 out of 11 validations (82\%) of \gls{RMI} were rated as overall high
 risk of bias mainly due to the small sample size and the exclusion of participants
-with missing data (Figure~\ref{fig:2:1}). Most validations were unclear in the predictors domain
+with missing data (Figure~\ref{fig:2:1} and Figures S3-S4). Most validations were unclear in the predictors domain
 due to not specifying when in relation to the inclusion scan serum levels of CA125
 were measured, or for not reporting if the assessment of predictors was blinded to
 the outcome.
@@ -347,10 +348,10 @@ based on seven studies
  \cite{vancalsterValidationModelsDiagnose2020,diazOvarianTumorsRisk2017a,tugPreoperativeDiscriminatingPerformance2020,behnamfarComparisonUltrasoundTumor2022,meysEstimatingRiskMalignancy2017,qianComparisonDiagnosticPerformances2021,borgesProspectiveExternalValidation2024}.
 Sensitivity and specificity at a 10\% risk of malignancy threshold for \gls{ADNEX} were
 available (either in the publication or after contacting the authors) for all studies
-except one \cite{behnamfarComparisonUltrasoundTumor2022}.
+except one (Table S4) \cite{behnamfarComparisonUltrasoundTumor2022}.
 
 \subsection{Meta-analyses}
-Results of the meta-analysis of \gls{AUC} are shown in Table~\ref{tab:2:2}. Seven studies included in
+Results of the meta-analysis of \gls{AUC} are shown in Table~\ref{tab:2:2} and Figures S5 and S6. Seven studies included in
 the meta-analysis compared the \gls{AUC} of \gls{ADNEX} (with CA125) with that of \gls{RMI} in
 operated patients
  \cite{vancalsterValidationModelsDiagnose2020,diazOvarianTumorsRisk2017a,tugPreoperativeDiscriminatingPerformance2020,behnamfarComparisonUltrasoundTumor2022,meysEstimatingRiskMalignancy2017,qianComparisonDiagnosticPerformances2021,borgesProspectiveExternalValidation2024}.
@@ -362,37 +363,39 @@ for \gls{AUC} was higher for operated and conservatively managed patients combin
 study-specific comparison of \gls{ADNEX} with or without CA125 versus \gls{RMI} in operated
 patients.
 
-\begin{table}
+\begin{table}[ht!]
 \centering
-\tiny
+\footnotesize
 \caption[Meta-analysis results for AUC]{Meta-analysis results for the area under the receiver operating characteristic curve (AUC).}
 \label{tab:2:2}
-\begin{tabularx}{\textwidth}{Xlrrccccc}
+% The first column is now an X column so tabularx can stretch it
+\begin{tabularx}{\textwidth}{p{3cm} c c c c c c X}
 \toprule
-\textbf{Meta-analysis} & & \textbf{Patients} & \textbf{Studies} & \textbf{Centres} & \textbf{Summary est.} & \textbf{95\% CI} & \textbf{95\% PI} & $\boldsymbol{\tau^2}$ \\
+\textbf{Meta-analysis} & \textbf{Patients} & \textbf{Studies} & \textbf{Centres} & \textbf{Summary est.} & \textbf{95\% CI} & \textbf{95\% PI} & $\boldsymbol{\tau^2}$ \\
 \midrule
-\multicolumn{9}{l}{\textbf{Target population: operated patients}} \\
+\multicolumn{8}{l}{\textit{Target population: operated patients}} \\
 \addlinespace
-\multicolumn{9}{l}{\textbf{For ADNEX with CA125}} \\
-& ADNEX & 4668 & 7 & 26 & 0.92 & 0.90--0.94 & 0.82--0.99 & 0.30 \\
-& RMI   & 4668 & 7 & 26 & 0.85 & 0.81--0.89 & 0.64--0.98 & 0.44 \\
+\multicolumn{8}{l}{\textbf{For ADNEX with CA125}} \\
+\quad \quad ADNEX & 4668 & 7 & 26 & 0.92 & 0.90--0.94 & 0.82--0.99 & 0.30 \\
+\quad \quad RMI   & 4668 & 7 & 26 & 0.85 & 0.81--0.89 & 0.64--0.98 & 0.44 \\
 \addlinespace
-\multicolumn{9}{l}{\textbf{For ADNEX without CA125}} \\
-& ADNEX & 3773 & 4 & 22 & 0.92 & 0.90--0.94 & 0.85--0.97 & 0.16 \\
-& RMI   & 3773 & 4 & 22 & 0.87 & 0.84--0.89 & 0.78--0.94 & 0.12 \\
+\multicolumn{8}{l}{\textbf{For ADNEX without CA125}} \\
+\quad \quad ADNEX & 3773 & 4 & 22 & 0.92 & 0.90--0.94 & 0.85--0.97 & 0.16 \\
+\quad \quad RMI   & 3773 & 4 & 22 & 0.87 & 0.84--0.89 & 0.78--0.94 & 0.12 \\
 \addlinespace
-\multicolumn{9}{l}{\textbf{Target population: operated and conservatively managed patients}} \\
+\multicolumn{8}{l}{\textit{Target population: operated and conservatively managed patients}} \\
 \addlinespace
-\multicolumn{9}{l}{\textbf{For ADNEX with CA125}} \\
-& ADNEX & 4905 & 1 & 17 & 0.93 & 0.91--0.96 & 0.85--0.99 & 0.27 \\
-& RMI   & 4905 & 1 & 17 & 0.89 & 0.86--0.92 & 0.77--0.97 & 0.22 \\
+\multicolumn{8}{l}{\textbf{For ADNEX with CA125}} \\
+\quad \quad ADNEX & 4905 & 1 & 17 & 0.93 & 0.91--0.96 & 0.85--0.99 & 0.27 \\
+\quad \quad RMI   & 4905 & 1 & 17 & 0.89 & 0.86--0.92 & 0.77--0.97 & 0.22 \\
 \addlinespace
-\multicolumn{9}{l}{\textbf{For ADNEX without CA125}} \\
-& ADNEX & 4905 & 1 & 17 & 0.94 & 0.93--0.96 & 0.88--0.99 & 0.26 \\
-& RMI   & 4905 & 1 & 17 & 0.89 & 0.86--0.92 & 0.77--0.97 & 0.22 \\
+\multicolumn{8}{l}{\textbf{For ADNEX without CA125}} \\
+\quad \quad ADNEX & 4905 & 1 & 17 & 0.94 & 0.93--0.96 & 0.88--0.99 & 0.26 \\
+\quad \quad RMI   & 4905 & 1 & 17 & 0.89 & 0.86--0.92 & 0.77--0.97 & 0.22 \\
 \bottomrule
 \addlinespace[0.5em]
-\multicolumn{9}{l}{ADNEX, Assessment of Different NEoplasias in the adneXa; CI, confidence interval; PI, prediction interval; RMI, risk of malignancy index.}
+% Replaced the 'l' column with a paragraph column that calculates the exact table width
+\multicolumn{8}{p{\dimexpr\textwidth-2\tabcolsep\relax}}{ADNEX, Assessment of Different NEoplasias in the adneXa; CI, confidence interval; PI, prediction interval; RMI, risk of malignancy index.} \\
 \end{tabularx}
 \end{table}
 
@@ -404,7 +407,7 @@ patients.
 \end{figure}
 
 The results of the meta-analysis for sensitivity and specificity are presented in
-Table~\ref{tab:2:3}. Eight studies included in the meta-analysis compared the sensitivity and
+Table~\ref{tab:2:3} and Figures S7 and S8. Eight studies included in the meta-analysis compared the sensitivity and
 specificity of \gls{ADNEX} (with CA125) with those of \gls{RMI} in surgically managed patients
  \cite{vancalsterValidationModelsDiagnose2020,diazOvarianTumorsRisk2017a,tugPreoperativeDiscriminatingPerformance2020,meysEstimatingRiskMalignancy2017,qianComparisonDiagnosticPerformances2021,sandalComparisionRiskMalignancy2018a,wangEvaluatingRiskMalignancy2023,borgesProspectiveExternalValidation2024}.
 The summary estimate for sensitivity in the four different meta-analyses varied
@@ -469,7 +472,7 @@ the model would be clinically useful in a new centre was 99\% for \gls{ADNEX} an
 \begin{sidewaystable}
 \centering
 \footnotesize
-\caption[Meta-analysis for clinical utility]{Meta-analysis for clinical utility of ADNEX and RMI.}
+\caption[Meta-analysis results for clinical utility]{Meta-analysis for clinical utility of ADNEX and RMI.}
 \label{tab:2:4}
 \begin{tabular}{llrc cc cc c}
 \toprule
@@ -509,7 +512,7 @@ certainty of our meta-analysis results. Only one study (representing 4905 patien
 59\% of the total number of patients included in this review) was not classified as
 having a high risk of bias \cite{vancalsterValidationModelsDiagnose2020}. However,
 the results of this low-risk of bias study and the current meta-analysis showed
-consistent findings. Funnel plots for \gls{AUC} did not suggest publication bias.
+consistent findings. Funnel plots for \gls{AUC} did not suggest publication bias (Figure S9).
 
 \section{Discussion}
 

@@ -26,7 +26,7 @@
 
 published as:
 \begin{quote}
-\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. \textit{Research Synthesis Methods}. 2025;1--22. \url{https://doi.org/10.1017/rsm.2025.10046}
+\textbf{Barre\~{n}ada L}, De Cock Campo B, Wynants L \& Van Calster B. Clustered flexible calibration plots for binary outcomes using random effects modeling. \textit{Research Synthesis Methods}. 2025;17(3):567-588. \url{https://doi.org/10.1017/rsm.2025.10046}
 \end{quote}
 \begin{quote}
 \textbf{Supplementary material and code} available in the online version and at \url{https://osf.io/erju9/}.
@@ -37,16 +37,16 @@ published as:
 %_________________________
 
 \section*{Summary}
-Evaluation of clinical prediction models often involves multiple clusters, whether centers or dataset. A comprehensive evaluation requires the assestement of model calibration. Although calibration is closely linked to the clinical utility of the model, there are no methodologies that account for clustering when evaluating calibration. We present three methodologies to solve this: (1) Clustered group calibration (\gls{CGC}), (2) two-stage meta-analysis calibration (\gls{TMAC}) and (3) mixed model calibration (\gls{MIXC}). After a simulation and synthetic data study we recommend using \gls{TMAC} with splines to estimate the overall curve and the 95\% \gls{PI} and \gls{MIXC} for the cluster specific curves. We provide ready-to-use code to construct flexible calibration curves in the \texttt{CalibrationCurves} package.
+Evaluation of clinical prediction models often involves multiple clusters, whether centers or datasets. A comprehensive evaluation requires the assestement of model calibration. Although calibration is closely linked to the clinical utility of the model, there are no methodologies that account for clustering when evaluating calibration. We present three methodologies to solve this: (1) Clustered group calibration (\gls{CGC}), (2) two-stage meta-analysis calibration (\gls{TMAC}) and (3) mixed model calibration (\gls{MIXC}). After a simulation and synthetic data study we recommend using \gls{TMAC} with splines to estimate the overall curve and the 95\% \gls{PI} and \gls{MIXC} for the cluster specific curves. We provide ready-to-use code to construct flexible calibration curves in the \texttt{CalibrationCurves} package.
 
 \newpage
 
 \section{Introduction}
-Clinical prediction models (\glspl{CPM}) are evidence-based tools that estimate the probability of health-related events either at the time of evaluation (diagnosis) or at some point in the future (prognosis) \cite{steyerbergClinicalPredictionModels2009,vansmedenClinicalPredictionModels2021}. These risk estimates play a crucial role in evidence-based decision-making and can be of great value when counselling patients. However, to ensure the reliability of risk estimates, \glspl{CPM} must exhibit good calibration \cite{vancalsterCalibrationHierarchyRisk2016}. Calibration assesses how well the predicted risks correspond to observed risks \cite{vancalsterCalibrationHierarchyRisk2016}. In recent years, there has been a notable increase in studies involving multiple clusters. The term "cluster" can refer to different groupings within the population under study, depending on the context. For example, in multicenter studies, a cluster commonly refers to different centers, whereas in meta-analysis, a cluster may pertain to each study or centers within the study where possible (e.g. individual patient data (\gls{IPD}) meta-analysis \cite{rileyIndividualParticipantData2021a}). In this work, the term "cluster" will specifically denote a center in a multicenter study, but the methods proposed apply more generally as well. An analysis of \glspl{CPM} included in Tufts PACE (Predictive Analytics + Comparative Effectiveness), developed after the year 2000, revealed that 64\% of the models utilized multicenter (clustered) data, indicating a growing trend in such studies \cite{wynantsUntappedPotentialMulticenter2019,wesslerTuftsPACEClinical2017}. \gls{TRIPOD} (Transparent Reporting of a Multivariable Prediction Model for Individual Prognosis or Diagnosis) has addressed this development by publishing an extension known as \gls{TRIPOD}-Cluster \cite{debrayTransparentReportingMultivariable2023}. This extension underscores the importance of taking clustering into account when developing or evaluating prediction models.
+Clinical prediction models (\glspl{CPM}) are evidence-based tools that estimate the probability of health-related events either at the time of evaluation (diagnosis) or at some point in the future (prognosis) \cite{steyerbergClinicalPredictionModels2009,vansmedenClinicalPredictionModels2021}. These risk estimates play a crucial role in evidence-based decision-making and can be of great value when counselling patients. However, to ensure the reliability of risk estimates, \glspl{CPM} must exhibit good calibration \cite{vancalsterCalibrationHierarchyRisk2016}. Calibration assesses how well the predicted risks correspond to observed risks \cite{vancalsterCalibrationHierarchyRisk2016}. In recent years, there has been a notable increase in studies involving multiple clusters. The term \enquote{cluster} can refer to different groupings within the population under study, depending on the context. For example, in multicenter studies, a cluster commonly refers to different centers, whereas in meta-analysis, a cluster may pertain to each study or centers within the study where possible (e.g. individual patient data (\gls{IPD}) meta-analysis \cite{rileyIndividualParticipantData2021a}). In this work, the term \enquote{cluster} will specifically denote a center in a multicenter study, but the methods proposed apply more generally as well. An analysis of \glspl{CPM} included in Tufts PACE (Predictive Analytics + Comparative Effectiveness), developed after the year 2000, revealed that 64\% of the models utilized multicenter (clustered) data, indicating a growing trend in such studies \cite{wynantsUntappedPotentialMulticenter2019,wesslerTuftsPACEClinical2017}. \gls{TRIPOD} (Transparent Reporting of a Multivariable Prediction Model for Individual Prognosis or Diagnosis) has addressed this development by publishing an extension known as \gls{TRIPOD}-Cluster \cite{debrayTransparentReportingMultivariable2023}. This extension underscores the importance of taking clustering into account when developing or evaluating prediction models.
 
 Miscalibration can have a harmful influence on medical decision making \cite{vancalsterCalibrationRiskPrediction2015}. It is common to observe heterogeneity in model performance across centers or studies, most notably in model calibration \cite{vancalsterValidationModelsDiagnose2020,guptaDevelopmentValidationISARIC2021,steyerbergAssessmentHeterogeneityIndividual2019,vanAmsterdamCausalViewpoint2024}. It can thus be misleading to generalize performance results from single-cluster data \cite{wynantsDoesIgnoringClustering2018,debrayFrameworkDevelopingImplementing2013,dejongDevelopingMoreGeneralizable2021,moherGuidanceDevelopersHealth2010}. For these reasons, it is crucial to collect clustered data to investigate and quantify heterogeneity in calibration performance between clusters. The presence of clustering introduces challenges, as individuals are no longer independent due to correlations among patients within the same cluster \cite{snijdersMultilevelAnalysisIntroduction2012,finchMultilevelModelingUsing2019a}. Traditional (non-clustered) methodologies should therefore be adapted for use with clustered data.
 
-The most informative assessment of calibration performance for a prediction model is a calibration plot, used to assess whether, among patients with the same estimated risk of the event, the observed proportion of events equals the estimated risk \cite{vancalsterCalibrationHierarchyRisk2016,vancalsterPerformanceEvaluationPredictive2024}.A calibration plot has estimated risks on the x-axis, and the observed proportion on the y-axis. For binary outcomes, observed outcome values are \(Y = 0\) (no event) or \(Y = 1\) (event). The observed proportion of individuals with the event conditional on estimated risk are not observed directly, but are estimated. One approach consists of creating \(Q\) groups (usually based on quantiles of estimated risks) and estimating the observed proportion in each of the groups as the proportion of individuals with the condition. We refer to this approach throughout the text as grouped calibration. The calibration plot then has \(Q\) dots representing the mean risk (value on the x-axis) and observed proportion (value on the y-axis). Another approach is using a flexible model \cite{austinGraphicalAssessmentInternal2014}. The observed outcome is regressed on the estimated probabilities using a smoother such as local regression (loess) or splines. The smoothed relation or \(Q\) groups are plotted together with a line of identity which represents perfect calibration. The grouped approach loses information by categorizing the estimated risks, and depends on the value of \(Q\) and the grouping approach. Flexible models are dependent on smoothing parameters. Flexible calibration curves have been presented for different problems like survival models \cite{austinGraphicalCalibrationCurves2020}, competing risk models \cite{austinGraphicalCalibrationCurves2022}, or multiclass models \cite{vanhoordeSplinebasedToolAssess2015}. Flexible calibration curves that consider clustering have been understudied. Although summarizing statistics of calibration (e.g. \gls{OE}) can be meta-analysed across clusters, such summarizing statistics are by definition less informative than the calibration plot \cite{vancalsterPerformanceEvaluationPredictive2024,debrayGuideSystematicReview2017}. We present three different approaches to construct flexible calibration curves from clustered data, provide cluster-specific curves, and quantify heterogeneity using prediction intervals. We illustrate the methodologies with a real case example on ovarian cancer data and compare the performance of the methodology using simulated data, and synthetic data. Section 2 presents the motivating example, the general notation used through the paper, and introduces the three approaches to obtain calibration plots accounting for clustering. Section 3 and 4 present the methodology and results of the simulation study and synthetic data analysis, respectively, and in section 5 we conclude by discussing our findings. This study is an initial assessment of methods for clustered calibration analysis that we classify as a phase 2 methodological study in the four phase framework from Heinze and colleagues \cite{heinzePhasesMethodologicalResearch2024}.
+The most informative assessment of calibration performance for a prediction model is a calibration plot, used to assess whether, among patients with the same estimated risk of the event, the observed proportion of events equals the estimated risk \cite{vancalsterCalibrationHierarchyRisk2016,vancalsterPerformanceEvaluationPredictive2024}.A calibration plot has estimated risks on the x-axis, and the observed proportion on the y-axis. For binary outcomes, observed outcome values are \(Y = 0\) (no event) or \(Y = 1\) (event). The observed proportion of individuals with the event conditional on estimated risk are not observed directly, but are estimated. One approach consists of creating \(Q\) groups (usually based on quantiles of estimated risks) and estimating the observed proportion in each of the groups as the proportion of individuals with the condition. We refer to this approach throughout the text as grouped calibration. The calibration plot then has \(Q\) dots representing the mean risk (value on the x-axis) and observed proportion (value on the y-axis). Another approach is using a flexible model \cite{austinGraphicalAssessmentInternal2014}. The observed outcome is regressed on the estimated probabilities using a smoother such as local regression (LOESS) or splines. The smoothed relation or \(Q\) groups are plotted together with a line of identity which represents perfect calibration. The grouped approach loses information by categorizing the estimated risks, and depends on the value of \(Q\) and the grouping approach. Flexible models are dependent on smoothing parameters. Flexible calibration curves have been presented for different problems like survival models \cite{austinGraphicalCalibrationCurves2020}, competing risk models \cite{austinGraphicalCalibrationCurves2022}, or multiclass models \cite{vanhoordeSplinebasedToolAssess2015}. Flexible calibration curves that consider clustering have been understudied. Although summarizing statistics of calibration (e.g. \gls{OE}) can be meta-analysed across clusters, such summarizing statistics are by definition less informative than the calibration plot \cite{vancalsterPerformanceEvaluationPredictive2024,debrayGuideSystematicReview2017}. We present three different approaches to construct flexible calibration curves from clustered data, provide cluster-specific curves, and quantify heterogeneity using prediction intervals. We illustrate the methodologies with a real case example on ovarian cancer data and compare the performance of the methodology using simulated data, and synthetic data. Section 2 presents the motivating example, the general notation used through the paper, and introduces the three approaches to obtain calibration plots accounting for clustering. Section 3 and 4 present the methodology and results of the simulation study and synthetic data analysis, respectively, and in section 5 we conclude by discussing our findings. This study is an initial assessment of methods for clustered calibration analysis that we classify as a phase 2 methodological study in the four phase framework from Heinze and colleagues \cite{heinzePhasesMethodologicalResearch2024}.
 
 \section{Methods}
 \subsection{\texorpdfstring{Motivating example: ADNEX model and Ovarian cancer data}{Motivating example: ADNEX model and Ovarian cancer data}}
@@ -54,7 +54,7 @@ The methods will be illustrated using the \gls{ADNEX} model for ovarian tumor di
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{figures/ClusteredCalibration/F1.pdf}
+\includegraphics[width=0.6\textwidth]{figures/ClusteredCalibration/F1.pdf}
 \caption[Mean predicted risk of ADNEX and prevalence across 14 centers]{Prevalence and mean predicted ADNEX risk by center across the 14 centers in the dataset. The dashed diagonal line indicates perfect calibration.}
 \label{fig:4:1}
 \end{figure}
@@ -62,7 +62,7 @@ The methods will be illustrated using the \gls{ADNEX} model for ovarian tumor di
 \subsection{Notation}
 We assume to have a dataset with a total of \emph{J} clusters and use \(j = (1,\ldots,J)\) to index the clusters. In each cluster, we have \(n_{j}\) patients and we index the patients using \(i = \left( 1,\ldots,n_{j} \right)\). The total sample size is \(N = \sum_{j = 1}^{J}n_{j}\)\emph{.} We use \(y_{ij} \in 0,1\) to denote the outcome of patient \(i\) in cluster \(j\), which takes on the value 0 in case of a non-event and 1 in case of an event. We assume that \(y_{ij}\) follows a Bernoulli distribution \(y_{ij} \sim \text{Bern}\left( \pi_{ij} \right)\), where \(\pi_{ij}\) denotes the probability of experiencing the event. Typically, \(\pi_{ij}\) is expressed as a function of a set of risk characteristics, captured in the covariate vector \(\mathbf{x}_{ij}\) and we assume that there exists an unknown regression function \(r\left( \mathbf{x}_{ij} \right) = P\left( y_{ij} = 1 \middle| \mathbf{x}_{ij} \right)\). We approximate this function using a risk prediction model, where we model the outcome as a function of the observed risk characteristics and employ statistical or machine learning techniques to estimate this model. A general expression that encompasses both types is
 
-\begin{equation}{r}
+\begin{equation}
 \text{P}\left( y_{ij} = 1\mid\mathbf{x}_{ij} \right) = \pi\left( \mathbf{x}_{ij} \right) = f\left( \mathbf{x}_{ij} \right)\
 \label{eq:3:1}
 \end{equation}
@@ -73,18 +73,20 @@ Where \(f( \cdot )\) denotes the predicted risk given covariate vector \(\mathbf
 
 where \(\mathbf{\beta}\) denotes the parameter vector. We can rewrite the above equation to
 
-\[{{\ \ \ \log}\left( \frac{\pi\left( \mathbf{x}_{ij} \right)}{1 - \pi\left( \mathbf{x}_{ij} \right)} \right) = \mathbf{x}_{ij}^{T}\mathbf{\beta}}{\text{logit}\left( \pi\left( \mathbf{x}_{ij} \right) \right)\mathbf{=}\mathbf{x}_{ij}^{T}\mathbf{\beta}}\]
+\[{{\log}\left( \frac{\pi\left( \mathbf{x}_{ij} \right)}{1 - \pi\left( \mathbf{x}_{ij} \right)} \right) = \mathbf{x}_{ij}^{T}\mathbf{\beta}}\]
+
+\[ {\text{logit}\left( \pi\left( \mathbf{x}_{ij} \right) \right)\mathbf{=}\mathbf{x}_{ij}^{T}\mathbf{\beta}}\]
 
 We can employ splines to allow for a non-linear relationship between the covariates and outcome \cite{harrellRegressionModelingStrategies2015}. To estimate equation \ref{eq:3:1}, we fit a statistical or machine learning model to the training data. The resulting model fit then provides us with the predicted probability \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\).
 
-Using calibration curves, we examine how well the predicted probabilities correspond to the actual event probabilities \cite{steyerbergClinicalPredictionModels2009,vancalsterCalibrationHierarchyRisk2016,dimitriadisHonestCalibrationAssessment2023,decockcampoReliablePredictiveAnalytics2023}. A calibration plot maps the predicted probabilities \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\) to the actual event probabilities \(\text{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right)\ \)and hereby provides a visual representation of the alignment between the model's estimated risks and the true probabilities. For a perfectly calibrated model, the calibration curve follows the diagonal as \(\text{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right)\  = \pi\left( \mathbf{x}_{ij} \right)\) for all \(i\).
+Using calibration curves, we examine how well the predicted probabilities correspond to the actual event probabilities \cite{steyerbergClinicalPredictionModels2009,vancalsterCalibrationHierarchyRisk2016,dimitriadisHonestCalibrationAssessment2023,decockcampoReliablePredictiveAnalytics2023}. A calibration plot maps the predicted probabilities \({\pi}\left( \mathbf{x}_{ij} \right)\) to the actual event probabilities \(\text{P}\left( y_{ij} = 1\mid{\pi}\left( \mathbf{x}_{ij} \right) \right)\ \)and hereby provides a visual representation of the alignment between the model's estimated risks and the true probabilities. For a perfectly calibrated model, the calibration curve follows the diagonal as \(\text{P}\left( y_{ij} = 1\mid{\pi}\left( \mathbf{x}_{ij} \right) \right)\  = \pi\left( \mathbf{x}_{ij} \right)\) for all \(i\) and all \(j\).
 
 \subsection{Flexible calibration plots ignoring clustering}
 We can estimate the calibration curve using a logistic regression model \cite{decockcampoReliablePredictiveAnalytics2023,onbehalfoftopicgroupevaluatingdiagnostictestsandpredictionmodelsofthestratosinitiativeCalibrationAchillesHeel2019,coxTwoFurtherApplications1958}
 
 \[\text{logit}\left( \text{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right) \right)\mathbf{=}\alpha + \zeta\ \text{logit}\left( \widehat{\pi}\left( \mathbf{x}_{ij} \right) \right)\]
 
-where we estimate the observed proportions as a function of the (logit transformed) predicted probabilities. Using the fitted model, we create a calibration curve by plotting the \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\) against the observed proportions \(\widehat{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right)\). This model, however, only allows for a linear relationship and, as such, does not adequately capture moderate calibration. To allow for a non-linear relationship between \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\) and \(y_{ij}\), we can rely on non-parametric smoothers, such as locally estimated scatterplot smoothing (loess) or \gls{restricted_cubic_splines}
+where we estimate the observed proportions as a function of the (logit transformed) predicted probabilities. Using the fitted model, we create a calibration curve by plotting the \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\) against the observed proportions \(\widehat{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right)\). This model, however, only allows for a linear relationship and, as such, does not adequately capture moderate calibration. To allow for a non-linear relationship between \(\widehat{\pi}\left( \mathbf{x}_{ij} \right)\) and \(y_{ij}\), we can rely on non-parametric smoothers, such as locally estimated scatterplot smoothing (LOESS) or \gls{restricted_cubic_splines}
 
 \[\text{logit}\left( \text{P}\left( y_{ij} = 1\mid\widehat{\pi}\left( \mathbf{x}_{ij} \right) \right) \right)\mathbf{=}s\left( \text{logit}\left( \widehat{\pi}\left( \mathbf{x}_{ij} \right) \right) \right).\]
 
@@ -111,11 +113,11 @@ Since there is no commonly accepted way to estimate calibration curves for predi
 \toprule
 \textbf{Method} & \textbf{Estimation of observed proportion} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Implementation} & \textbf{Illustration} \\
 \midrule
-CG-C & \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by quantile per cluster \newline \textbf{Interval:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by estimated risk interval & Model agnostic \newline Pointwise CI and PI \newline All clusters have the same number of groups & Computation time \newline Groups can contain observations with very different estimated risks within and between clusters (grouped version) \newline Clusters may not have the same number of groups (e.g., risk intervals without observations) (interval version) \newline Curves depend on the number of groups & CGC(method = ``grouped'') \newline CGC(method = ``interval'') & Supplementary Figures S2--S3 \newline Supplementary Figures S4--S5 \\
+\textbf{CG-C}& \textbf{Grouped:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by quantile per cluster \newline \textbf{Interval:} Bivariate random effects meta-analysis of logit-transformed mean estimated risk and event rate by estimated risk interval & Model agnostic \newline Pointwise CI and PI \newline All clusters have the same number of groups & Computation time \newline Groups can contain observations with very different estimated risks within and between clusters (grouped version) \newline Clusters may not have the same number of groups (e.g., risk intervals without observations) (interval version) \newline Curves depend on the number of groups & CGC(method = ``grouped'') \newline CGC(method = ``interval'') & Supplementary Figures S2--S3 \newline Supplementary Figures S4--S5 \\
 \addlinespace
-2MA-C & Random effects meta-analysis of estimated smooth observed proportion by cluster \newline \textbf{Splines:} Recommended when clusters are small \newline \textbf{LOESS:} More flexible but can fail with small clusters & Pointwise CI and PI & Computation time \newline Curve depends on the smoother used in the cluster-specific models & MAC2(method\_choice = ``splines'') \newline MAC2(method\_choice = ``loess'') & Supplementary Figure S6 (splines) \newline Supplementary Figure S7 (LOESS) \\
+\textbf{2MA-C} & Random effects meta-analysis of estimated smooth observed proportion by cluster \newline \textbf{Splines:} Recommended when clusters are small \newline \textbf{LOESS:} More flexible but can fail with small clusters & Pointwise CI and PI & Computation time \newline Curve depends on the smoother used in the cluster-specific models & MAC2(method\_choice = ``splines'') \newline MAC2(method\_choice = ``loess'') & Supplementary Figure S6 (splines) \newline Supplementary Figure S7 (LOESS) \\
 \addlinespace
-MIX-C & Logistic generalized linear mixed model with \gls{restricted_cubic_splines} & Curve-wise CI and PI \newline Also provides shrunken curves per center & Computation time & MIXC(model = ``slope'') & Supplementary Figure S8 (slope) \\
+\textbf{MIX-C} & Logistic generalized linear mixed model with \gls{restricted_cubic_splines} & Curve-wise CI and PI \newline Also provides shrunken curves per center & Computation time & MIXC(model = ``slope'') & Supplementary Figure S8 (slope) \\
 \bottomrule
 \addlinespace[0.5em]
 \multicolumn{6}{l}{\textbf{Note}: Implementation in the code included in the OSF. For the implementation in \texttt{CalibrationCurves} package go to the package documentation.}
@@ -126,7 +128,7 @@ MIX-C & Logistic generalized linear mixed model with \gls{restricted_cubic_splin
 \subsection{Clustered group calibration (CG-C)}
 The \gls{CGC} approach is a two-stage approach that extends the traditional grouped calibration approach to clustered data. In the traditional approach, data is pooled and groups are created based on quantiles (often deciles). In \gls{CGC}, we create \(Q\) quantiles in every cluster (based on the estimated risk distribution per cluster) with \(q = (1,\ldots,Q)\). Hereafter, we pool the estimated risks and observed proportions with a bivariate random effects meta-analysis at each quantile \(q\). The logit-transformed observed proportion and average estimated risk are the response variables and we capture the cluster-specific deviation by including a \gls{random_intercept}. The equation of this model is given by
 
-\begin{equation}{r}
+\begin{equation}
 \genfrac{[}{]}{0pt}{}{\text{logit(}{\overline{y}}_{qj})}{\text{logit(}{\overline{\widehat{\pi}}}_{qj})} = \genfrac{[}{]}{0pt}{}{{{}_{\overline{y}}\mu}_{q} + u_{qj} + \varepsilon_{qj}}{{_{\overline{\widehat{\pi}}}^{}\mu}_{q} + \nu_{qj} + \epsilon_{qj}}
 \end{equation}
 
@@ -204,15 +206,14 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 
 \begin{sidewaystable}
 \centering
-\footnotesize
+\normalsize
 \setlength{\tabcolsep}{4pt}
 \begin{threeparttable}
 \caption[Median MSCE for varying validation sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying validation events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. }
 \label{tab:4:2}
-\begin{tabular}{rrrr llllll}
+\begin{tabular}{cccc cccccc}
 \toprule
- & \textbf{N.} & & & \textbf{Standard flexible} & & & & & \\
-\textbf{EPC} & \textbf{Cent} & \textbf{ICC} & \textbf{AUC} & \textbf{logistic} & \textbf{CG-C group}\textsuperscript{a} & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
+\textbf{EPC} & \textbf{N. Cent} & \textbf{ICC} & \textbf{AUC} & \begin{tabular}{@{}c@{}}\textbf{Standard flexible} \\ \textbf{logistic}\end{tabular} & \textbf{CG-C group}\textsuperscript{a} & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
 \midrule
 20 & 5 & 0.05 & 0.75 & 0.31 (0.10--0.68) & 0.46 (0.34--0.66) & 0.85 (0.47--1.51) & 0.38 (0.21--0.85) & 3.26 (1.78--4.79) & \textbf{0.25 (0.10--0.57)} \\
 20 & 5 & 0.05 & 0.9 & 0.40 (0.16--0.81) & 0.52 (0.35--0.70) & 0.90 (0.66--1.42) & 0.39 (0.23--0.78) & 0.89 (0.55--1.32) & \textbf{0.28 (0.12--0.64)} \\
@@ -247,14 +248,13 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 
 \begin{sidewaystable}
 \centering
-\footnotesize
+\normalsize
 \setlength{\tabcolsep}{4pt}
 \caption[Median MSCE for varying training sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying training sample events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100.}
 \label{tab:4:3}
-\begin{tabular}{rrrr llllll}
+\begin{tabular}{cccc cccccc}
 \toprule
- & \textbf{N.} & & & \textbf{Standard flexible} & & & & & \\
-\textbf{EPC} & \textbf{Cent} & \textbf{ICC} & \textbf{AUC} & \textbf{logistic} & \textbf{CG-C group}$^a$ & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
+\textbf{EPC} & \textbf{N. Cent} & \textbf{ICC} & \textbf{AUC} & \begin{tabular}{@{}c@{}}\textbf{Standard flexible} \\ \textbf{logistic}\end{tabular} & \textbf{CG-C group}\textsuperscript{a} & \textbf{CG-C interval}$^a$ & \textbf{2MA-C splines} & \textbf{2MA-C LOESS} & \textbf{MIX-C} \\
 \midrule
 20 & 5 & 0.05 & 0.75 & 0.03 (0.02--0.06) & 0.01 (0.00--0.03) & 0.51 (0.27--0.70) & \textbf{0.01 (0.00--0.03)} & 0.54 (0.16--1.45) & 0.02 (0.01--0.04) \\
 20 & 5 & 0.05 & 0.9 & 0.05 (0.04--0.09) & 0.02 (0.01--0.04) & 0.03 (0.01--0.06) & \textbf{0.03 (0.01--0.05)} & 0.06 (0.03--0.10) & 0.03 (0.01--0.06) \\
@@ -310,12 +310,12 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 
 \begin{sidewaystable}
 \centering
-\footnotesize
+\normalsize
 \setlength{\tabcolsep}{4pt}
 \begin{threeparttable}
-\caption[Median MSCE for center-specific results in the synthetic data]{Median MSCE for the synthetic data study for center-specific results. MSCE is presented multiplied by 100. Bold numbers indicate best performance across approaches. The center-specific true curves are based on a flexible logistic model with restricted cubic splines.}
+\caption[Median MSCE for center-specific results in the synthetic data]{Median MSCE for the synthetic data study for center-specific results. MSCE is presented multiplied by 100. Bold numbers indicate best performance across approaches}
 \label{tab:4:4}
-\begin{tabular}{rr lll lll}
+\begin{tabular}{cc ccc ccc}
 \toprule
 & & \multicolumn{3}{c}{\textbf{Logistic regression truth}} & \multicolumn{3}{c}{\textbf{Random forest truth}} \\
 \cmidrule(lr){3-5} \cmidrule(lr){6-8}
@@ -342,6 +342,9 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 1000 & 5 & 0.03 (0.01--0.06) & 0.04 (0.02--0.07) & \textbf{0.02 (0.01--0.04)} & 0.10 (0.05--0.15) & \textbf{0.04 (0.02--0.07)} & 0.06 (0.02--0.11) \\
 1000 & 10 & 0.03 (0.01--0.06) & 0.04 (0.02--0.07) & \textbf{0.02 (0.01--0.04)} & 0.10 (0.05--0.15) & \textbf{0.04 (0.02--0.07)} & 0.06 (0.02--0.11) \\
 \bottomrule
+\addlinespace[0.5em]
+\multicolumn{8}{>{\raggedright\arraybackslash}p{\dimexpr\linewidth-2\tabcolsep\relax}}{\textbf{Note}: The center-specific true curves are based on a flexible logistic model with restricted cubic splines. The lower the number, the closer the estimated center-specific calibration curve is to the true
+calibration curve in each cluster. Rounded to two decimals. In bold are the best working approach(es) for estimating observed proportions excluding CG-C methods.}
 \end{tabular}
 \end{threeparttable}
 \end{sidewaystable}

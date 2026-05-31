@@ -12,28 +12,16 @@ as:
 \end{quote}
 
 \begin{quote}
-\textbf{Supplementary material and code} available at \url{https://osf.io/36n8m/overview?view_only=0f1fa6d9a5e34e4d901c05922d0d0307}.
+\textbf{Preliminary supplementary material and code} available at \url{https://osf.io/36n8m/overview?view_only=0f1fa6d9a5e34e4d901c05922d0d0307}.
 \end{quote}
+\vspace{0.2em}
+\noindent\scriptsize\textit{Presented at ISUOG 2025 in Cancun, Mexico}
 \vspace{-0.5em}
 \normalsize\vspace{-0.5em}
 
 \section*{Summary}\label{abstract}
 
-\noindent\textbf{Objective:} The \gls{ADNEX} prediction model to diagnose ovarian cancer has shown good performance in many external validation studies. Our aim is to update \gls{ADNEX} to ADNEX2, using recent data that also include patients that were managed with follow-up. ADNEX2 is designed for use after applying the \glspl{BD}, a set of ultrasound profiles with a risk of malignancy lower than 1\%.
-
-\noindent\textbf{Design:} Secondary analysis of an ongoing multicentre prospective cohort study.
-
-\noindent\textbf{Setting:} 17 oncology and non-oncology centres from 8 European countries.
-
-\noindent\textbf{Participants:} Patients with a newly detected adnexal mass recruited between 2012 and 2016 irrespective of whether they were managed surgically or with follow-up.
-
-\noindent\textbf{Interventions:} Model updating involved logistic recalibration followed by Bayesian refitting. Validation was based on leave-centre-out cross-validation. Missing values were addressed with multiple imputation.
-
-\noindent\textbf{Main outcome measures:} Model performance in terms of discrimination, calibration, and clinical utility to distinguish benign from malignant masses.
-
-\noindent\textbf{Results:} 6847 patients were included; 3900 (57\%) were immediately operated, 2639 (39\%) were managed with clinical and ultrasound follow-up, and for 308 (4\%) the management was unknown. The \glspl{BD} applied in 2190 (32\%) patients, of whom 10 (0.5\%, 95\% \gls{CI} 0.2--0.8) had a histologically confirmed malignancy. ADNEX2 was developed on the remaining 4657 patients. On all 6847 patients, the \gls{AUC} was 0.95 (95\% \gls{CI} 0.93--0.96) for \glspl{BD} followed by ADNEX2 including \gls{CA125} if available. On 4657 patients for which \glspl{BD} did not apply, ADNEX2 including \gls{CA125} if available had an \gls{AUC} of 0.93 (0.91--0.94).
-
-\noindent\textbf{Conclusions:} ADNEX2 is the first model in this field that is developed on patients irrespective of subsequent management. ADNEX2 targets patients for which the \glspl{BD} do not apply. For the decision of whom to refer for surgery, \gls{CA125} is not crucial. However, \gls{CA125} is strongly recommended to preoperatively assess the likely type of malignancy.
+We updated the \gls{ADNEX} risk prediction model to ADNEX2 using data from 6,847 patients in the IOTA5 multicentre prospective cohort (17 centres, recruited 2012–2016), including both surgically managed and conservatively followed cases and excluding masses classifiable with the benign descriptors (BDs). Updating combined multinomial logistic recalibration with Bayesian refitting using random centre intercepts, and missing data were handled with multiple imputation; validation used leave-centre-out internal-external cross-validation. ADNEX2 was developed on 4,657 patients for whom the BDs did not apply; in the full sample the two-step strategy (BDs followed by ADNEX2, using CA125 when available) yielded an AUC of 0.95 (95\% CI 0.93–0.96), and in the development subset ADNEX2 achieved an AUC of 0.93 (0.91–0.94). ADNEX2 improves calibration over the original model and is intended for use after applying the BDs; CA125 is not essential for the referral decision but is recommended when assessing likely malignant subtype.
 
 \vspace{0.5cm}
 
@@ -183,7 +171,7 @@ ADNEX2 with \gls{CA125} if available performed better than ADNEX2 without \gls{C
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{figures/ADNEX2/Figure2clusteredcal.pdf}
-\caption[Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125]{Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125 if benign descriptors do not apply (n = 4657), and the two-step strategy with ADNEX2 without CA125 and the two-step strategy with ADNEX without CA125 in all patients (n = 6847). The shaded blue and orange area indicate the 95\% prediction interval for the calibration.}
+\caption[Clustered calibration curves for ADNEX2 and ADNEX without CA125]{Clustered calibration curves for ADNEX2 without CA125 and ADNEX without CA125 if benign descriptors do not apply (n = 4657), and the two-step strategy with ADNEX2 without CA125 and the two-step strategy with ADNEX without CA125 in all patients (n = 6847). The shaded blue and orange area indicate the 95\% prediction interval for the calibration.}
 \label{fig:ADNEX2:2}
 \end{figure}
 
@@ -213,7 +201,7 @@ For the 10\% threshold, sensitivity ranged between 0.85 and 0.96 and specificity
 \begin{table}
 \centering
 \scriptsize
-\caption[Performance measures of ADNEX and ADNEX2]{Summary of performance measures of ADNEX and ADNEX2 in the different populations and strategies. 10\% decision threshold was used for Sensitivity, Specificity, Net Benefit and p-useful.}
+\caption[Performance measures of ADNEX2 and ADNEX]{Summary of performance measures of ADNEX and ADNEX2 in the different populations and strategies. 10\% decision threshold was used for Sensitivity, Specificity, Net Benefit and p-useful.}
 \label{tab:ADNEX2:2}
  \begin{tabularx}{\textwidth}{p{2.80cm}XXXXp{0.75cm}p{1.05cm}}
     \toprule
@@ -322,27 +310,27 @@ ADNEX2 is an important improvement over \gls{ADNEX} in the model-aided managemen
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{figures/ADNEX2/Fig4.png}
-\caption{Patient flowchart in two-step strategy with ADNEX2}
+\caption{Patient management diagram in two-step strategy with ADNEX2}
 \label{fig:ADNEX2:4}
 \end{figure}
 
 
-\subsection{Conflicts of interest}
+\subsection*{Conflicts of interest}
 
 DT and TB are co-founders of and have stock options in Gynaia Inc., a company providing teaching, training, data collection, and decision support tools (such as the ADNEX2 model) for clinicians and researchers in the field of gynecology. BVC and WF have stock options in Gynaia Inc. BVC and DT report consultancy work done by KU Leuven to help implement and test the original ADNEX model in ultrasound machines by Samsung Medison, Mindray, ESAOTE, and GE Healthcare, outside the submitted work. TB reports grants, personal fees, and travel support from Samsung Medison; travel support from Roche Diagnostics; and personal fees from GE Healthcare, all outside the submitted work. BVC, DT, WF, LW, LB and JC are co-inventors of ADNEX2  licensed to Gynaia Inc. and are entitled to inventorship rights. The other authors declare no conflict of interest.
 
-\subsection{Protocol}
+\subsection*{Protocol}
 
 The \gls{IOTA}5 protocol was registered in clinicaltrials.gov (\url{https://clinicaltrials.gov/study/NCT01698632}) and the statistical analysis plan was preregistered in an Open Science Foundation (\gls{OSF}) preregistration.
 
-\subsection{Data Sharing}
+\subsection*{Data Sharing}
 
 Follow-up data collection for the IOTA5 study is ongoing. When the study has closed and results have been published, the study responsible may share data upon reasonable request to dirk.timmerman@uzleuven.be. The R code and a dataset that includes centre code, outcome and patient risk of malignancy for each of the different models and strategies will be shared to allow readers to reproduce the results and figures.
 
-\subsection{Code sharing}
-
+\subsection*{Code sharing}
+    
 All code to produce the results and visualisations in the document will be shared in an \gls{OSF} repository.
 
-\subsection{Patient and public involvement}
+\subsection*{Patient and public involvement}
 
 The \gls{IOTA} group has a patient representative from Esperanza support group (\url{https://esperanza-lotgenotengroep.be/}), who is involved in the design and conduct of the studies. The patient representative is involved in the interpretation of the results and in the writing of the manuscript. The patient representative is also involved in the dissemination of the results to patients and the public.

@@ -17,9 +17,9 @@
 % lualatex -interaction=nonstopmode main.tex
 % lualatex -interaction=nonstopmode main.tex
 
-\loadglsentries{acronyms}
-\loadglsentries{terms}
-% \includeonly{chapters/05.06_varselection}
+\loadglsentries{Chapters/00d_acronyms}
+\loadglsentries{Chapters/00e_terms}
+% \includeonly{chap ters/07_ClusteredCalibration}
 
 \begin{document}
 
@@ -55,9 +55,9 @@
 
 \pagenumbering{roman}
 
-% \include{chapters/01_acknowledgments}
-\include{chapters/02_abstract}
-\include{chapters/02_1_abstract_dutch}
+% \include{chapters/00a_acknowledgments}
+\include{chapters/00b_abstract}
+\include{chapters/00c_abstract_dutch}
 
 % \blankpage
 \newpage
@@ -92,28 +92,28 @@
 \part{Introduction and research objectives}
 \label{part:intro}
 
-\include{chapters/03_introduction}
-\include{chapters/04_objectives}
+\include{chapters/01_introduction}
+\include{chapters/02_objectives}
 
 \part{Applied studies: developing and validating clinical prediction models in ovarian cancer}
 \label{part:applied}
 
-\include{chapters/05.01_ADNEXSR}
-\include{chapters/05.02_ADNEXvsRMI}
-\include{chapters/05.07_ADNEX2}
+\include{chapters/03_ADNEXSR}
+\include{chapters/04_ADNEXvsRMI}
+\include{chapters/05_ADNEX2}
 
 \part{Methodological research: obtaining valid predictions in clinical prediction models}
 \label{part:methods}
 
-\include{chapters/05.03_RFOverfitting}
-\include{chapters/05.04_ClusteredCalibration}
-\include{chapters/05.05_FundamentalProblem}
-\include{chapters/05.06_varselection}
+\include{chapters/06_RFOverfitting}
+\include{chapters/07_ClusteredCalibration}
+\include{chapters/08_FundamentalProblem}
+\include{chapters/09_varselection}
 
 \part{Discussion and conclusion}
 \label{part:discussion}
 
-\include{chapters/06_discussion}
+\include{chapters/10_discussion}
  
 
 
@@ -124,9 +124,9 @@
 \label{part:backmatter}
 \markboth{}{}
 
-\include{chapters/07_additional_statements}
-\include{chapters/08_ai_use_statement}
-\include{chapters/09_CV}
-\include{chapters/10_Publications}
+\include{chapters/11a_additional_statements}
+\include{chapters/11b_ai_use_statement}
+\include{chapters/11c_CV}
+\include{chapters/11d_Publications}
 \makebackcover
 \end{document}
