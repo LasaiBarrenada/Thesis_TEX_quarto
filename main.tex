@@ -19,11 +19,14 @@
 
 \loadglsentries{Chapters/00d_acronyms}
 \loadglsentries{Chapters/00e_terms}
-% \includeonly{chap ters/07_ClusteredCalibration}
+% \includeonly{chapters/08_FundamentalProblem}
 
 \begin{document}
 
-\blankpage
+\includepdf[pages=-, fitpaper=true]{Cover/CoverDigital.pdf}
+
+
+% \blankpage
 
 
 
@@ -34,21 +37,21 @@
 \makecopyrightpage{Lasai Barreñada}{Herestraat 49, 3000 Leuven (Belgium)}
 
 \newpage
-% \thispagestyle{empty}
+\thispagestyle{empty}
 
-% \vspace*{\fill}
-% \begin{center}
-% 	\begin{minipage}{0.85\textwidth}
-% 		\itshape\large
-% 		We shall try not to use statistics as a drunken man uses lamp-posts,
-% 		for support rather than for illumination.
+\vspace*{\fill}
+\begin{center}
+	\begin{minipage}{0.85\textwidth}
+		\itshape\large
+		We shall try not to use statistics as a drunken man uses lamp-posts,
+		for support rather than for illumination.
 
-% 		\par\vspace{1em}
-% 		\raggedleft\normalfont
-% 		-- Andrew Lang, Scottish poet and novelist
-% 	\end{minipage}
-% \end{center}
-% \vspace*{\fill}
+		\par\vspace{1em}
+		\raggedleft\normalfont
+		-- Andrew Lang, Scottish poet and novelist
+	\end{minipage}
+\end{center}
+\vspace*{\fill}
 
 % \blankpage
 % \newpage
@@ -82,7 +85,7 @@
 \renewcommand*{\glossarypreamble}{\noindent\textit{Terms shown in bold at first mention are defined in this glossary. Definitions in this glossary are provided in the context of clinical prediction modelling and are tailored to the scope of this thesis.}\par\medskip}
 \printglossary[title={Glossary}]
 \renewcommand*{\glossarypreamble}{}
-\blankpage
+% \blankpage
 
 \newpage
 
@@ -129,4 +132,7 @@
 \include{chapters/11c_CV}
 \include{chapters/11d_Publications}
 \makebackcover
+
+\includepdf[pages=-, fitpaper=true]{Cover/BackCoverDigital2.pdf}
+
 \end{document}

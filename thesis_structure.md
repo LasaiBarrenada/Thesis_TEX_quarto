@@ -2,101 +2,87 @@
 
 **Evaluating and Improving Clinical Prediction Models for Ovarian Cancer Diagnosis**
 
-*Lasai Barreñada*
+Author: Lasai Barreñada
 
 ---
 
-## Front Matter
+## Overview
 
-- Abstract
-- Samenvatting (Dutch abstract)
-- Table of Contents
-- List of Acronyms
-- List of Figures
-- List of Tables
+This file summarises the project's organisation and the main files and directories contained in the repository. It is kept in sync with the workspace layout.
 
 ---
 
-## Introduction and Objectives
+## Top-level files
 
-1.1 Background
-1.2 Clinical prediction models
-  - 1.2.1 Model performance
-    - Discrimination
-    - Calibration
-    - Clinical utility
-  - 1.2.2 Multicenter data and clustering
-  - 1.2.3 Meta-analysis and heterogeneity
-  - 1.2.4 Reporting guidelines
-  - 1.2.5 Medical device regulation
-1.3 IOTA and ovarian masses
-1.4 Models and tests to diagnose ovarian masses
-1.5 Open science
-
-## Research Objectives
-
-Applied objectives (evaluating, updating, and validating ADNEX) and methodological objectives (calibration in clustered settings, variable selection for clinical utility).
+- [main.tex](main.tex) — thesis main document
+- [thesis.cls](thesis.cls) — custom class
+- [references.bib](references.bib) — bibliography
+- [README.md](README.md)
+- [thesis_structure.md](thesis_structure.md) — this file
 
 ---
 
-## Results — Applied
+## Key directories
 
-### The ADNEX Risk Prediction Model for Ovarian Cancer Diagnosis: A Systematic Review and Meta-Analysis of External Validation Studies
+- `Chapters/` — chapter source files (one .tex per chapter)
+  - 00a_acknowledgments.tex
+  - 00b_abstract.tex
+  - 00c_abstract_dutch.tex
+  - 00d_acronyms.tex
+  - 00e_terms.tex
+  - 01_introduction.tex
+  - 02_objectives.tex
+  - 03_ADNEXSR.tex
+  - 04_ADNEXvsRMI.tex
+  - 05_ADNEX2.tex
+  - 06_RFOverfitting.tex
+  - 07_ClusteredCalibration.tex
+  - 08_FundamentalProblem.tex
+  - 09_varselection.tex
+  - 10_discussion.tex
+  - 11a_additional_statements.tex
+  - 11b_ai_use_statement.tex
+  - 11c_CV.tex
+  - 11d_Publications.tex
 
-> Published: Barreñada L, et al. *BMJ Medicine*. 2024;3:e000817.
+- `figures/` — figure directories by chapter
+  - ADNEX2/
+  - ADNEXSR/
+  - ADNEXvsRMI/
+  - ClusteredCalibration/
+  - FundamentalProblem/
+  - Introduction/
+  - RFOverfitting/
+  - varselection/
 
-### Head-to-Head Comparison of the RMI and ADNEX Models: A Systematic Review and Meta-Analysis of External Validation Studies
+- `R codes/` — R scripts used to generate introduction figures and simulations
 
-> Published: Barreñada L, et al. *BMJ Open*. 2025;15:e104141.
-
----
-
-## Results — Methodological
-
-### Understanding Overfitting in Random Forest for Probability Estimation: A Visualization and Simulation Study
-
-> Published: Barreñada L, Dhiman P, Timmerman D, Boulesteix AL & Van Calster B. *Diagn Progn Res* 8, 14 (2024).
-
-### Clustered Flexible Calibration Plots for Binary Outcomes Using Random Effects Modeling
-
-> Published: Barreñada L, De Cock Campo B, Wynants L & Van Calster B. *Research Synthesis Methods*. 2025;1–22.
-
-### The Fundamental Problem of Risk Prediction for Individuals: Health AI, Uncertainty, and Personalized Medicine
-
-> Submitted to *npj Digital Medicine*.
-
----
-
-## Results — Ongoing Work
-
-### Variable Selection for Clinical Utility *(in progress)*
-
-Variable selection using net benefit as the optimisation criterion.
-
-### ADNEX2: Updating the ADNEX Model *(in progress)*
-
-Updated ADNEX model incorporating non-operated patients and new IOTA study data.
-
----
-
-## Discussion
-
-10.1 Summary of findings
-  - Applied contributions: evaluating ADNEX · Methodological contributions
-10.2 Calibration: the underappreciated dimension
-10.3 From population performance to individual decisions
-10.4 Methodological quality of external validation studies
-10.5 Limitations and ongoing work
-10.6 Future directions
-  - Updating ADNEX · Variable selection for clinical utility · Extending clustered calibration methodology · Uncertainty communication in clinical practice · Model lifecycle monitoring
-10.7 Conclusion
+- `title_page/`, `Cover/`, `logos/`, `copyrights/` — supporting assets
 
 ---
 
-## Back Matter
+## Build and compilation
 
-- Scientific Acknowledgments, Personal Contribution, and Conflict of Interest Statement
-- Statement of the Use of Generative AI
-- Curriculum Vitae
-- Publications
-- Bibliography
+Recommended quick build (XeLaTeX):
+
+```powershell
+latexmk -xelatex main.tex
+```
+
+Or use the project's preferred recipe configured in your editor/LaTeX extension (see repository notes).
+
+---
+
+## Thesis contents (logical outline)
+
+- Front matter: abstract, samenvatting (Dutch), TOC, lists
+- Introduction and objectives (background, model performance, calibration, clustering, meta-analysis, reporting)
+- Results — Applied: ADNEX systematic reviews and comparisons
+- Results — Methodological: RF overfitting, clustered calibration, fundamental problem
+- Ongoing work: variable selection for net benefit, ADNEX2 update
+- Discussion: summary, calibration, limitations, future directions
+- Back matter: acknowledgments, AI use statement, CV, publications, bibliography
+
+---
+
+If you want additional details (e.g., per-chapter figure lists, build recipes for Continuous Preview, or a mapping of numeric citations to BibTeX keys), tell me which section you'd like expanded.
