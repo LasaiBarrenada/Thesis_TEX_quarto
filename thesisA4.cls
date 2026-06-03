@@ -37,7 +37,7 @@
 }
 \lstdefinestyle{Rstyle}{
   language=R,
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\footnotesize,
   keywordstyle=\color{dibs_main}\bfseries,
   keywordstyle=[2]\color{blue!70!black}\bfseries,
   keywordstyle=[3]\color{teal!60!black},

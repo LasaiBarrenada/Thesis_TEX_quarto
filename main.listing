@@ -42,5 +42,3 @@ all_subset_plot(
 )
 # Permutation importance bar chart
 VIF_plot(result$all_models, color = "darkgreen")
-
-Detailed and up to date documentation available at \url{https://lasaibarrenada.github.io/NB_varsel/}

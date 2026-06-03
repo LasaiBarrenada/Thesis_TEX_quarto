@@ -111,8 +111,6 @@ all_subset_plot(
 )
 # Permutation importance bar chart
 VIF_plot(result$all_models, color = "darkgreen")
-
-Detailed and up to date documentation available at \url{https://lasaibarrenada.github.io/NB_varsel/}
 \end{codebox}
 
 \subsection{Groupwise net benefit variable selection}
@@ -373,7 +371,7 @@ The most important predictors according to \texttt{NBvarsel} were triage acuity 
 % Placeholder for Calibration plot
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/3_2_DCA_groupwise_mimic.pdf}
+\includegraphics[width=0.6\textwidth]{figures/varselection/3_2_DCA_groupwise_mimic.pdf}
 \caption[DCA for the hospitalization case study]{Decision curve analysis for the baseline model and the \texttt{NBvarsel} approaches in the hospitalization case study. }
 \label{fig:varsel:mimic}
 \end{figure}
@@ -393,7 +391,7 @@ According to \texttt{NBvarsel}, the model removed age, nutritional status and ha
 % Placeholder for Figure showing risk distribution
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{figures/varselection/4_0_scatter_dents_apparent.pdf}
+\includegraphics[width=0.7\textwidth]{figures/varselection/4_0_scatter_dents_apparent.pdf}
 \caption[Individual risk distribution per model and outcome in the DeNTS trial]{Distribution of individual risks for the model based on \texttt{NBvarsel} and the published model by outcome. Plots in the margin depict densities per outcome.}
 \label{fig:varsel:dents}
 \end{figure}
@@ -426,7 +424,7 @@ Brier score & 0.095 (0.091 - 0.099) [0.076 - 0.119] & 0.095 (0.092 - 0.099) [0.0
 % Placeholder for optimism-corrected DCA figure
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/varselection/4_4_DCA_bootstrap_dents_zoomed.pdf}
+\includegraphics[width=0.6\textwidth]{figures/varselection/4_4_DCA_bootstrap_dents_zoomed.pdf}
 \caption[Optimism corrected DCA for the DeNTS trial]{Optimism corrected decision curve analysis based on 1000 bootstraps (Median results) for the DeNTS trial.}
 \label{fig:varsel:dents_dca}
 \end{figure}
@@ -505,7 +503,7 @@ Prediction models that require burdensome, invasive, or expensive data collectio
 
 Future research should prioritize extensive, controlled evaluations of this methodology. Specifically, simulation studies are needed to determine the sample sizes required to prevent overfitting, compare the relative performance of exhaustive versus groupwise approaches, and assess the impact of threshold mismatches between training and testing phases. We also plan to expand the methodology's analytical capabilities. For the current binary logistic regression framework, future updates will introduce full control over variable interactions and spline terms. Furthermore, while we currently use the average \gls{NB} across a reasonable threshold range, we aim to implement kernel smoothing to dynamically weight specific target thresholds. Another related approach to using clinical utility directly into parameter estimation would involve using harm-adjusted \gls{NB} as the optimization criterion for a loss function in deep learning architectures \cite{vickersHypothesisNetBenefit2025}. Although the algorithm's fundamental rationale applies to any prediction model, the current software is limited to binary logistic regression; future iterations will support survival and time-to-event outcomes, alongside other modelling algorithms. Finally, this package is open-source and intended for continuous development, and we actively welcome contributions from the research community.
 
-\subsection{Conclusion}
+\section{Conclusion}
 
 Clinical utility should not be an afterthought reserved only for external validation. By integrating a harm-adjusted \gls{NB} metric directly into the variable selection process, researchers can produce prediction models that maximize patient benefit while minimizing unnecessary clinical burden.
 

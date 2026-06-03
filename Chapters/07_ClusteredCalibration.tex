@@ -315,7 +315,9 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 \begin{threeparttable}
 \caption[Median MSCE for center-specific results in the synthetic data]{Median MSCE for the synthetic data study for center-specific results. MSCE is presented multiplied by 100. Bold numbers indicate best performance across approaches}
 \label{tab:4:4}
-\begin{tabular}{cc ccc ccc}
+
+% The *{6}{...} applies the fixed width to columns 3 through 8
+\begin{tabular}{cc *{6}{>{\centering\arraybackslash}p{3cm}}}
 \toprule
 & & \multicolumn{3}{c}{\textbf{Logistic regression truth}} & \multicolumn{3}{c}{\textbf{Random forest truth}} \\
 \cmidrule(lr){3-5} \cmidrule(lr){6-8}
@@ -342,10 +344,13 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 1000 & 5 & 0.03 (0.01--0.06) & 0.04 (0.02--0.07) & \textbf{0.02 (0.01--0.04)} & 0.10 (0.05--0.15) & \textbf{0.04 (0.02--0.07)} & 0.06 (0.02--0.11) \\
 1000 & 10 & 0.03 (0.01--0.06) & 0.04 (0.02--0.07) & \textbf{0.02 (0.01--0.04)} & 0.10 (0.05--0.15) & \textbf{0.04 (0.02--0.07)} & 0.06 (0.02--0.11) \\
 \bottomrule
-\addlinespace[0.5em]
-\multicolumn{8}{>{\raggedright\arraybackslash}p{\dimexpr\linewidth-2\tabcolsep\relax}}{\textbf{Note}: The center-specific true curves are based on a flexible logistic model with restricted cubic splines. The lower the number, the closer the estimated center-specific calibration curve is to the true
-calibration curve in each cluster. Rounded to two decimals. In bold are the best working approach(es) for estimating observed proportions excluding CG-C methods.}
 \end{tabular}
+
+% The tablenotes environment is separated from the tabular body
+\begin{tablenotes}
+\small
+\item[] \textbf{Note}: The center-specific true curves are based on a flexible logistic model with restricted cubic splines. The lower the number, the closer the estimated center-specific calibration curve is to the true calibration curve in each cluster. Rounded to two decimals. In bold are the best working approach(es) for estimating observed proportions excluding CG-C methods.
+\end{tablenotes}
 \end{threeparttable}
 \end{sidewaystable}
 
