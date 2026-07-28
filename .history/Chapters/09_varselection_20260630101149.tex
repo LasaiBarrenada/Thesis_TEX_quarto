@@ -40,19 +40,17 @@ The aim of this paper is therefore to develop a simple and interpretable variabl
 
 \section{Methodology}
 
-This section contains three distinct pieces of the proposed approach. First, \texttt{NBvarsel} refers to the exhaustive-search variable-selection algorithm that evaluates all predictor subsets with cross-validated net benefit. Second, we describe a groupwise backward-elimination extension for high-dimensional settings, which is a computational shortcut rather than the main definition of \texttt{NBvarsel}. Third, we describe a permutation-based importance summary that is used to quantify each predictor's average contribution to net benefit across the evaluated subsets.
-
 \subsection{Algorithm}
 \label{sec:algorithm}
-The core \texttt{NBvarsel} algorithm is an exhaustive search: given a set of predictors $\mathbf{P}$ and a modelling algorithm $\mathbf{M}$, it seeks the subset of $\mathbf{P}$ that maximises the net benefit:
+The problem we aim to address is defined as follows: given a set of predictors $\mathbf{P}$ and a modelling algorithm $\mathbf{M}$ we seek the subset of $\mathbf{P}$ that maximises the net benefit:
 
 \begin{equation}
 \underset{\mathbf{S} \subseteq \mathbf{P}}{\operatorname{argmax}} \widehat{NB}(\mathbf{S}, \mathbf{M}, t)
 \end{equation}
 
-Here, $\widehat{NB}(\mathbf{S}, \mathbf{M}, t)$ denotes the (adjusted) net benefit of algorithm $\mathbf{M}$ with $\mathbf{S}$ predictors for the decision threshold $t$. The $t$ parameter may be a single value, or a range of clinically relevant values specified based on clinical context. In cases where a range of values is used, we maximize the average \gls{NB} across that range. This is the general rationale for the methodology; however, we focus here on the specific case where a logistic regression model is used as the modelling algorithm.
+Here, $\widehat{NB}(\mathbf{S}, \mathbf{M}, t)$ denotes the (adjusted) net benefit of algorithm $\mathbf{M}$ with $\mathbf{S}$ predictors for the decision threshold $t$. The $t$ parameter may be a single value, or a range of clinically relevant values specified based on clinical context. In cases where a range of values is used, we want to maximize the average \gls{NB} across that range. This is the general rationale for the methodology; however, we will focus here on the specific case where a logistic regression model is used as the modelling algorithm.
 
-The proposed variable-selection algorithm does not modify coefficient estimation, since log-loss minimisation (or log-likelihood maximisation) provides coefficients with desirable properties. When this chapter refers to \texttt{NBvarsel} without further qualification, it means this exhaustive-search procedure. The algorithm proceeds as follows:
+The proposed variable-selection algorithm does not modify coefficient estimation, since log-loss minimisation (or log-likelihood maximisation) provides coefficients with desirable properties. The algorithm proceeds as follows:
 
 \begin{enumerate}
 \item Define all models based on all possible predictor combinations
@@ -66,61 +64,60 @@ The proposed variable-selection algorithm does not modify coefficient estimation
 \item Rank the models based on \gls{NB} and select the model with optimal \gls{NB}.
 \end{enumerate}
 
-Code implementing the Net Benefit based variable selection and the associated visualizations is available in the open-source R package \texttt{NBvarsel} (\url{https://lasaibarrenada.github.io/NB_varsel/}).
-% \newpage
-% \begin{codebox}[Box 1: Implementing the Methodology in R]
-% # Toy example with simulated data
-% n <- 500
-% df <- data.frame(
-% 	X1 = rnorm(n),
-% 	X2 = rbinom(n, 1, 0.7),
-% 	X3 = rnorm(n),
-% 	X4 = rbinom(n, 1, 0.5)
-% )
-% df$Y <- rbinom(n, 1, plogis(2 * df$X1 + 1.5 * df$X2 + 0.2 * df$X3))
+Code implementing the Net Benefit based variable selection and the associated visualizations is available in the open-source R package \texttt{NBvarsel} (\url{https://lasaibarrenada.github.io/NB_varsel/}, Box~1).
+\newpage
+\begin{codebox}[Box 1: Implementing the Methodology in R]
+# Toy example with simulated data
+n <- 500
+df <- data.frame(
+	X1 = rnorm(n),
+	X2 = rbinom(n, 1, 0.7),
+	X3 = rnorm(n),
+	X4 = rbinom(n, 1, 0.5)
+)
+df$Y <- rbinom(n, 1, plogis(2 * df$X1 + 1.5 * df$X2 + 0.2 * df$X3))
 
-% ## Step 1: Download package
-% pak::pak("LasaiBarrenada/NBvarsel")
-% # OR
-% install.packages("NBvarsel")
+## Step 1: Download package
+pak::pak("LasaiBarrenada/NBvarsel")
+# OR
+install.packages("NBvarsel")
 
-% ## Step 2: Define harms (optional)
-% harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.1, X4 = 0.0001)
+## Step 2: Define harms (optional)
+harms <- c(X1 = 0.1, X2 = 0.05, X3 = 0.1, X4 = 0.0001)
 
-% ## Step 3: Core function
-% result <- nb_varsel(
-% 	data = df,
-% 	outcome_var = "Y",
-% 	costs = harms,
-% 	mode = "exhaustive",
-% 	splines = FALSE,
-% 	permutation = TRUE,
-% 	allow_parallel = FALSE
-% )
+## Step 3: Core function
+result <- nb_varsel(
+	data = df,
+	outcome_var = "Y",
+	costs = harms,
+	mode = "exhaustive",
+	splines = FALSE,
+	permutation = TRUE,
+	allow_parallel = FALSE
+)
 
-% ## Step 4: Analysis of results
-% # Best model (highest cost-adjusted Net Benefit)
-% result$best_model_stats
-% # All evaluated models, sorted by cost adjusted net benefit
-% result$all_models
+## Step 4: Analysis of results
+# Best model (highest cost-adjusted Net Benefit)
+result$best_model_stats
+# All evaluated models, sorted by cost adjusted net benefit
+result$all_models
 
-% ## Step 5: Built-in visualizations
-% # Two-panel plot: metric overview + predictor inclusion heatmap
-% all_subset_plot(
-%     result$all_models,
-%     highlight_color = "steelblue",
-%     tile_color = "lightgray"
-% )
-% # Permutation importance bar chart
-% VIF_plot(result$all_models, color = "darkgreen")
-% \end{codebox}
+## Step 5: Built-in visualizations
+# Two-panel plot: metric overview + predictor inclusion heatmap
+all_subset_plot(
+    result$all_models,
+    highlight_color = "steelblue",
+    tile_color = "lightgray"
+)
+# Permutation importance bar chart
+VIF_plot(result$all_models, color = "darkgreen")
+\end{codebox}
 
 \subsection{Groupwise net benefit variable selection}
 
 The algorithm presented in Section~\ref{sec:algorithm} becomes computationally too demanding when the number of candidate predictors increases. For a dataset with 20 candidate predictors, there are more than one million predictor combinations; consequently, the method fits 5 million models when using 5-fold cross-validation. In most trials or observational studies, the sample size is limited; therefore, the number of candidate predictors should also be kept small. Our methodology should always be used in compliance with these sample size criteria as explained in Section~\ref{sec:sample_size}. However, in those cases where the data are high-dimensional (e.g. electronic health records), we propose an extension of the methodology that we call groupwise (as opposed to exhaustive) \gls{NB} variable selection.
 
-
-In this extension, instead of calculating all the possible combinations, we use backward elimination with a number of predictors per step specified ($k$), yielding a total of $\binom{p}{k}$ model combinations per step. The fastest version ($k = 1$) therefore fits $p$ models by removing a single predictor in the first iteration. The model with the best performance is selected; if that model is the full model, it is retained, otherwise the predictor(s) removed in the best-performing model are removed from the current set and the process is repeated until the optimal model is reached. Allowing values of $k$ higher than one is highly recommended if there is intuition of important interaction effects between predictors.
+In this extension, instead of calculating all the possible combinations, we use backward elimination with a number of predictors per step specified ($k$), yielding a total of $\binom{p}{k}$ model combinations per step. The fastest version ($k = 1$) therefore would fit $p$ models by removing a single predictor in the first iteration. Then the model with best performance is selected, if that model is the model where all predictors are used, that is selected as the best model, else the predictor(s) that were removed in the model with best performance are removed and the process is iteratively repeated until reaching the optimal model. Allowing values of $k$ higher than one is highly recommended if there is intuition of important interaction effects between predictors.
 
 \subsection{Note on Sample size}
 \label{sec:sample_size}
@@ -134,9 +131,15 @@ When sample data is limited, a two-stage approach is often recommended: first se
 
 \subsection{Test harms}
 
-The concept of placing benefit and harm on the same scale is the principle of \gls{NB} and \gls{DCA}, yet it has not been applied directly to variable selection. In this work, we aim to introduce this concept in model development by defining a harm adjusted \gls{NB}. Harm is therefore accounted for twice. First, to calculate \gls{NB}, we set a threshold that should be related to the test harm (harm of misclassifying a patient). Second, the harm of measuring a predictor is introduced in the \gls{NB} scale by quantifying the minimal expected benefit required to measure a variable (Box 1). The harm of misclassifying a patient is widely discussed in the literature \cite{vickersSimpleStepbystepGuide2019,vickersDecisionCurveAnalysis2006}. The harm of measuring a predictor can be quantified as the number of tests that a doctor is willing to perform to find an event, also known as \gls{TT} \cite{vancalsterReportingInterpretingDecision2018}. If the number is higher, then the cost of the predictor is lower. However, specifying this number upfront might be difficult, therefore, the difference in \gls{NB} ($\Delta \gls{NB}$) can be used to derive the \gls{TT}. \gls{TT} is defined as $TT = \frac{1}{\Delta NB}$, where $\Delta NB$ is the \gls{NB} difference between the model with the additional predictor and the model without the predictor. Imagine we have a model that predicts risk of ovarian cancer with age and ultrasound measurements of the lesion that has a \gls{NB} of 0.2. We wonder whether measuring CA125, which requires a blood sample, and including it in the model is cost-effective from the \gls{NB} perspective. Given the monetary costs and test burden, practitioners suggest they would be willing to measure CA125 in 100 patients to find an event. This implies that we would include the predictor only if the \gls{NB} increases by at least 0.01 ($\Delta \gls{NB} > 0.01$). By doing so, the researcher can express harm in terms of how many tests per true positive are needed to justify inclusion of that predictor. For some predictors, such as age or sex, the harm is minimal and the TT can therefore be high, meaning that almost any improvement justifies their inclusion. Other predictors may have a higher associated harm (for example, a CT scan, which involves monetary costs, discomfort, and exposure to radiation). Harmful predictors have low TT; therefore the expected increase in utility must be larger. Quantifying these harms can be difficult and will affect model selection. Some predictors may have shared harms; for instance, a single blood sample could provide information on several predictors. In those cases, the harm attributed to one or to all of those predictors is identical, and the adjusted \gls{NB} is calculated accordingly. If harms are omitted, variable selection is based solely on standard \gls{NB}.
+The concept of placing benefit and harm on the same scale is the principle of \gls{NB} and \gls{DCA}, yet it has not been applied directly to variable selection. In this work, we aim to introduce this concept in model development by defining a harm adjusted \gls{NB}. Harm is therefore accounted for twice. First, to calculate \gls{NB}, we set a threshold that should be related to the test harm (harm of misclassifying a patient). Second, the harm of measuring a predictor is introduced in the \gls{NB} scale by quantifying the minimal expected benefit required to measure a variable (Box 2). The harm of misclassifying a patient is widely discussed in the literature \cite{vickersSimpleStepbystepGuide2019,vickersDecisionCurveAnalysis2006}. The harm of measuring a predictor can be quantified as the number of tests that a doctor is willing to perform to find an event, also known as \gls{TT} \cite{vancalsterReportingInterpretingDecision2018}. If the number is higher, then the cost of the predictor is lower. However, specifying this number upfront might be difficult, therefore, the difference in \gls{NB} ($\Delta \gls{NB}$) can be used to derive the \gls{TT}. \gls{TT} is defined as:
 
-\begin{tcolorbox}[title={Box 1: Harm of a test and test tradeoff}, label={box:harm}]
+\begin{equation}
+TT = \frac{\Delta NB}{q \cdot (1-q)}
+\end{equation}
+
+where $\Delta NB$ is the \gls{NB} difference between the model with the additional predictor and the model without the predictor. Imagine we have a model that predicts risk of ovarian cancer with age and ultrasound measurements of the lesion that has a \gls{NB} of 0.2. We wonder whether measuring CA125, which requires a blood sample, and including it in the model is cost-effective from the \gls{NB} perspective. Given the monetary costs and test burden, practitioners suggest they would be willing to measure CA125 in 100 patients to find an event. This implies that we would include the predictor only if the \gls{NB} increases by at least 0.01 ($\Delta \gls{NB} > 0.01$). By doing so, the researcher can express harm in terms of how many tests per true positive are needed to justify inclusion of that predictor. For some predictors, such as age or sex, the harm is minimal and the TT can therefore be high, meaning that almost any improvement justifies their inclusion. Other predictors may have a higher associated harm (for example, a CT scan, which involves monetary costs, discomfort, and exposure to radiation). Harmful predictors have low TT; therefore the expected increase in utility must be larger. Quantifying these harms can be difficult and will affect model selection. Some predictors may have shared harms; for instance, a single blood sample could provide information on several predictors. In those cases, the harm attributed to one or to all of those predictors is identical, and the adjusted \gls{NB} is calculated accordingly. If harms are omitted, variable selection is based solely on standard \gls{NB}.
+
+\begin{tcolorbox}[title={Box 2: Harm of a test and test tradeoff}, label={box:harm}]
 We acknowledge that determining the harm of measuring a predictor in the context of a model development study is challenging. In this box we propose some aspects to consider when determining the harms.
 
 \begin{itemize}
@@ -151,7 +154,7 @@ In the algorithm presented, the harms should be defined according to these aspec
 For most cases where the harms cannot be clearly defined, we advise researchers not to use the harms and to select variables based on \gls{NB} and analyse the contribution of each predictor to the total \gls{NB}.
 \end{tcolorbox}
 
-\subsection{Permutation-based variable importance}
+\subsection{Variable importance}
 
 When the test tradeoff or $TT$ is difficult to quantify, an alternative approach to guide variable inclusion is to compute each variable's contribution to clinical utility. Variable importance is typically assessed using the statistical properties of the model being analysed. For instance, in a logistic regression model, coefficients can be used to compare the relative contribution of each predictor, while in random-forest models the Gini importance is often used to rank predictors by their contribution to impurity reduction. Other model-agnostic procedures have been proposed in the explainable AI field \cite{dwivediExplainableAIXAI2023}, with SHAP (SHapley Additive exPlanations) values and Local Interpretable Model-Agnostic Explanations (LIME) among the most popular \cite{lundbergUnifiedApproachInterpreting2017,ribeiroWhyShouldTrust2016}. However, these techniques assess variable importance based on predicted probabilities rather than on clinical utility.
 
@@ -490,7 +493,7 @@ There is growing recognition in the field of clinical prediction modelling that 
 
 \subsection{Limitations}
 
-Despite its advantages, this methodology has several limitations. First, determining the specific \enquote{harm} of measuring a predictor is subjective, highly context-dependent, and challenging to quantify precisely prior to model development (Box 1). There might be situations where the harm of measuring a predictor is established and we advise therefore to use the costs. However, for most situations where this is not possible, the algorithm can be safely used without costs and provide a variable importance metric based on \gls{NB}. Second, this is a data-driven method and therefore it is prone to overfit if sample size is limited. We recommend using the algorithm at least with the minimum sample size recommended by Riley's method \cite{rileyMinimumSampleSize2021}. Third, the exhaustive evaluation of all predictor combinations is computationally intensive and becomes infeasible with many candidate predictors. This is a process that should be done only once for model development, and we provide an option to parallelize the process to reduce considerably the running time. Lastly, we only developed the variable selection methodology for logistic regression, but we aim to increase to other modelling algorithms as part of the \texttt{NBvarsel} package.
+Despite its advantages, this methodology has several limitations. First, determining the specific \enquote{harm} of measuring a predictor is subjective, highly context-dependent, and challenging to quantify precisely prior to model development (Box 2). There might be situations where the harm of measuring a predictor is established and we advise therefore to use the costs. However, for most situations where this is not possible, the algorithm can be safely used without costs and provide a variable importance metric based on \gls{NB}. Second, this is a data-driven method and therefore it is prone to overfit if sample size is limited. We recommend using the algorithm at least with the minimum sample size recommended by Riley's method \cite{rileyMinimumSampleSize2021}. Third, the exhaustive evaluation of all predictor combinations is computationally intensive and becomes infeasible with many candidate predictors. This is a process that should be done only once for model development, and we provide an option to parallelize the process to reduce considerably the running time. Lastly, we only developed the variable selection methodology for logistic regression, but we aim to increase to other modelling algorithms as part of the \texttt{NBvarsel} package.
 
 \subsection{Implications}
 
