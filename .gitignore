@@ -24,7 +24,6 @@
 *.aux
 
 # PDF output
-main.pdf
 
 # Temporary files
 *~
