@@ -46,8 +46,8 @@ Performance is defined as "how well something or someone does a piece of work or
 \begin{threeparttable}
 \caption[Recommended performance measures for validating prediction models]{Recommended core set of performance measures and visualisations for validating \glspl{CPM}, based on Van Calster et al.\ \cite{vancalsterPerformanceEvaluationPredictive2024}.}
 \label{tab:intro:metrics}
-\small
-\begin{tabular}{llll}
+\footnotesize
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X ll}
 \toprule
 \textbf{Domain} & \textbf{Measure / visualisation} & \textbf{Target value} & \textbf{Recommendation} \\
 \midrule
@@ -71,7 +71,7 @@ Overall performance
   & Sensitivity + Specificity & 1 each & Descriptive \\
   & PPV + NPV & 1 each & Descriptive \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{threeparttable}
 \end{table}
 
@@ -422,7 +422,7 @@ Van Calster et al.\ \cite{vancalsterValidationModelsDiagnose2020} conducted the 
 
 \begin{table}[t]
 \centering
-\footnotesize
+\scriptsize
 \setlength{\tabcolsep}{4pt}
 \caption[Diagnostic models and tests for adnexal masses]{Non exhaustive overview of diagnostic models and tests for preoperative diagnosis of adnexal masses. In bold ADNEX model predictors; US = ultrasound.}
 \label{tab:intro:models}

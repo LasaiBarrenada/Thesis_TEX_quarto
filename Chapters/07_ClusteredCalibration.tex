@@ -105,7 +105,7 @@ Since there is no commonly accepted way to estimate calibration curves for predi
 
 \begin{sidewaystable}
 \centering
-\small
+\footnotesize
 \begin{threeparttable}
 \caption[Overview introduced methods]{Overview of introduced methodologies for creating flexible calibration curves accounting for clustering.}
 \label{tab:4:1}
@@ -206,7 +206,7 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 
 \begin{sidewaystable}
 \centering
-\normalsize
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{threeparttable}
 \caption[Median MSCE for varying validation sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying validation events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100. }
@@ -248,7 +248,7 @@ The median \gls{MSCE} results for varying validation sample size are displayed i
 
 \begin{sidewaystable}
 \centering
-\normalsize
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \caption[Median MSCE for varying training sample size]{Median (IQR) squared difference between true average probabilities and estimated observed proportion (MSCE) with logistic calibration, CG-C (10 groups), 2MA-C, and MIX-C methods for a logistic model varying training sample events per center and number of centers. Bold numbers indicate best performance across approaches. MSCE is multiplied by 100.}
 \label{tab:4:3}
@@ -310,14 +310,14 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 
 \begin{sidewaystable}
 \centering
-\normalsize
-\setlength{\tabcolsep}{4pt}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
 \begin{threeparttable}
 \caption[Median MSCE for center-specific results in the synthetic data]{Median MSCE for the synthetic data study for center-specific results. MSCE is presented multiplied by 100. Bold numbers indicate best performance across approaches}
 \label{tab:4:4}
 
 % The *{6}{...} applies the fixed width to columns 3 through 8
-\begin{tabular}{cc *{6}{>{\centering\arraybackslash}p{3cm}}}
+\begin{tabular}{cc *{6}{>{\centering\arraybackslash}p{2.3cm}}}
 \toprule
 & & \multicolumn{3}{c}{\textbf{Logistic regression truth}} & \multicolumn{3}{c}{\textbf{Random forest truth}} \\
 \cmidrule(lr){3-5} \cmidrule(lr){6-8}
@@ -348,7 +348,7 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 
 % The tablenotes environment is separated from the tabular body
 \begin{tablenotes}
-\small
+\footnotesize
 \item[] \textbf{Note}: The center-specific true curves are based on a flexible logistic model with restricted cubic splines. The lower the number, the closer the estimated center-specific calibration curve is to the true calibration curve in each cluster. Rounded to two decimals. In bold are the best working approach(es) for estimating observed proportions excluding CG-C methods.
 \end{tablenotes}
 \end{threeparttable}

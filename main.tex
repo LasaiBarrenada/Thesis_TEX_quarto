@@ -1,6 +1,6 @@
 % !TEX program = lualatex
 % Select the page format here: use `a4paper` for the current A4 layout or `a5paper` for the A5 thesis layout.
-\documentclass[11pt,twoside,a4paper]{thesislayout}
+\documentclass[11pt,twoside,a5paper]{thesislayout}
 \usepackage{rotating}
 \usepackage{csquotes}
 \usepackage{threeparttable}
@@ -23,10 +23,10 @@
 
 \begin{document}
 
-\includepdf[pages=-, fitpaper=true]{Cover/CoverDigital.pdf}
+% \includepdf[pages=-, fitpaper=true]{Cover/CoverDigital.pdf}
 
 
-% \blankpage
+\blankpage
 
 
 
@@ -89,6 +89,7 @@
 
 \newpage
 
+\blankpage
 
 \pagenumbering{arabic}
 
@@ -133,6 +134,6 @@
 \include{chapters/11d_Publications}
 \makebackcover
 
-\includepdf[pages=-, fitpaper=true]{Cover/BackCoverDigital2.pdf}
+% \includepdf[pages=-, fitpaper=true]{Cover/BackCoverDigital2.pdf}
 
 \end{document}

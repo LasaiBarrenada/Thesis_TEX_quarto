@@ -1,5 +1,6 @@
 \chapter[\texttt{NBvarsel}: Cost-based variable selection]{Cost-based variable selection to improve clinical utility of prediction models: the \texttt{NBvarsel} R package }
 \label{sec:chp_varselection}
+\vspace{-2.5em}
 
 \begin{flushleft}
 {\huge\sffamily \textbf{IN PREPARATION}}
@@ -281,9 +282,10 @@ The models showed comparable performance, with BE and \texttt{NBvarsel} approach
 \renewcommand{\arraystretch}{1.2} % Slightly tighter rows
 \caption[Performance metrics comparison for the ovarian cancer case study]{Performance metrics of the different models varying the variable selection procedure in the ovarian cancer case study.}
 \label{tab:varsel:iota}
-\begin{tabularx}{\textwidth}{@{} 
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{} 
   >{\raggedright\arraybackslash}p{3cm} 
-  >{\raggedright\arraybackslash}X 
+  >{\raggedright\arraybackslash}p{5.2cm} 
   c 
   >{\centering\arraybackslash}p{1.2cm} 
   c 
@@ -310,7 +312,8 @@ Full model & None & 0.961 & 0.956 & 0.064 & 0.226 & 0.018 & 0.209 \\
 \addlinespace
 \multicolumn{8}{@{}p{\textwidth}@{}}{\textsuperscript{a}For ADNEX the potential predictors were different and the data-driven approach only removed family history of ovarian cancer.} \\
 \multicolumn{8}{@{}l@{}}{NB: Net Benefit} \\
-\end{tabularx}
+\end{tabular}
+}
 \end{table}
 
 % Placeholder for DCA figure
@@ -335,9 +338,10 @@ The most important predictors according to \texttt{NBvarsel} were triage acuity 
 
 \begin{table}[h!]
 \centering
-\footnotesize
+\scriptsize
 \caption{Decision curve analysis table for MIMIC-ED comparison.}
 \label{tab:varsel:mimic}
+\resizebox{\textwidth}{!}{%
 \begin{tabularx}{0.9\textwidth}{cccccc}
 \toprule
 \textbf{Decision Threshold} & \textbf{Treat All} & \textbf{Treat None} & \textbf{Groupwise 1} & \textbf{Groupwise 2} & \textbf{Baseline} \\
@@ -362,7 +366,8 @@ The most important predictors according to \texttt{NBvarsel} were triage acuity 
 0.90 & −4.258 & 0 & 0.000 & 0.002 & 0.006 \\
 0.95 & −9.515 & 0 & −0.006 & −0.005 & 0.000 \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \end{table}
 
 % Placeholder for Calibration plot
@@ -428,21 +433,21 @@ Brier score & 0.095 (0.091 - 0.099) [0.076 - 0.119] & 0.095 (0.092 - 0.099) [0.0
 
 \begin{table}[htbp]
 \centering
-\scriptsize
+\tiny
 \renewcommand{\arraystretch}{1.3} % Adds slightly more vertical space between rows
 \renewcommand{\tabularxcolumn}[1]{m{#1}} % Vertically centers the X column
 \caption[Summary of variable selection results across case studies]{Summary of results across the case studies. Comparator is the model with all the potential predictors. Positive values indicate better performance for \texttt{NBvarsel}.}
 \label{tab:varsel:summary}
 \begin{tabularx}{\textwidth}{@{} 
   >{\raggedright\arraybackslash}X 
-  >{\raggedright\arraybackslash}m{1.1cm} 
-  >{\raggedright\arraybackslash}m{1.1cm} 
+  >{\raggedright\arraybackslash}m{0.8cm} 
+  >{\raggedright\arraybackslash}m{0.8cm} 
+  >{\raggedleft\arraybackslash}m{0.5cm} 
+  >{\raggedleft\arraybackslash}m{1.1cm} 
+  >{\raggedleft\arraybackslash}m{1cm} 
   >{\raggedleft\arraybackslash}m{0.7cm} 
-  >{\raggedleft\arraybackslash}m{1.3cm} 
-  >{\raggedleft\arraybackslash}m{1.2cm} 
-  >{\raggedleft\arraybackslash}m{0.9cm} 
-  >{\raggedleft\arraybackslash}m{0.9cm} 
-  >{\raggedleft\arraybackslash}m{0.9cm} 
+  >{\raggedleft\arraybackslash}m{0.7cm} 
+  >{\raggedleft\arraybackslash}m{0.7cm} 
   @{}}
 \toprule
 \textbf{Prediction task} & 
