@@ -116,3 +116,12 @@ p_dca <- ggplot() +
   )
 
 ggsave("figures/Introduction/dca.pdf", p_dca, width = 5, height = 4, units = "in")
+p_dca <- p_dca + theme(
+  legend.background = element_rect(fill = "transparent", color = NA),
+  legend.key = element_rect(fill = "transparent", color = NA),
+  panel.background = element_rect(fill = "transparent", color = NA),
+  plot.background = element_rect(fill = "transparent", color = NA)
+)
+
+ggsave(plot = p_dca, path = "C:\\Users\\u0158158\\OneDrive - KU Leuven\\KU Leuven\\PhD\\Thesis\\Thesis_TEX_quarto\\presentation\\imgs" , filename = "dca-1.png", width = 5, height = 4.5, units = "in", dpi = 800)
+

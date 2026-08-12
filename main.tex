@@ -11,11 +11,11 @@
 \makeatletter\def\abx@dot{.}\makeatother
 \addbibresource{references.bib} % duplicate for VS Code intellisense (also in thesis.cls)
 
-% lualatex -interaction=nonstopmode main.tex
+% lualatex -synctex=1 -interaction=nonstopmode main.tex
 % makeglossaries main
 % biber main
-% lualatex -interaction=nonstopmode main.tex
-% lualatex -interaction=nonstopmode main.tex
+% lualatex -synctex=1 -interaction=nonstopmode main.tex
+% lualatex -synctex=1 -interaction=nonstopmode main.tex
 
 \loadglsentries{Chapters/00d_acronyms}
 \loadglsentries{Chapters/00e_terms}
