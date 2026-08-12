@@ -92,3 +92,12 @@ p3 <- ggplot(grid, aes(x = p_pred, y = obs_loess)) +
 ggsave("figures/Introduction/calibration_binned.pdf", p1, width = 3, height = 3, units = "in")
 ggsave("figures/Introduction/calibration_logistic.pdf", p2, width = 3, height = 3, units = "in")
 ggsave("figures/Introduction/calibration_loess.pdf", p3, width = 3, height = 3, units = "in")
+
+p2 <- p2 + theme(
+  legend.background = element_rect(fill = "transparent", color = NA),
+  legend.key = element_rect(fill = "transparent", color = NA),
+  panel.background = element_rect(fill = "transparent", color = NA),
+  plot.background = element_rect(fill = "transparent", color = NA)
+)
+
+ggsave(plot = p2, path = "C:\\Users\\u0158158\\OneDrive - KU Leuven\\KU Leuven\\PhD\\Thesis\\Thesis_TEX_quarto\\presentation\\imgs" , filename = "calibration_loess-1.png", width = 5, height = 4.5, units = "in", dpi = 800)
