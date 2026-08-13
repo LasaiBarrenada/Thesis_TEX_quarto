@@ -37,7 +37,7 @@ published as:
 %_________________________
 
 \section*{Summary}
-Evaluation of clinical prediction models often involves multiple clusters, whether centers or datasets. A comprehensive evaluation requires the assestement of model calibration. Although calibration is closely linked to the clinical utility of the model, there are no methodologies that account for clustering when evaluating calibration. We present three methodologies to solve this: (1) Clustered group calibration (\gls{CGC}), (2) two-stage meta-analysis calibration (\gls{TMAC}) and (3) mixed model calibration (\gls{MIXC}). After a simulation and synthetic data study we recommend using \gls{TMAC} with splines to estimate the overall curve and the 95\% \gls{PI} and \gls{MIXC} for the cluster specific curves. We provide ready-to-use code to construct flexible calibration curves in the \texttt{CalibrationCurves} package.
+Evaluation of clinical prediction models often involves multiple clusters, whether centers or datasets. A comprehensive evaluation requires the assessment of model calibration. Although calibration is closely linked to the clinical utility of the model, there are no methodologies that account for clustering when evaluating calibration. We present three methodologies to solve this: (1) Clustered group calibration (\gls{CGC}), (2) two-stage meta-analysis calibration (\gls{TMAC}) and (3) mixed model calibration (\gls{MIXC}). After a simulation and synthetic data study we recommend using \gls{TMAC} with splines to estimate the overall curve and the 95\% \gls{PI} and \gls{MIXC} for the cluster specific curves. We provide ready-to-use code to construct flexible calibration curves in the \texttt{CalibrationCurves} package.
 
 \newpage
 
@@ -178,7 +178,7 @@ A visual analysis of the different curves shows that all the approaches present 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{figures/ClusteredCalibration/F3.pdf}
-\caption[Comparison of traditional plots and introduced methododologies]{Comparison of the standard logistic regression with splines and the three introduced methodologies with CI (bright shaded) and PI (light shaded). Number of quantiles for CG-C were 10, 2MA-C fitted center-specific curves with splines or LOESS, and MIX-C used random intercept and slopes with restricted cubic splines and three knots. The dashed diagonal line indicates perfect calibration.}
+\caption[Comparison of traditional plots and introduced methodologies]{Comparison of the standard logistic regression with splines and the three introduced methodologies with CI (bright shaded) and PI (light shaded). Number of quantiles for CG-C were 10, 2MA-C fitted center-specific curves with splines or LOESS, and MIX-C used random intercept and slopes with restricted cubic splines and three knots. The dashed diagonal line indicates perfect calibration.}
 \label{fig:4:3}
 \end{figure}
 
@@ -346,7 +346,6 @@ Median \gls{MSCE} for the synthetic data analysis with 1000 iterations is shown 
 \bottomrule
 \end{tabular}
 
-% The tablenotes environment is separated from the tabular body
 \begin{tablenotes}
 \small
 \item[] \textbf{Note}: The center-specific true curves are based on a flexible logistic model with restricted cubic splines. The lower the number, the closer the estimated center-specific calibration curve is to the true calibration curve in each cluster. Rounded to two decimals. In bold are the best working approach(es) for estimating observed proportions excluding CG-C methods.
